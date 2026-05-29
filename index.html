@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE Institute — Student Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================
+     THEME TOKENS
+     ============================ */
+  :root, [data-theme="light"] {
+    --bg: #FAF9F5;
+    --surface: #FFFFFF;
+    --surface-2: #F4F1E9;
+    --surface-3: #EDE9DD;
+    --ink: #1F1E1B;
+    --ink-2: #3D3A33;
+    --muted: #84817A;
+    --border: #E8E4D8;
+    --border-strong: #D5D0C0;
+    --accent: #D97757;
+    --accent-2: #C2542F;
+    --accent-soft: #FCEEE6;
+    --accent-ink: #6E2D14;
+    --success: #1F8A5E;
+    --success-soft: #E2F1EA;
+    --warn: #C99B6A;
+    --warn-soft: #F6ECDD;
+    --danger: #B23A48;
+    --danger-soft: #FAE6E8;
+    --info: #4F46B8;
+    --info-soft: #ECEBFB;
+    --shadow-sm: 0 1px 2px rgba(31, 30, 27, 0.04);
+    --shadow: 0 6px 24px rgba(31, 30, 27, 0.07);
+    --shadow-lg: 0 16px 48px rgba(31, 30, 27, 0.12);
+  }
+
+  [data-theme="dark"] {
+    --bg: #1B1A17;
+    --surface: #262521;
+    --surface-2: #2F2E29;
+    --surface-3: #3A3833;
+    --ink: #F5F2EA;
+    --ink-2: #D5D0C0;
+    --muted: #908B7D;
+    --border: #3A3833;
+    --border-strong: #4A4740;
+    --accent: #E08A6E;
+    --accent-2: #D97757;
+    --accent-soft: #3D2A22;
+    --accent-ink: #F0B898;
+    --success: #4FB389;
+    --success-soft: #1F3A2C;
+    --warn: #D9B485;
+    --warn-soft: #3A2E1F;
+    --danger: #D9697A;
+    --danger-soft: #3A1D22;
+    --info: #8E86E0;
+    --info-soft: #2A2645;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ============================
+     RESET + BASE
+     ============================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  h1 { font-size: 30px; line-height: 1.15; }
+  h2 { font-size: 22px; line-height: 1.2; }
+  h3 { font-size: 17px; line-height: 1.25; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, textarea { font-family: inherit; color: inherit; }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+
+  /* ============================
+     APP SHELL
+     ============================ */
+  .app { display: flex; flex-direction: column; min-height: 100vh; }
+
+  .topbar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .brand-mark {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .brand-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; }
+  .brand-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brand-text { line-height: 1.15; }
+
+  .search {
+    flex: 1; max-width: 520px; margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px 8px 38px;
+    position: relative;
+    display: flex; align-items: center;
+  }
+  .search input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-size: 13px; color: var(--ink);
+  }
+  .search input::placeholder { color: var(--muted); }
+  .search-ico { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .search kbd {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--muted); background: var(--surface-2);
+    padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border);
+  }
+
+  .top-actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border);
+    display: grid; place-items: center; color: var(--ink-2);
+    position: relative;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .icon-btn:hover { background: var(--surface-2); }
+  .icon-btn:active { transform: scale(0.95); }
+  .icon-btn .ind {
+    position: absolute; top: 7px; right: 7px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .profile-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .profile-btn:hover { background: var(--surface-2); }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--warn) 0%, var(--accent) 100%);
+    color: #fff; display: grid; place-items: center;
+    font-weight: 600; font-size: 11px; flex-shrink: 0;
+  }
+  .avatar-lg { width: 72px; height: 72px; font-size: 22px; }
+  .profile-btn .name { font-size: 13px; font-weight: 500; }
+
+  /* ============================
+     LAYOUT (main + right rail)
+     ============================ */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 22px 28px 60px;
+    flex: 1;
+    align-items: flex-start;
+  }
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  .main-col { min-width: 0; }
+  .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 78px; }
+  @media (max-width: 1100px) { .rail { position: static; } }
+
+  /* Tab bar — 3 primary cards */
+  .tabbar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .tab {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.05s;
+    position: relative;
+    text-align: left;
+  }
+  .tab:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .tab.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+  [data-theme="dark"] .tab.active { color: var(--accent-ink); }
+  .tab .tab-ico {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    display: grid; place-items: center;
+    color: var(--ink-2);
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab.active .tab-ico { background: var(--accent); color: #fff; }
+  .tab-text { flex: 1; min-width: 0; }
+  .tab-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; line-height: 1.2; }
+  .tab-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .tab.active .tab-sub { color: var(--accent-ink); opacity: 0.75; }
+  .tab .badge {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--accent); color: #fff;
+    font-size: 10px; font-weight: 600;
+    padding: 1px 7px; border-radius: 999px;
+    min-width: 18px; text-align: center;
+    border: 2px solid var(--surface);
+  }
+  .tab.active .badge { border-color: var(--accent-soft); }
+
+  /* ============================
+     CARDS
+     ============================ */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .card-head h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .card-head a, .card-head button.link {
+    font-size: 12px; color: var(--accent); font-weight: 500;
+  }
+
+  /* Pills */
+  .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 500; letter-spacing: 0.01em; }
+  .pill.accent { background: var(--accent-soft); color: var(--accent-ink); }
+  [data-theme="dark"] .pill.accent { color: var(--accent); }
+  .pill.success { background: var(--success-soft); color: var(--success); }
+  .pill.warn { background: var(--warn-soft); color: var(--accent-ink); }
+  [data-theme="dark"] .pill.warn { color: var(--warn); }
+  .pill.danger { background: var(--danger-soft); color: var(--danger); }
+  .pill.muted { background: var(--surface-2); color: var(--ink-2); }
+  .pill.info { background: var(--info-soft); color: var(--info); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pulse { animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    background: var(--accent); color: #fff;
+    border-radius: 8px;
+    font-weight: 500; font-size: 13px;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .btn:hover { background: var(--accent-2); }
+  .btn:active { transform: translateY(1px); }
+  .btn.secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
+  .btn.secondary:hover { background: var(--surface-2); }
+  .btn.ghost { background: transparent; color: var(--ink-2); padding: 7px 12px; }
+  .btn.ghost:hover { background: var(--surface-2); }
+  .btn.small { padding: 6px 12px; font-size: 12px; }
+  .btn.full { width: 100%; justify-content: center; }
+  .btn.danger { background: var(--danger); }
+  .btn.danger:hover { background: #8E2D38; }
+
+  /* ============================
+     CHAT TAB (Claude-style)
+     ============================ */
+  .chat-shell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    min-height: 640px;
+  }
+  .chat-empty {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center;
+    padding: 56px 32px 28px;
+    text-align: center;
+  }
+  .chat-empty .star {
+    width: 48px; height: 48px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .chat-empty h1 { font-size: 32px; margin-bottom: 6px; }
+  .chat-empty p { color: var(--muted); max-width: 460px; }
+
+  .chat-input-wrap { padding: 0 28px 18px; }
+  .chat-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 14px 10px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .chat-input:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .chat-input textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+    min-height: 24px;
+    max-height: 200px;
+  }
+  .chat-input textarea::placeholder { color: var(--muted); }
+  .chat-input-bar {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 8px;
+  }
+  .input-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .input-chip:hover { background: var(--surface-3); }
+  .input-chip.has-context { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+  [data-theme="dark"] .input-chip.has-context { color: var(--accent); }
+  .send-btn {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--accent); color: #fff;
+    display: grid; place-items: center;
+    margin-left: auto;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .send-btn:hover { background: var(--accent-2); }
+  .send-btn:active { transform: scale(0.95); }
+
+  .suggest {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+    padding: 6px 28px 24px;
+  }
+  @media (max-width: 700px) { .suggest { grid-template-columns: 1fr; } }
+  .sug-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex; align-items: flex-start; gap: 10px;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .sug-card:hover { background: var(--surface-2); border-color: var(--border-strong); }
+  .sug-card .sug-ico {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent-ink);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  [data-theme="dark"] .sug-card .sug-ico { color: var(--accent); }
+  .sug-card .sug-body { flex: 1; min-width: 0; }
+  .sug-card .sug-title { font-size: 13px; font-weight: 500; line-height: 1.3; }
+  .sug-card .sug-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .chat-recent {
+    border-top: 1px solid var(--border);
+    padding: 18px 28px 24px;
+  }
+  .chat-recent h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .recent-list { display: flex; flex-direction: column; }
+  .recent-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 -12px;
+  }
+  .recent-item:hover { background: var(--surface-2); }
+  .recent-item .r-ico { width: 28px; height: 28px; border-radius: 8px; background: var(--surface-2); display: grid; place-items: center; color: var(--ink-2); flex-shrink: 0; }
+  .recent-item .r-body { flex: 1; min-width: 0; }
+  .recent-item .r-title { font-size: 13px; font-weight: 500; }
+  .recent-item .r-sub { font-size: 11px; color: var(--muted); }
+  .recent-item .r-time { font-size: 11px; color: var(--muted); }
+
+  /* ============================
+     COURSEWORK TAB
+     ============================ */
+  .work-search {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 16px 10px 42px;
+    margin-bottom: 18px;
+    position: relative;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .work-search input { flex: 1; border: none; outline: none; background: transparent; font-size: 13px; color: var(--ink); }
+  .work-search input::placeholder { color: var(--muted); }
+  .work-search .ico { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .work-filters { display: flex; gap: 8px; }
+  .filt {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    background: var(--surface-2);
+    color: var(--ink-2);
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .filt:hover { background: var(--surface-3); }
+  .filt.active { background: var(--accent); color: #fff; }
+
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin: 22px 0 12px;
+  }
+  .section-head h2 { font-size: 18px; }
+  .section-head .pill { margin-left: auto; }
+
+  /* Today's classes */
+  .class-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  @media (max-width: 900px) { .class-row { grid-template-columns: 1fr; } }
+  .class-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .class-card.online {
+    background: linear-gradient(135deg, #D97757 0%, #B23A48 100%);
+    color: #fff; border: none;
+  }
+  .class-card.online::after {
+    content: ''; position: absolute; right: -40px; top: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+    border-radius: 50%;
+  }
+  .class-card.offline {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+  }
+  .class-card .ctop { display: flex; justify-content: space-between; margin-bottom: 12px; }
+  .class-card .ctop .pill { background: rgba(255,255,255,0.18); color: #fff; }
+  .class-card.offline .ctop .pill.muted { background: var(--surface-2); color: var(--ink-2); }
+  .class-card .ccode { font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: 0.8; }
+  .class-card h3 { color: inherit; font-size: 17px; margin-bottom: 4px; line-height: 1.2; }
+  .class-card.online h3 { color: #fff; }
+  .class-card .cmeta { font-size: 12px; opacity: 0.85; margin-bottom: 14px; }
+  .class-card.offline .cmeta { color: var(--muted); }
+  .class-card .actions { display: flex; gap: 8px; margin-top: auto; }
+  .class-card.online .btn { background: #fff; color: var(--accent-2); }
+  .class-card.online .btn:hover { background: var(--surface-3); color: var(--accent-2); }
+  .class-card.online .btn.ghost { background: rgba(255,255,255,0.15); color: #fff; }
+  .class-card.online .btn.ghost:hover { background: rgba(255,255,255,0.25); }
+
+  /* QR modal */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20, 20, 20, 0.55);
+    z-index: 200;
+    display: grid; place-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 380px; width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal h2 { margin-bottom: 4px; }
+  .modal p { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  .qr-frame {
+    width: 220px; height: 220px;
+    margin: 0 auto 18px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    display: grid; place-items: center;
+    border: 1px solid var(--border);
+  }
+  .qr-frame svg { width: 100%; height: 100%; }
+
+  /* Materials list */
+  .mat-list { display: flex; flex-direction: column; }
+  .mat-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mat-item:last-child { border-bottom: none; }
+  .mat-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    display: grid; place-items: center;
+    color: var(--ink-2);
+    flex-shrink: 0;
+  }
+  .mat-icon.video { background: var(--accent-soft); color: var(--accent-ink); }
+  [data-theme="dark"] .mat-icon.video { color: var(--accent); }
+  .mat-icon.pdf { background: var(--danger-soft); color: var(--danger); }
+  .mat-icon.slides { background: var(--info-soft); color: var(--info); }
+  .mat-icon.dataset { background: var(--success-soft); color: var(--success); }
+  .mat-body { flex: 1; min-width: 0; }
+  .mat-body .t { font-size: 13px; font-weight: 500; }
+  .mat-body .s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .mat-actions { display: flex; gap: 4px; }
+
+  /* Upload widget */
+  .upload {
+    border: 1.5px dashed var(--border-strong);
+    border-radius: 12px;
+    padding: 24px 18px;
+    text-align: center;
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .upload:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .upload .up-ico {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    color: var(--accent);
+    display: grid; place-items: center;
+    margin: 0 auto 10px;
+  }
+  .upload .t { font-size: 13px; font-weight: 500; }
+  .upload .s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .pending {
+    background: var(--warn-soft);
+    border: 1px solid var(--warn);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px;
+    color: var(--accent-ink);
+    margin-bottom: 12px;
+  }
+  [data-theme="dark"] .pending { color: var(--warn); }
+
+  /* ============================
+     PROGRESS TAB
+     ============================ */
+  .course-sub-tabs {
+    display: flex; gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 22px;
+    overflow-x: auto;
+  }
+  .course-sub-tab {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-2);
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .course-sub-tab:hover { background: var(--surface-2); }
+  .course-sub-tab.active { background: var(--accent); color: #fff; }
+  .course-sub-tab .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+  .course-sub-tab.active .code { opacity: 0.85; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+  @media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .stat .label { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .stat .value { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600; }
+  .stat .delta { font-size: 11px; color: var(--success); margin-top: 4px; font-weight: 500; }
+  .stat .delta.flat { color: var(--muted); }
+  .stat .delta.warn { color: var(--accent); }
+
+  /* Journey */
+  .journey { display: flex; flex-direction: column; gap: 0; padding: 8px 0; }
+  .milestone {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 14px;
+    padding: 14px 0;
+    position: relative;
+  }
+  .milestone::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 36px;
+    bottom: -14px;
+    width: 2px;
+    background: var(--border);
+  }
+  .milestone:last-child::before { display: none; }
+  .ms-node {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    display: grid; place-items: center;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+  .milestone.done .ms-node {
+    background: var(--success); border-color: var(--success); color: #fff;
+  }
+  .milestone.current .ms-node {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  .milestone.current::before { background: var(--border); }
+  .ms-body .ms-eyebrow { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+  .ms-body .ms-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; }
+  .ms-body .ms-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .ms-body .ms-feedback {
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .ms-body .ms-feedback strong { display: block; margin-bottom: 2px; color: var(--ink); }
+  .ms-body .ms-action {
+    margin-top: 10px;
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ms-action .ai-ico {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .ms-action .body { flex: 1; }
+  .ms-action .t { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .ms-action .s { font-size: 11px; color: var(--muted); }
+  .ms-status {
+    font-size: 11px;
+    color: var(--muted);
+    align-self: center;
+    text-align: right;
+  }
+  .ms-status .grade { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--success); display: block; }
+
+  /* Portfolio */
+  .port-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 700px) { .port-grid { grid-template-columns: 1fr; } }
+  .port {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .port .ico-box {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  [data-theme="dark"] .port .ico-box { color: var(--accent); }
+  .port .body { flex: 1; min-width: 0; }
+  .port .t { font-size: 12px; font-weight: 500; }
+  .port .s { font-size: 11px; color: var(--muted); }
+
+  /* ============================
+     RIGHT RAIL (Announcements, Reminders, Job portal)
+     ============================ */
+  .rail-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .rail-head {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .rail-head .rh-ico {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    display: grid; place-items: center;
+  }
+  .rail-head h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .rail-head .count {
+    margin-left: auto;
+    font-size: 10px;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .rail-head .ann-ic { background: var(--info-soft); color: var(--info); }
+  .rail-head .rem-ic { background: var(--danger-soft); color: var(--danger); }
+  .rail-head .job-ic { background: var(--success-soft); color: var(--success); }
+
+  .ann-item, .rem-item, .job-item {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ann-item:last-child, .rem-item:last-child, .job-item:last-child { border-bottom: none; }
+  .ann-item .src, .rem-item .src {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    color: #fff;
+    display: grid; place-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .src-1 { background: linear-gradient(135deg, #2E2A6B, #4F46B8); }
+  .src-2 { background: linear-gradient(135deg, #8C3A2A, #C16A4A); }
+  .src-3 { background: linear-gradient(135deg, #1F4D3A, #2E8763); }
+  .src-4 { background: linear-gradient(135deg, #6B2A4D, #B05A85); }
+  .src-5 { background: linear-gradient(135deg, #3A506B, #6B8FB0); }
+  .ann-item .body, .rem-item .body, .job-item .body { flex: 1; min-width: 0; }
+  .ann-item .t, .rem-item .t, .job-item .t { font-size: 12px; font-weight: 500; line-height: 1.35; }
+  .ann-item .s, .rem-item .s, .job-item .s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ann-item .time { font-size: 10px; color: var(--muted); }
+
+  .rem-pip {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .portfolio-cta {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  .portfolio-cta .t { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .portfolio-cta .s { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .portfolio-cta .btn { width: 100%; justify-content: center; font-size: 11px; padding: 7px 10px; }
+
+  .job-item .logo {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: #fff;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .job-pill {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  [data-theme="dark"] .job-pill { color: var(--accent); }
+
+  /* ============================
+     ACCOUNT (overlay drawer)
+     ============================ */
+  .drawer-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20, 20, 20, 0.5);
+    z-index: 150;
+    backdrop-filter: blur(3px);
+  }
+  .drawer {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 560px; max-width: 100%;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    z-index: 160;
+    overflow-y: auto;
+    padding: 24px 28px 40px;
+  }
+  .drawer-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .drawer-close { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; color: var(--ink-2); }
+  .drawer-close:hover { background: var(--surface-2); }
+
+  .acc-head {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 22px;
+    display: flex; gap: 16px; align-items: center;
+    margin-bottom: 20px;
+  }
+  .acc-head .info { flex: 1; }
+  .acc-head h2 { color: #fff; font-size: 22px; margin-bottom: 4px; }
+  .acc-head .meta { color: rgba(255,255,255,0.85); font-size: 12px; }
+  .acc-head .pill { background: rgba(255,255,255,0.18); color: #fff; }
+
+  .info-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 14px; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .k { color: var(--muted); }
+  .info-row .v { font-weight: 500; text-align: right; }
+  .info-row .v a { color: var(--accent); }
+
+  .setting-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .setting-row:last-child { border: none; }
+  .setting-row .body { flex: 1; }
+  .setting-row .t { font-size: 13px; font-weight: 500; }
+  .setting-row .s { font-size: 11px; color: var(--muted); }
+  .switch {
+    width: 36px; height: 20px; border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    position: relative; cursor: pointer; flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .switch::after {
+    content: ''; position: absolute;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #fff;
+    top: 2px; left: 2px;
+    transition: left 0.15s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .switch.on { background: var(--accent); border-color: var(--accent); }
+  .switch.on::after { left: 18px; }
+
+  /* Utilities */
+  .hidden { display: none !important; }
+  .mt-12 { margin-top: 12px; }
+  .mt-22 { margin-top: 22px; }
+  .mb-12 { margin-bottom: 12px; }
+
+  /* Scrollbar styling (subtle, claude-like) */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ========== TOP BAR ========== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div class="brand-text">
+        <div class="brand-name">NICHE</div>
+        <div class="brand-sub">Institute</div>
+      </div>
+    </div>
+
+    <div class="search">
+      <svg class="search-ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input type="text" placeholder="Search courses, materials, people…" />
+      <kbd>⌘K</kbd>
+    </div>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle day / night">
+        <svg id="themeSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg id="themeMoon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      </button>
+      <button class="icon-btn" title="Help">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      </button>
+      <button class="profile-btn" onclick="openDrawer()">
+        <div class="avatar">AM</div>
+        <span class="name">Amara</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted);"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== LAYOUT ========== -->
+  <div class="layout">
+    <!-- ========== MAIN COLUMN ========== -->
+    <div class="main-col">
+      <!-- Primary tab bar -->
+      <div class="tabbar">
+        <button class="tab active" data-target="chat">
+          <div class="tab-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="tab-text">
+            <div class="tab-title">Chat</div>
+            <div class="tab-sub">Ask anything</div>
+          </div>
+          <span class="badge">2</span>
+        </button>
+        <button class="tab" data-target="coursework">
+          <div class="tab-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+          </div>
+          <div class="tab-text">
+            <div class="tab-title">Coursework</div>
+            <div class="tab-sub">Classes &amp; materials</div>
+          </div>
+          <span class="badge">3</span>
+        </button>
+        <button class="tab" data-target="progress">
+          <div class="tab-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+          </div>
+          <div class="tab-text">
+            <div class="tab-title">Progress</div>
+            <div class="tab-sub">Goals &amp; portfolio</div>
+          </div>
+          <span class="badge">1</span>
+        </button>
+      </div>
+
+      <!-- ========== CHAT TAB ========== -->
+      <section class="view" data-view="chat">
+        <div class="chat-shell">
+          <div class="chat-empty">
+            <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg>
+            <h1>Hello, Amara — how can I help?</h1>
+            <p>Ask anything about your courses, assignments, or schedule. I have access to your course materials.</p>
+          </div>
+
+          <div class="chat-input-wrap">
+            <div class="chat-input">
+              <textarea placeholder="Ask anything — about Module 4, your essay, or how to study for tomorrow…"></textarea>
+              <div class="chat-input-bar">
+                <button class="input-chip has-context">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/></svg>
+                  PSYC 214 · Module 4
+                </button>
+                <button class="input-chip">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a5 5 0 0 1-5 5H7a4 4 0 0 1 0-8h9a3 3 0 0 1 0 6H8"/></svg>
+                  Attach
+                </button>
+                <button class="input-chip">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/></svg>
+                  Voice
+                </button>
+                <button class="send-btn" title="Send">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="suggest">
+            <div class="sug-card">
+              <div class="sug-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <div class="sug-body">
+                <div class="sug-title">Help me outline my Mind-Body essay</div>
+                <div class="sug-sub">PSYC 214 · Due tomorrow</div>
+              </div>
+            </div>
+            <div class="sug-card">
+              <div class="sug-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              </div>
+              <div class="sug-body">
+                <div class="sug-title">Quiz me on bottleneck theories</div>
+                <div class="sug-sub">Module 4 · Lesson 3</div>
+              </div>
+            </div>
+            <div class="sug-card">
+              <div class="sug-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+              </div>
+              <div class="sug-body">
+                <div class="sug-title">Summarize today's lecture</div>
+                <div class="sug-sub">From your slide notes</div>
+              </div>
+            </div>
+            <div class="sug-card">
+              <div class="sug-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+              </div>
+              <div class="sug-body">
+                <div class="sug-title">What's on my plate this week?</div>
+                <div class="sug-sub">Deadlines &amp; classes</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-recent">
+            <h4>Recent chats</h4>
+            <div class="recent-list">
+              <div class="recent-item">
+                <div class="r-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+                <div class="r-body">
+                  <div class="r-title">Bottleneck theories — practice quiz</div>
+                  <div class="r-sub">PSYC 214 · 14 messages</div>
+                </div>
+                <div class="r-time">2h ago</div>
+              </div>
+              <div class="recent-item">
+                <div class="r-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+                <div class="r-body">
+                  <div class="r-title">Walk through Problem Set 3 #5</div>
+                  <div class="r-sub">STAT 210 · 9 messages</div>
+                </div>
+                <div class="r-time">Yesterday</div>
+              </div>
+              <div class="recent-item">
+                <div class="r-ico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+                <div class="r-body">
+                  <div class="r-title">Mrs Dalloway — close reading</div>
+                  <div class="r-sub">LIT 220 · 6 messages</div>
+                </div>
+                <div class="r-time">Mon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== COURSEWORK TAB ========== -->
+      <section class="view hidden" data-view="coursework">
+        <div class="work-search">
+          <svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+          <input type="text" placeholder="Search for a class, lecture, or file…" />
+          <div class="work-filters">
+            <div class="filt active">All</div>
+            <div class="filt">PSYC 214</div>
+            <div class="filt">ENVR 308</div>
+            <div class="filt">LIT 220</div>
+            <div class="filt">STAT 210</div>
+          </div>
+        </div>
+
+        <!-- Today's classes -->
+        <div class="section-head">
+          <h2>Today's classes</h2>
+          <span class="pill accent"><span class="dot pulse"></span> 1 live now</span>
+        </div>
+
+        <div class="class-row">
+          <div class="class-card online">
+            <div class="ctop">
+              <span class="pill"><span class="dot pulse"></span> Live now</span>
+              <span class="ccode">PSYC 214</span>
+            </div>
+            <h3>Module 4 — Attention &amp; Working Memory</h3>
+            <div class="cmeta">Prof. Diane Halliday · Online · 10:00 – 11:30</div>
+            <div class="actions">
+              <button class="btn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                Join video call
+              </button>
+              <button class="btn ghost">Open materials</button>
+            </div>
+          </div>
+
+          <div class="class-card offline">
+            <div class="ctop">
+              <span class="pill muted">In-person · 2:00 PM</span>
+              <span class="ccode">LIT 220</span>
+            </div>
+            <h3>Reading Group: Mrs Dalloway</h3>
+            <div class="cmeta">Prof. Marianne Tey · Library, 3rd floor Reading Room</div>
+            <div class="actions">
+              <button class="btn" onclick="openQR()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/><rect x="14" y="18" width="7" height="3"/></svg>
+                QR check-in
+              </button>
+              <button class="btn ghost">Directions</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submissions -->
+        <div class="section-head">
+          <h2>Submissions</h2>
+          <span class="pill danger">1 due tomorrow</span>
+        </div>
+
+        <div class="card">
+          <div class="pending">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <strong>Essay: The Mind-Body Problem</strong>
+            <span style="margin-left:auto;">PSYC 214 · 1500 words · Due tomorrow 5 PM</span>
+          </div>
+
+          <div class="upload">
+            <div class="up-ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div class="t">Drop your file here, or click to browse</div>
+            <div class="s">Photos, videos, PDFs, docs — up to 100 MB</div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;">
+            <button class="input-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Photo / image
+            </button>
+            <button class="input-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              Video
+            </button>
+            <button class="input-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              PDF / doc
+            </button>
+            <button class="input-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+              Other file
+            </button>
+          </div>
+        </div>
+
+        <!-- Course materials -->
+        <div class="section-head">
+          <h2>Course materials</h2>
+          <button class="btn ghost small">Browse all →</button>
+        </div>
+
+        <div class="card">
+          <div class="mat-list">
+            <div class="mat-item">
+              <div class="mat-icon video">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Lecture recording — Bottleneck theories</div>
+                <div class="s">PSYC 214 · Module 4 · 47 min · May 26</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Watch</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon slides">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Lecture slides — Attention</div>
+                <div class="s">PSYC 214 · Module 4 · PDF · 2.4 MB</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Open</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon pdf">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Reading — Chun &amp; Wolfe (2001)</div>
+                <div class="s">PSYC 214 · PDF · 1.1 MB</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Open</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon dataset">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Dataset — PS4 problems</div>
+                <div class="s">STAT 210 · CSV · 18 KB</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Download</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon video">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Recording — Carbon markets lecture</div>
+                <div class="s">ENVR 308 · Module 2 · 38 min · May 23</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Watch</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon pdf">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Reading list — Modernism Week 3</div>
+                <div class="s">LIT 220 · PDF · 240 KB</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Open</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Previous classes -->
+        <div class="section-head">
+          <h2>Previous classes</h2>
+          <button class="btn ghost small">See all →</button>
+        </div>
+
+        <div class="card">
+          <div class="mat-list">
+            <div class="mat-item">
+              <div class="mat-icon video">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Module 4 · Lesson 3 — Bottleneck theories</div>
+                <div class="s">PSYC 214 · May 26 · ✓ Attended</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Replay</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon video">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Carbon markets — case studies</div>
+                <div class="s">ENVR 308 · May 24 · ✓ Attended</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Replay</button>
+              </div>
+            </div>
+            <div class="mat-item">
+              <div class="mat-icon video">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="mat-body">
+                <div class="t">Module 4 · Lesson 2 — Selective attention</div>
+                <div class="s">PSYC 214 · May 21 · ✓ Attended</div>
+              </div>
+              <div class="mat-actions">
+                <button class="btn ghost small">Replay</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PROGRESS TAB ========== -->
+      <section class="view hidden" data-view="progress">
+        <!-- Sub-tabs per course -->
+        <div class="course-sub-tabs">
+          <div class="course-sub-tab active" data-course="psyc">
+            <span>PSYC 214</span>
+          </div>
+          <div class="course-sub-tab" data-course="envr">
+            <span>ENVR 308</span>
+          </div>
+          <div class="course-sub-tab" data-course="lit">
+            <span>LIT 220</span>
+          </div>
+          <div class="course-sub-tab" data-course="stat">
+            <span>STAT 210</span>
+          </div>
+          <div class="course-sub-tab" data-course="all" style="margin-left:auto;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            All courses
+          </div>
+        </div>
+
+        <!-- Course header -->
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom: 18px;">
+          <div>
+            <div style="font-size:11px; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px;">PSYC 214 · Cognitive Science</div>
+            <h1 id="progressTitle">Foundations of Cognitive Science</h1>
+            <div style="font-size:13px; color:var(--muted); margin-top:4px;">Prof. Diane Halliday · Spring 2026</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn secondary small">Export</button>
+            <button class="btn small">Share progress</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="label">Course progress</div>
+            <div class="value">68%</div>
+            <div class="delta">Module 4 of 6</div>
+          </div>
+          <div class="stat">
+            <div class="label">Current grade</div>
+            <div class="value">A−</div>
+            <div class="delta">3.8 / 4.0</div>
+          </div>
+          <div class="stat">
+            <div class="label">Milestones hit</div>
+            <div class="value">3 / 6</div>
+            <div class="delta">2 more this term</div>
+          </div>
+          <div class="stat">
+            <div class="label">Portfolio pieces</div>
+            <div class="value">4</div>
+            <div class="delta warn">2 unlocked</div>
+          </div>
+        </div>
+
+        <!-- Journey -->
+        <div class="card">
+          <div class="card-head">
+            <h3>Course journey</h3>
+            <a href="#">See full syllabus →</a>
+          </div>
+
+          <div class="journey">
+            <div class="milestone done">
+              <div class="ms-node">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 1 · Completed</div>
+                <div class="ms-title">What is cognitive science?</div>
+                <div class="ms-sub">5 lessons · Foundations &amp; methods</div>
+                <div class="ms-feedback">
+                  <strong>Prof. Halliday's note</strong>
+                  Strong start, Amara. Your week 1 response showed real engagement with the interdisciplinary framing.
+                </div>
+              </div>
+              <div class="ms-status">
+                <span class="grade">A</span>
+                <span>Feb 14</span>
+              </div>
+            </div>
+
+            <div class="milestone done">
+              <div class="ms-node">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 2 · Completed</div>
+                <div class="ms-title">Perception &amp; the brain</div>
+                <div class="ms-sub">6 lessons · Visual / auditory processing</div>
+                <div class="ms-feedback">
+                  <strong>Prof. Halliday's note</strong>
+                  Excellent perception lab write-up — your discussion of binocular rivalry is publication-quality.
+                </div>
+                <div class="ms-action">
+                  <div class="ai-ico">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg>
+                  </div>
+                  <div class="body">
+                    <div class="t">Portfolio piece auto-created</div>
+                    <div class="s">"Perception lab — binocular rivalry" added to your portfolio</div>
+                  </div>
+                  <button class="btn small">View</button>
+                </div>
+              </div>
+              <div class="ms-status">
+                <span class="grade">A−</span>
+                <span>Mar 21</span>
+              </div>
+            </div>
+
+            <div class="milestone done">
+              <div class="ms-node">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 3 · Completed</div>
+                <div class="ms-title">Language &amp; meaning</div>
+                <div class="ms-sub">5 lessons · Linguistic representation</div>
+                <div class="ms-feedback">
+                  <strong>Prof. Halliday's note</strong>
+                  Your Sapir-Whorf essay was thoughtful. Push further next time on the empirical evidence.
+                </div>
+              </div>
+              <div class="ms-status">
+                <span class="grade">A−</span>
+                <span>Apr 18</span>
+              </div>
+            </div>
+
+            <div class="milestone current">
+              <div class="ms-node">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 4 · In progress</div>
+                <div class="ms-title">Attention &amp; memory</div>
+                <div class="ms-sub">7 lessons · 4 of 7 complete · Module exam Jun 4</div>
+                <div class="ms-action">
+                  <div class="ai-ico">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.5 9.5 L21 12 L13.5 14.5 L12 22 L10.5 14.5 L3 12 L10.5 9.5 Z"/></svg>
+                  </div>
+                  <div class="body">
+                    <div class="t">Generate a portfolio piece from this module</div>
+                    <div class="s">AI can draft a summary or case study from your essay &amp; notes</div>
+                  </div>
+                  <button class="btn small">Brief AI →</button>
+                </div>
+              </div>
+              <div class="ms-status">
+                <span style="color: var(--accent); font-weight: 600;">In progress</span>
+              </div>
+            </div>
+
+            <div class="milestone">
+              <div class="ms-node">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 5 · Upcoming</div>
+                <div class="ms-title">Reasoning &amp; decision making</div>
+                <div class="ms-sub">7 lessons · Starts Jun 8</div>
+              </div>
+              <div class="ms-status">
+                <span>Locked</span>
+              </div>
+            </div>
+
+            <div class="milestone">
+              <div class="ms-node">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              </div>
+              <div class="ms-body">
+                <div class="ms-eyebrow">Module 6 · Final</div>
+                <div class="ms-title">Consciousness · Capstone project</div>
+                <div class="ms-sub">Final paper unlocks Year 4 honors track</div>
+              </div>
+              <div class="ms-status">
+                <span>Locked</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio for this course -->
+        <div class="card mt-22">
+          <div class="card-head">
+            <h3>Portfolio · PSYC 214</h3>
+            <a href="#" onclick="alert('Linked to job portal — see right rail'); return false;">Link to job portal →</a>
+          </div>
+          <div class="port-grid">
+            <div class="port">
+              <div class="ico-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="body">
+                <div class="t">Perception lab — binocular rivalry</div>
+                <div class="s">Module 2 · A−</div>
+              </div>
+            </div>
+            <div class="port">
+              <div class="ico-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="body">
+                <div class="t">Sapir-Whorf reflection</div>
+                <div class="s">Module 3 · A−</div>
+              </div>
+            </div>
+            <div class="port">
+              <div class="ico-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              </div>
+              <div class="body">
+                <div class="t">Stroop task — video presentation</div>
+                <div class="s">Module 2 · A</div>
+              </div>
+            </div>
+            <div class="port">
+              <div class="ico-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="body">
+                <div class="t">Neural pathway diagram</div>
+                <div class="s">Module 1 · A</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== RIGHT RAIL ========== -->
+    <aside class="rail">
+      <!-- Announcements -->
+      <div class="rail-card">
+        <div class="rail-head">
+          <div class="rh-ico ann-ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8v18l-18-8z"/><path d="M11 13v8"/></svg>
+          </div>
+          <h3>Announcements</h3>
+          <span class="count">5</span>
+        </div>
+        <div class="ann-item">
+          <div class="src src-3">NI</div>
+          <div class="body">
+            <div class="t">Library closed Saturday</div>
+            <div class="s">NICHE Institute</div>
+          </div>
+        </div>
+        <div class="ann-item">
+          <div class="src src-2">DH</div>
+          <div class="body">
+            <div class="t">Office hours moved to Wed 3 PM</div>
+            <div class="s">Prof. Halliday · PSYC 214</div>
+          </div>
+        </div>
+        <div class="ann-item">
+          <div class="src src-1">RO</div>
+          <div class="body">
+            <div class="t">Summer term registration opens Jun 1</div>
+            <div class="s">Registrar's Office</div>
+          </div>
+        </div>
+        <div class="ann-item">
+          <div class="src src-5">EO</div>
+          <div class="body">
+            <div class="t">PS3 grades posted</div>
+            <div class="s">Prof. Okafor · STAT 210</div>
+          </div>
+        </div>
+        <button class="btn ghost small" style="width:100%; justify-content:center; margin-top: 8px;">See all 5 →</button>
+      </div>
+
+      <!-- Reminders -->
+      <div class="rail-card">
+        <div class="rail-head">
+          <div class="rh-ico rem-ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          </div>
+          <h3>Reminders</h3>
+          <span class="count" style="background:var(--danger);">3</span>
+        </div>
+        <div class="rem-item">
+          <div class="rem-pip" style="background: var(--danger);"></div>
+          <div class="body">
+            <div class="t">Submit Mind-Body essay</div>
+            <div class="s">PSYC 214 · Tomorrow 5 PM</div>
+          </div>
+        </div>
+        <div class="rem-item">
+          <div class="rem-pip" style="background: var(--warn);"></div>
+          <div class="body">
+            <div class="t">Problem Set 4 still open</div>
+            <div class="s">STAT 210 · Thu 11:59 PM</div>
+          </div>
+        </div>
+        <div class="rem-item">
+          <div class="rem-pip" style="background: var(--warn);"></div>
+          <div class="body">
+            <div class="t">QR check-in: LIT 220 today</div>
+            <div class="s">2 PM · Library</div>
+          </div>
+        </div>
+        <div class="rem-item">
+          <div class="rem-pip" style="background: var(--muted);"></div>
+          <div class="body">
+            <div class="t">Pay STAT 210 lab fee</div>
+            <div class="s">$120 · Due Jun 30</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job portal -->
+      <div class="rail-card">
+        <div class="rail-head">
+          <div class="rh-ico job-ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </div>
+          <h3>Job portal</h3>
+          <span class="count" style="background:var(--success);">28</span>
+        </div>
+
+        <div class="portfolio-cta">
+          <div class="t">📎 Your portfolio is linked</div>
+          <div class="s">4 pieces visible to recruiters · employers can see your PSYC 214 work</div>
+          <button class="btn full small">Manage visibility</button>
+        </div>
+
+        <div class="job-item">
+          <div class="logo" style="background: linear-gradient(135deg,#2E2A6B,#4F46B8);">N</div>
+          <div class="body">
+            <div class="t">Research Assistant — Memory Lab</div>
+            <div class="s">NICHE Cog Sci · On campus · $22/hr</div>
+            <span class="job-pill">Cog Sci match</span>
+          </div>
+        </div>
+        <div class="job-item">
+          <div class="logo" style="background: linear-gradient(135deg,#1F4D3A,#2E8763);">H</div>
+          <div class="body">
+            <div class="t">UX Research Intern</div>
+            <div class="s">Halo Studio · Summer · Remote</div>
+            <span class="job-pill">Cog Sci match</span>
+          </div>
+        </div>
+        <div class="job-item">
+          <div class="logo" style="background: linear-gradient(135deg,#8C3A2A,#C16A4A);">B</div>
+          <div class="body">
+            <div class="t">Climate Policy Fellow</div>
+            <div class="s">Bluefield Foundation · DC · Stipend $5k</div>
+            <span class="job-pill">ENVR match</span>
+          </div>
+        </div>
+        <button class="btn ghost small" style="width:100%; justify-content:center; margin-top: 8px;">Browse 28 listings →</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- ========== QR MODAL ========== -->
+<div id="qrModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeQR()">
+  <div class="modal">
+    <h2>QR Check-in</h2>
+    <p>Scan this code at the classroom door, or have the instructor scan yours.</p>
+    <div class="qr-frame">
+      <!-- Stylized QR -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#fff"/>
+        <!-- corner markers -->
+        <rect x="5" y="5" width="22" height="22" fill="#1F1E1B"/>
+        <rect x="10" y="10" width="12" height="12" fill="#fff"/>
+        <rect x="14" y="14" width="4" height="4" fill="#1F1E1B"/>
+        <rect x="73" y="5" width="22" height="22" fill="#1F1E1B"/>
+        <rect x="78" y="10" width="12" height="12" fill="#fff"/>
+        <rect x="82" y="14" width="4" height="4" fill="#1F1E1B"/>
+        <rect x="5" y="73" width="22" height="22" fill="#1F1E1B"/>
+        <rect x="10" y="78" width="12" height="12" fill="#fff"/>
+        <rect x="14" y="82" width="4" height="4" fill="#1F1E1B"/>
+        <!-- data dots (decorative pattern) -->
+        <g fill="#1F1E1B">
+          <rect x="35" y="5" width="4" height="4"/><rect x="43" y="5" width="4" height="4"/><rect x="55" y="5" width="4" height="4"/><rect x="63" y="5" width="4" height="4"/>
+          <rect x="35" y="13" width="4" height="4"/><rect x="51" y="13" width="4" height="4"/><rect x="59" y="13" width="4" height="4"/>
+          <rect x="39" y="21" width="4" height="4"/><rect x="47" y="21" width="4" height="4"/><rect x="63" y="21" width="4" height="4"/>
+          <rect x="5" y="35" width="4" height="4"/><rect x="13" y="35" width="4" height="4"/><rect x="29" y="35" width="4" height="4"/><rect x="39" y="35" width="4" height="4"/><rect x="47" y="35" width="4" height="4"/><rect x="55" y="35" width="4" height="4"/><rect x="71" y="35" width="4" height="4"/><rect x="83" y="35" width="4" height="4"/><rect x="91" y="35" width="4" height="4"/>
+          <rect x="9" y="43" width="4" height="4"/><rect x="21" y="43" width="4" height="4"/><rect x="33" y="43" width="4" height="4"/><rect x="45" y="43" width="4" height="4"/><rect x="57" y="43" width="4" height="4"/><rect x="69" y="43" width="4" height="4"/><rect x="81" y="43" width="4" height="4"/>
+          <rect x="5" y="51" width="4" height="4"/><rect x="17" y="51" width="4" height="4"/><rect x="25" y="51" width="4" height="4"/><rect x="37" y="51" width="4" height="4"/><rect x="49" y="51" width="4" height="4"/><rect x="61" y="51" width="4" height="4"/><rect x="73" y="51" width="4" height="4"/><rect x="85" y="51" width="4" height="4"/><rect x="93" y="51" width="4" height="4"/>
+          <rect x="13" y="59" width="4" height="4"/><rect x="21" y="59" width="4" height="4"/><rect x="33" y="59" width="4" height="4"/><rect x="41" y="59" width="4" height="4"/><rect x="53" y="59" width="4" height="4"/><rect x="65" y="59" width="4" height="4"/><rect x="77" y="59" width="4" height="4"/><rect x="89" y="59" width="4" height="4"/>
+          <rect x="9" y="67" width="4" height="4"/><rect x="25" y="67" width="4" height="4"/><rect x="37" y="67" width="4" height="4"/><rect x="49" y="67" width="4" height="4"/><rect x="61" y="67" width="4" height="4"/><rect x="73" y="67" width="4" height="4"/><rect x="85" y="67" width="4" height="4"/>
+          <rect x="35" y="75" width="4" height="4"/><rect x="47" y="75" width="4" height="4"/><rect x="63" y="75" width="4" height="4"/><rect x="79" y="75" width="4" height="4"/><rect x="91" y="75" width="4" height="4"/>
+          <rect x="39" y="83" width="4" height="4"/><rect x="51" y="83" width="4" height="4"/><rect x="67" y="83" width="4" height="4"/><rect x="83" y="83" width="4" height="4"/>
+          <rect x="35" y="91" width="4" height="4"/><rect x="47" y="91" width="4" height="4"/><rect x="55" y="91" width="4" height="4"/><rect x="71" y="91" width="4" height="4"/><rect x="87" y="91" width="4" height="4"/>
+        </g>
+      </svg>
+    </div>
+    <p style="font-size: 11px; color: var(--muted); margin-bottom: 14px;">LIT 220 · Mrs Dalloway reading group<br>Code refreshes every 60 seconds</p>
+    <button class="btn full" onclick="closeQR()">Done</button>
+  </div>
+</div>
+
+<!-- ========== ACCOUNT DRAWER ========== -->
+<div id="drawerBackdrop" class="drawer-backdrop hidden" onclick="closeDrawer()"></div>
+<aside id="drawer" class="drawer hidden">
+  <div class="drawer-head">
+    <h2>Account &amp; admin</h2>
+    <button class="drawer-close" onclick="closeDrawer()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="acc-head">
+    <div class="avatar avatar-lg">AM</div>
+    <div class="info">
+      <h2>Amara Mendes</h2>
+      <div class="meta">ID 2023-1142 · B.A. Cognitive Science · Year 3</div>
+      <div style="display:flex; gap:6px; margin-top: 8px;">
+        <span class="pill">Honors</span>
+        <span class="pill">Good standing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-12">
+    <div class="card-head"><h3>Enrolment</h3></div>
+    <div class="info-row"><span class="k">Program</span><span class="v">B.A. Cognitive Science</span></div>
+    <div class="info-row"><span class="k">Concentration</span><span class="v">Mind &amp; Language</span></div>
+    <div class="info-row"><span class="k">Current term</span><span class="v">Spring 2026 · 4 courses</span></div>
+    <div class="info-row"><span class="k">Advisor</span><span class="v">Prof. Diane Halliday</span></div>
+    <div class="info-row"><span class="k">Status</span><span class="v" style="color:var(--success)">Active · Full-time</span></div>
+    <div class="info-row"><span class="k">Credits earned</span><span class="v">86 / 120 · 72%</span></div>
+    <div class="info-row"><span class="k">Expected graduation</span><span class="v">May 2027</span></div>
+    <button class="btn secondary full mt-12">Register for next term</button>
+  </div>
+
+  <div class="card mb-12">
+    <div class="card-head"><h3>Tuition &amp; payments</h3><a href="#">Statement →</a></div>
+    <div class="info-row"><span class="k">Spring 2026 tuition</span><span class="v" style="color:var(--success)">Paid · $8,420</span></div>
+    <div class="info-row"><span class="k">Merit scholarship</span><span class="v" style="color:var(--success)">−$3,000</span></div>
+    <div class="info-row"><span class="k">Lab fee — STAT 210</span><span class="v" style="color:var(--warn)">$120 · Due Jun 30</span></div>
+    <div class="info-row"><span class="k">Summer 2026 estimate</span><span class="v" style="color:var(--muted)">~$4,200</span></div>
+    <div class="info-row"><span class="k">Payment method</span><span class="v">Card •••• 4129</span></div>
+    <button class="btn full mt-12">Make a payment</button>
+  </div>
+
+  <div class="card mb-12">
+    <div class="card-head"><h3>Account settings</h3></div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Two-factor authentication</div><div class="s">Authenticator app · enabled</div></div>
+      <div class="switch on"></div>
+    </div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Email notifications</div><div class="s">Announcements &amp; grades</div></div>
+      <div class="switch on"></div>
+    </div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Push notifications</div><div class="s">Browser &amp; mobile</div></div>
+      <div class="switch on"></div>
+    </div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Weekly digest</div><div class="s">Sunday mornings</div></div>
+      <div class="switch"></div>
+    </div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Show me in classmate directory</div><div class="s">Visible to enrolled students</div></div>
+      <div class="switch on"></div>
+    </div>
+  </div>
+
+  <div class="card mb-12">
+    <div class="card-head"><h3>Privacy &amp; security</h3></div>
+    <div class="info-row"><span class="k">Password</span><span class="v"><a href="#">Change →</a></span></div>
+    <div class="info-row"><span class="k">Sessions</span><span class="v">2 devices · <a href="#">Manage</a></span></div>
+    <div class="info-row"><span class="k">Data download</span><span class="v"><a href="#">Request export</a></span></div>
+    <div class="info-row"><span class="k">Connected apps</span><span class="v">3 linked</span></div>
+  </div>
+
+  <div style="display: flex; gap: 8px; margin-top: 18px;">
+    <button class="btn secondary" style="flex:1; justify-content: center;">Help &amp; support</button>
+    <button class="btn danger" style="flex:1; justify-content: center;">Sign out</button>
+  </div>
+</aside>
+
+<script>
+  // ---------- Theme toggle ----------
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  const sun = document.getElementById('themeSun');
+  const moon = document.getElementById('themeMoon');
+
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    if (t === 'dark') {
+      sun.classList.add('hidden');
+      moon.classList.remove('hidden');
+    } else {
+      sun.classList.remove('hidden');
+      moon.classList.add('hidden');
+    }
+  }
+
+  themeBtn.addEventListener('click', () => {
+    const cur = root.getAttribute('data-theme');
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+
+  // Optional: respect system preference at first load
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  }
+
+  // ---------- Tab switching ----------
+  document.querySelectorAll('.tab[data-target]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-target');
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.view').forEach(v => {
+        v.classList.toggle('hidden', v.getAttribute('data-view') !== target);
+      });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  });
+
+  // ---------- Course sub-tabs (Progress) ----------
+  const courseTitles = {
+    psyc: { code: 'PSYC 214 · Cognitive Science', name: 'Foundations of Cognitive Science', prof: 'Prof. Diane Halliday · Spring 2026' },
+    envr: { code: 'ENVR 308 · Climate & Environment', name: 'Climate Systems and Policy', prof: 'Prof. Idris Vance · Spring 2026' },
+    lit:  { code: 'LIT 220 · Literature', name: 'Literary Modernism', prof: 'Prof. Marianne Tey · Spring 2026' },
+    stat: { code: 'STAT 210 · Mathematics', name: 'Statistical Inference', prof: 'Prof. Emeka Okafor · Spring 2026' },
+    all:  { code: 'All courses', name: 'Overview · Spring 2026', prof: 'Cross-course progress' },
+  };
+  document.querySelectorAll('.course-sub-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.course-sub-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const c = t.getAttribute('data-course');
+      const titleEl = document.getElementById('progressTitle');
+      const eyebrow = titleEl.previousElementSibling;
+      const sub = titleEl.nextElementSibling;
+      if (courseTitles[c]) {
+        eyebrow.textContent = courseTitles[c].code;
+        titleEl.textContent = courseTitles[c].name;
+        sub.textContent = courseTitles[c].prof;
+      }
+    });
+  });
+
+  // ---------- QR Modal ----------
+  function openQR() { document.getElementById('qrModal').classList.remove('hidden'); }
+  function closeQR() { document.getElementById('qrModal').classList.add('hidden'); }
+
+  // ---------- Account drawer ----------
+  function openDrawer() {
+    document.getElementById('drawer').classList.remove('hidden');
+    document.getElementById('drawerBackdrop').classList.remove('hidden');
+  }
+  function closeDrawer() {
+    document.getElementById('drawer').classList.add('hidden');
+    document.getElementById('drawerBackdrop').classList.add('hidden');
+  }
+
+  // ---------- Switches ----------
+  document.querySelectorAll('.switch').forEach(s => s.addEventListener('click', () => s.classList.toggle('on')));
+
+  // ---------- Filters ----------
+  document.querySelectorAll('.filt').forEach(f => f.addEventListener('click', () => {
+    f.parentElement.querySelectorAll('.filt').forEach(x => x.classList.remove('active'));
+    f.classList.add('active');
+  }));
+
+  // ---------- Suggested cards put text in input ----------
+  document.querySelectorAll('.sug-card').forEach(s => {
+    s.addEventListener('click', () => {
+      const ta = document.querySelector('.chat-input textarea');
+      const title = s.querySelector('.sug-title')?.textContent || '';
+      if (ta) { ta.value = title; ta.focus(); }
+    });
+  });
+
+  // ---------- Auto-grow chat textarea ----------
+  const ta = document.querySelector('.chat-input textarea');
+  if (ta) {
+    ta.addEventListener('input', () => {
+      ta.style.height = 'auto';
+      ta.style.height = Math.min(ta.scrollHeight, 200) + 'px';
+    });
+  }
+
+  // ---------- Esc closes overlays ----------
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeDrawer(); closeQR(); }
+  });
+</script>
+</body>
+</html>
