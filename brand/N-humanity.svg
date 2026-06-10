@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <title>NICHE — Humanity mark</title>
+  <!-- Left and right vertical bars -->
+  <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <!-- Humanity: two arms forming a handshake at the center.
+       Upper arm reaches from upper-left, lower arm reaches from lower-right.
+       They cross/clasp at center, with rounded "hand" endings + a small wrap detail
+       that reads as fingers gripping. -->
+
+  <!-- Upper arm (forearm + hand): from upper-left corner down to clasp -->
+  <path
+    d="M 52 30 L 130 130"
+    stroke="currentColor"
+    stroke-width="22"
+    stroke-linecap="round"
+  />
+  <!-- Hand curl on upper arm: small curve at end suggesting fingers wrapping -->
+  <path
+    d="M 124 124
+       Q 152 130, 138 152"
+    stroke="currentColor"
+    stroke-width="14"
+    stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- Lower arm: from lower-right corner up to clasp -->
+  <path
+    d="M 188 210 L 110 110"
+    stroke="currentColor"
+    stroke-width="22"
+    stroke-linecap="round"
+  />
+  <!-- Hand curl on lower arm: mirror curve -->
+  <path
+    d="M 116 116
+       Q 88 110, 102 88"
+    stroke="currentColor"
+    stroke-width="14"
+    stroke-linecap="round"
+    fill="none"
+  />
+
+  <!-- Central clasp accent: a small filled rhombus where the arms cross,
+       reading as the joined grip. -->
+  <circle cx="120" cy="120" r="9" fill="currentColor"/>
+</svg>

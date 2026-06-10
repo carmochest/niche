@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <title>NICHE — Creativity mark</title>
+  <!-- Left and right vertical bars (constant across the system) -->
+  <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <!-- Creativity: crayon squiggle connector -->
+  <path
+    d="M 52 30
+       C 100 52, 60 95, 105 118
+       C 145 138, 80 168, 122 188
+       C 158 202, 170 200, 188 210"
+    stroke="currentColor"
+    stroke-width="22"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

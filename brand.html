@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A1815;
+    --ink-2: #4A4640;
+    --paper: #F5F0E4;
+    --paper-2: #ECE5D2;
+    --cream: #FAF6EC;
+    --muted: #8A857A;
+    --line: #E0D9C5;
+    --gold: #C99656;
+    --creativity: #E8723C;
+    --humanity: #B5414B;
+    --entrepreneurship: #4A6FB8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--cream); color: var(--ink); }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: 54px; line-height: 1.05; }
+  h2 { font-size: 28px; line-height: 1.15; }
+  h3 { font-size: 18px; line-height: 1.2; }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--line);
+    background: var(--cream);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .topbar .left { display: flex; align-items: center; gap: 12px; }
+  .topbar .left svg { color: var(--ink); }
+  .topbar .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+  .topbar .right { display: flex; gap: 24px; font-size: 12px; color: var(--ink-2); }
+  .topbar a { color: inherit; text-decoration: none; }
+  .topbar a:hover { color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 100px 0 80px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .hero .wordmark { max-width: 520px; width: 80%; margin: 0 auto 32px; }
+  .hero p {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--ink-2);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.45;
+  }
+  .hero p em { font-style: italic; color: var(--ink); }
+
+  /* ---------- Section ---------- */
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .section-intro { max-width: 640px; margin-bottom: 48px; }
+  .section-intro p { font-size: 16px; color: var(--ink-2); margin-top: 8px; }
+
+  /* ---------- Mark grid ---------- */
+  .mark-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .mark-grid { grid-template-columns: 1fr; } }
+  .mark-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 28px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mark-card .canvas {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 24px;
+    border: 1px solid var(--line);
+  }
+  .mark-card svg.mark { width: 100%; height: auto; display: block; }
+
+  .mark-card .v-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .mark-card h2 { font-size: 26px; margin-bottom: 12px; }
+  .mark-card p { font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+
+  .v-creativity { color: var(--creativity); }
+  .v-humanity { color: var(--humanity); }
+  .v-entrepreneurship { color: var(--entrepreneurship); }
+
+  /* Mark canvas tint variants */
+  .canvas.tint-c { background: #FBE9DD; }
+  .canvas.tint-h { background: #F4DCDF; }
+  .canvas.tint-e { background: #DCE5F3; }
+
+  /* ---------- Lockups ---------- */
+  .lockups { display: flex; flex-direction: column; gap: 18px; }
+  .lockup {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px;
+    display: flex; align-items: center; gap: 36px;
+  }
+  .lockup .mark-box { flex-shrink: 0; }
+  .lockup svg { display: block; }
+  .lockup .meta { font-size: 12px; color: var(--muted); }
+  .lockup .meta strong { display: block; color: var(--ink); font-size: 13px; font-weight: 600; margin-bottom: 4px; font-family: 'Fraunces', serif; }
+  .lockup .meta .code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--paper-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+  }
+  .lockup-h { display: flex; align-items: center; gap: 16px; }
+  .lockup-wordmark { height: 38px; }
+  @media (max-width: 700px) {
+    .lockup { flex-direction: column; align-items: flex-start; gap: 18px; }
+  }
+
+  /* ---------- Background tests ---------- */
+  .surface-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .surface-grid { grid-template-columns: 1fr; } }
+  .surface {
+    border-radius: 14px;
+    padding: 36px 24px;
+    text-align: center;
+    border: 1px solid var(--line);
+  }
+  .surface .lab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 16px;
+  }
+  .surface svg { width: 96px; height: auto; }
+  .surface.cream { background: var(--cream); color: var(--ink); }
+  .surface.paper { background: var(--paper); color: var(--ink); }
+  .surface.ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .surface.gold { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .surface.creativity { background: var(--creativity); color: #fff; border-color: var(--creativity); }
+  .surface.entrepreneurship { background: var(--entrepreneurship); color: #fff; border-color: var(--entrepreneurship); }
+
+  /* ---------- Color palette ---------- */
+  .palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .palette { grid-template-columns: repeat(2, 1fr); } }
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .swatch .chip { height: 110px; }
+  .swatch .info {
+    padding: 12px 14px;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .swatch .name { font-size: 12px; font-weight: 600; font-family: 'Fraunces', serif; }
+  .swatch .hex { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ---------- Scale test ---------- */
+  .scale-row {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 36px;
+    display: flex; align-items: center; justify-content: space-around;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .scale-row .scale-item {
+    text-align: center;
+  }
+  .scale-row svg { display: block; margin: 0 auto 8px; }
+  .scale-row .sz {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ---------- Animated morph ---------- */
+  .morph {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 18px;
+    padding: 48px;
+    text-align: center;
+  }
+  .morph-stage {
+    width: 220px; height: 220px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+  .morph-stage svg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    animation: cycle 9s infinite;
+  }
+  .morph-stage svg:nth-of-type(1) { animation-delay: 0s;  color: var(--creativity); }
+  .morph-stage svg:nth-of-type(2) { animation-delay: 3s;  color: #E78896; }
+  .morph-stage svg:nth-of-type(3) { animation-delay: 6s;  color: #87A6E6; }
+  @keyframes cycle {
+    0%, 30%, 100% { opacity: 0; }
+    5%, 25% { opacity: 1; }
+  }
+  .morph h3 { color: var(--cream); margin-bottom: 6px; font-size: 22px; }
+  .morph p { color: rgba(245, 240, 228, 0.7); font-size: 14px; max-width: 400px; margin: 0 auto; }
+
+  /* ---------- Applications ---------- */
+  .app-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .app-grid { grid-template-columns: 1fr; } }
+  .app-mock {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 32px;
+    min-height: 240px;
+    position: relative;
+  }
+  .app-mock .lab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .biz-card {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 28px;
+    width: 100%;
+    aspect-ratio: 1.75;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .biz-card .top svg { color: var(--creativity); }
+  .biz-card .name { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; }
+  .biz-card .role { font-size: 11px; color: rgba(245, 240, 228, 0.7); margin-top: 2px; }
+  .biz-card .ct { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(245, 240, 228, 0.6); margin-top: 4px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 56px 0 40px;
+    text-align: center;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  footer .small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .note {
+    background: var(--paper-2);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="left">
+    <svg width="22" height="22" viewBox="0 0 240 240" fill="currentColor">
+      <rect x="30"  y="30" width="22" height="180" rx="2"/>
+      <rect x="188" y="30" width="22" height="180" rx="2"/>
+      <polygon points="52,30 78,30 188,210 162,210"/>
+    </svg>
+    <span class="meta">NICHE · Brand Identity · v0.1</span>
+  </div>
+  <nav class="right">
+    <a href="#marks">Marks</a>
+    <a href="#wordmark">Wordmark</a>
+    <a href="#palette">Palette</a>
+    <a href="#applications">Applications</a>
+    <a href="index.html">Student portal →</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">New Institute of Creativity, Humanity &amp; Entrepreneurship</div>
+    <svg class="wordmark" viewBox="0 0 600 200" fill="currentColor" aria-label="NICHE">
+      <rect x="30"  y="30" width="18" height="140" rx="1.5"/>
+      <rect x="112" y="30" width="18" height="140" rx="1.5"/>
+      <polygon points="48,30 65,30 130,170 113,170"/>
+      <rect x="158" y="30" width="18" height="140" rx="1.5"/>
+      <path d="M 295 60 A 50 50 0 1 0 295 140" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round"/>
+      <rect x="332" y="30" width="18" height="140" rx="1.5"/>
+      <rect x="414" y="30" width="18" height="140" rx="1.5"/>
+      <rect x="350" y="91" width="64" height="18" rx="1.5"/>
+      <rect x="460" y="30"  width="18" height="140" rx="1.5"/>
+      <rect x="478" y="30"  width="82" height="18" rx="1.5"/>
+      <rect x="478" y="91"  width="68" height="18" rx="1.5"/>
+      <rect x="478" y="152" width="82" height="18" rx="1.5"/>
+    </svg>
+    <p>A living mark. The <em>N</em> stays. The connector <em>changes</em> — a crayon line, a clasped hand, a flash of lightning — depending on which part of NICHE is speaking.</p>
+  </div>
+</section>
+
+<!-- ============ MARKS ============ -->
+<section id="marks">
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">01 — The three marks</div>
+      <h2>One N. Three meanings.</h2>
+      <p>The vertical bars stay constant — the institute. The diagonal connector reflects the value being expressed.</p>
+    </div>
+
+    <div class="mark-grid">
+      <!-- Creativity -->
+      <div class="mark-card">
+        <div class="canvas tint-c">
+          <svg class="mark v-creativity" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 52 30 C 100 52, 60 95, 105 118 C 145 138, 80 168, 122 188 C 158 202, 170 200, 188 210"
+                  stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="v-label v-creativity">C — for Creativity</div>
+        <h2>The crayon line</h2>
+        <p>An expressive, hand-drawn squiggle — playful, generative, unafraid to wander. Used in studios, the arts &amp; design programs, exhibitions, student showcases.</p>
+      </div>
+
+      <!-- Humanity -->
+      <div class="mark-card">
+        <div class="canvas tint-h">
+          <svg class="mark v-humanity" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 52 30 L 130 130" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 124 124 Q 152 130, 138 152" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <path d="M 188 210 L 110 110" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 116 116 Q 88 110, 102 88" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="120" cy="120" r="9" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="v-label v-humanity">H — for Humanity</div>
+        <h2>The clasp</h2>
+        <p>Two arms meeting at the centre — a handshake forming. Used for partnerships, community, ethics, the humanities, service programs.</p>
+      </div>
+
+      <!-- Entrepreneurship -->
+      <div class="mark-card">
+        <div class="canvas tint-e">
+          <svg class="mark v-entrepreneurship" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 100 30 L 158 100 L 122 122 L 158 210 L 95 142 L 130 118 Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="v-label v-entrepreneurship">E — for Entrepreneurship</div>
+        <h2>The bolt</h2>
+        <p>A diagonal lightning stroke — energy, ignition, momentum. Used for business, ventures, innovation labs, startups, demo days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MORPH ============ -->
+<section>
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">02 — A living identity</div>
+      <h2>The diagonal moves with the moment.</h2>
+      <p>For applications that represent the whole institute, the connector can rotate or animate across the three values. Below: a 9-second cycle.</p>
+    </div>
+
+    <div class="morph">
+      <div class="morph-stage">
+        <!-- Creativity -->
+        <svg viewBox="0 0 240 240" fill="none">
+          <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <path d="M 52 30 C 100 52, 60 95, 105 118 C 145 138, 80 168, 122 188 C 158 202, 170 200, 188 210"
+                stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <!-- Humanity -->
+        <svg viewBox="0 0 240 240" fill="none">
+          <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <path d="M 52 30 L 130 130" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path d="M 124 124 Q 152 130, 138 152" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <path d="M 188 210 L 110 110" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path d="M 116 116 Q 88 110, 102 88" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <circle cx="120" cy="120" r="9" fill="currentColor"/>
+        </svg>
+        <!-- Entrepreneurship -->
+        <svg viewBox="0 0 240 240" fill="none">
+          <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <path d="M 100 30 L 158 100 L 122 122 L 158 210 L 95 142 L 130 118 Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <h3>Creativity. Humanity. Entrepreneurship.</h3>
+      <p>The same N, animated through its three meanings — for digital headers, loading states, and motion identity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORDMARK + LOCKUPS ============ -->
+<section id="wordmark">
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">03 — Wordmark &amp; lockups</div>
+      <h2>The full mark.</h2>
+      <p>Custom-drawn letterforms built from the same geometric system as the N. Stroke weight, corner radius, and proportions are shared across the whole alphabet.</p>
+    </div>
+
+    <div class="lockups">
+      <!-- Horizontal lockup with default mark -->
+      <div class="lockup">
+        <div class="mark-box">
+          <svg width="70" height="70" viewBox="0 0 240 240" fill="currentColor">
+            <rect x="30"  y="30" width="22" height="180" rx="2"/>
+            <rect x="188" y="30" width="22" height="180" rx="2"/>
+            <polygon points="52,30 78,30 188,210 162,210"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <svg class="lockup-wordmark" viewBox="0 0 600 200" fill="currentColor" style="height:48px;">
+            <rect x="30"  y="30" width="18" height="140" rx="1.5"/>
+            <rect x="112" y="30" width="18" height="140" rx="1.5"/>
+            <polygon points="48,30 65,30 130,170 113,170"/>
+            <rect x="158" y="30" width="18" height="140" rx="1.5"/>
+            <path d="M 295 60 A 50 50 0 1 0 295 140" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round"/>
+            <rect x="332" y="30" width="18" height="140" rx="1.5"/>
+            <rect x="414" y="30" width="18" height="140" rx="1.5"/>
+            <rect x="350" y="91" width="64" height="18" rx="1.5"/>
+            <rect x="460" y="30"  width="18" height="140" rx="1.5"/>
+            <rect x="478" y="30"  width="82" height="18" rx="1.5"/>
+            <rect x="478" y="91"  width="68" height="18" rx="1.5"/>
+            <rect x="478" y="152" width="82" height="18" rx="1.5"/>
+          </svg>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Primary lockup</strong>
+            Default mark + wordmark · <span class="code">horizontal</span> · <span class="code">institute-wide</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three lockups, one per program/value -->
+      <div class="lockup">
+        <div class="mark-box">
+          <svg class="v-creativity" width="70" height="70" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 52 30 C 100 52, 60 95, 105 118 C 145 138, 80 168, 122 188 C 158 202, 170 200, 188 210"
+                  stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Fraunces',serif; font-size:26px; font-weight:600;">NICHE <span style="color:var(--creativity);">· Creativity</span></div>
+          <div class="meta" style="margin-top:6px;">
+            <strong>Creativity sub-brand</strong>
+            For arts &amp; design programs, studios, exhibitions
+          </div>
+        </div>
+      </div>
+
+      <div class="lockup">
+        <div class="mark-box">
+          <svg class="v-humanity" width="70" height="70" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 52 30 L 130 130" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 124 124 Q 152 130, 138 152" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <path d="M 188 210 L 110 110" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 116 116 Q 88 110, 102 88" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="120" cy="120" r="9" fill="currentColor"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Fraunces',serif; font-size:26px; font-weight:600;">NICHE <span style="color:var(--humanity);">· Humanity</span></div>
+          <div class="meta" style="margin-top:6px;">
+            <strong>Humanity sub-brand</strong>
+            For partnerships, community, ethics &amp; the humanities
+          </div>
+        </div>
+      </div>
+
+      <div class="lockup">
+        <div class="mark-box">
+          <svg class="v-entrepreneurship" width="70" height="70" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 100 30 L 158 100 L 122 122 L 158 210 L 95 142 L 130 118 Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Fraunces',serif; font-size:26px; font-weight:600;">NICHE <span style="color:var(--entrepreneurship);">· Entrepreneurship</span></div>
+          <div class="meta" style="margin-top:6px;">
+            <strong>Entrepreneurship sub-brand</strong>
+            For ventures, business programs, innovation labs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PALETTE ============ -->
+<section id="palette">
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">04 — Color palette</div>
+      <h2>Cream, ink, gold — with three value accents.</h2>
+      <p>Warm neutrals as the base. Each value owns one accent color, used when a program or campaign needs to identify itself.</p>
+    </div>
+
+    <div class="palette">
+      <div class="swatch"><div class="chip" style="background:#1A1815;"></div><div class="info"><div class="name">Ink</div><div class="hex">#1A1815</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#FAF6EC;"></div><div class="info"><div class="name">Cream</div><div class="hex">#FAF6EC</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#C99656;"></div><div class="info"><div class="name">Gold</div><div class="hex">#C99656</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#E8723C;"></div><div class="info"><div class="name">Creativity</div><div class="hex">#E8723C</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#B5414B;"></div><div class="info"><div class="name">Humanity</div><div class="hex">#B5414B</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#4A6FB8;"></div><div class="info"><div class="name">Entrepreneurship</div><div class="hex">#4A6FB8</div></div></div>
+    </div>
+
+    <div class="note">
+      <strong>Usage rule:</strong> the mark itself is monochrome — always rendered in one color, never multi-color. The value accents define the surface the mark sits on, the typography color, or the connector color, not all three at once.
+    </div>
+  </div>
+</section>
+
+<!-- ============ SURFACES ============ -->
+<section>
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">05 — On surfaces</div>
+      <h2>Reads cleanly on light, dark, and brand-color backgrounds.</h2>
+    </div>
+
+    <div class="surface-grid">
+      <div class="surface cream">
+        <svg viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="lab">CREAM · #FAF6EC</div>
+      </div>
+      <div class="surface ink">
+        <svg viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="lab">INK · #1A1815</div>
+      </div>
+      <div class="surface gold">
+        <svg viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="lab">GOLD · #C99656</div>
+      </div>
+      <div class="surface creativity">
+        <svg viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30" y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <path d="M 52 30 C 100 52, 60 95, 105 118 C 145 138, 80 168, 122 188 C 158 202, 170 200, 188 210"
+                stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="lab">CREATIVITY · #E8723C</div>
+      </div>
+      <div class="surface paper" style="background:var(--humanity); color:#fff; border-color:var(--humanity);">
+        <svg viewBox="0 0 240 240" fill="none">
+          <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+          <path d="M 52 30 L 130 130" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path d="M 124 124 Q 152 130, 138 152" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <path d="M 188 210 L 110 110" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path d="M 116 116 Q 88 110, 102 88" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <circle cx="120" cy="120" r="9" fill="currentColor"/>
+        </svg>
+        <div class="lab">HUMANITY · #B5414B</div>
+      </div>
+      <div class="surface entrepreneurship">
+        <svg viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30" y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <path d="M 100 30 L 158 100 L 122 122 L 158 210 L 95 142 L 130 118 Z"/>
+        </svg>
+        <div class="lab">ENTREPRENEURSHIP · #4A6FB8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCALE ============ -->
+<section>
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">06 — Scale test</div>
+      <h2>From favicon to billboard.</h2>
+      <p>The mark holds up at 16px (browser tab) and 200px (poster).</p>
+    </div>
+
+    <div class="scale-row">
+      <div class="scale-item">
+        <svg width="200" height="200" viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="sz">200 PX</div>
+      </div>
+      <div class="scale-item">
+        <svg width="96" height="96" viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="sz">96 PX</div>
+      </div>
+      <div class="scale-item">
+        <svg width="48" height="48" viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="sz">48 PX</div>
+      </div>
+      <div class="scale-item">
+        <svg width="32" height="32" viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="sz">32 PX</div>
+      </div>
+      <div class="scale-item">
+        <svg width="16" height="16" viewBox="0 0 240 240" fill="currentColor">
+          <rect x="30"  y="30" width="22" height="180" rx="2"/>
+          <rect x="188" y="30" width="22" height="180" rx="2"/>
+          <polygon points="52,30 78,30 188,210 162,210"/>
+        </svg>
+        <div class="sz">16 PX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATIONS ============ -->
+<section id="applications">
+  <div class="container">
+    <div class="section-intro">
+      <div class="section-label">07 — Applications</div>
+      <h2>In the wild.</h2>
+    </div>
+
+    <div class="app-grid">
+      <div class="app-mock">
+        <div class="lab">PRESS RELEASE LETTERHEAD</div>
+        <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
+          <svg width="42" height="42" viewBox="0 0 240 240" fill="currentColor">
+            <rect x="30"  y="30" width="22" height="180" rx="2"/>
+            <rect x="188" y="30" width="22" height="180" rx="2"/>
+            <polygon points="52,30 78,30 188,210 162,210"/>
+          </svg>
+          <div>
+            <div style="font-family:'Fraunces',serif; font-weight:600; font-size:18px;">NICHE Institute</div>
+            <div style="font-size:11px; color:var(--muted); letter-spacing:0.04em;">New Institute of Creativity, Humanity &amp; Entrepreneurship</div>
+          </div>
+        </div>
+        <div style="font-family:'Fraunces',serif; font-size:22px; line-height:1.3; max-width:480px;">"Class of 2027 announces eleven launched ventures at this year's spring demo day."</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:14px; font-family:'JetBrains Mono',monospace;">FOR IMMEDIATE RELEASE · MAY 29, 2026</div>
+      </div>
+
+      <div class="app-mock" style="background:var(--ink); padding:24px;">
+        <div class="biz-card">
+          <div class="top">
+            <svg width="32" height="32" viewBox="0 0 240 240" fill="none">
+              <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+              <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+              <path d="M 52 30 C 100 52, 60 95, 105 118 C 145 138, 80 168, 122 188 C 158 202, 170 200, 188 210"
+                    stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="name">Amara Mendes</div>
+            <div class="role">Studio Lead, Creativity</div>
+            <div class="ct">amara@niche.edu · niche.edu</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-mock" style="background:var(--entrepreneurship); color:#fff;">
+        <div class="lab" style="color:rgba(255,255,255,0.7);">DEMO DAY POSTER</div>
+        <div style="display:flex; gap:14px; align-items:center; margin-bottom:24px;">
+          <svg width="38" height="38" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 100 30 L 158 100 L 122 122 L 158 210 L 95 142 L 130 118 Z" fill="currentColor"/>
+          </svg>
+          <div style="font-family:'Fraunces',serif; font-weight:600;">NICHE · Entrepreneurship</div>
+        </div>
+        <div style="font-family:'Fraunces',serif; font-size:36px; line-height:1.05; font-weight:600;">Spring<br>Demo Day</div>
+        <div style="font-size:11px; opacity:0.7; margin-top:18px; font-family:'JetBrains Mono',monospace;">JUN 14 · 7 PM · MAIN HALL</div>
+      </div>
+
+      <div class="app-mock" style="background:var(--humanity); color:#fff;">
+        <div class="lab" style="color:rgba(255,255,255,0.7);">PARTNERSHIP COVER</div>
+        <div style="display:flex; gap:14px; align-items:center; margin-bottom:24px;">
+          <svg width="38" height="38" viewBox="0 0 240 240" fill="none">
+            <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+            <path d="M 52 30 L 130 130" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 124 124 Q 152 130, 138 152" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <path d="M 188 210 L 110 110" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <path d="M 116 116 Q 88 110, 102 88" stroke="currentColor" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <circle cx="120" cy="120" r="9" fill="currentColor"/>
+          </svg>
+          <div style="font-family:'Fraunces',serif; font-weight:600;">NICHE · Humanity</div>
+        </div>
+        <div style="font-family:'Fraunces',serif; font-size:30px; line-height:1.1; font-weight:600;">Community Partners Annual Report 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <svg width="32" height="32" viewBox="0 0 240 240" fill="currentColor" style="opacity:0.8; margin-bottom:8px;">
+      <rect x="30"  y="30" width="22" height="180" rx="2"/>
+      <rect x="188" y="30" width="22" height="180" rx="2"/>
+      <polygon points="52,30 78,30 188,210 162,210"/>
+    </svg>
+    <div class="small">NICHE BRAND IDENTITY · v0.1 · DRAFT FOR REVIEW</div>
+  </div>
+</footer>
+
+</body>
+</html>

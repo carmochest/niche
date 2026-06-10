@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <title>NICHE — Entrepreneurship mark</title>
+  <!-- Left and right vertical bars -->
+  <rect x="30" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <rect x="188" y="30" width="22" height="180" rx="2" fill="currentColor"/>
+  <!-- Entrepreneurship: lightning bolt connector.
+       Filled polygon, 6 vertices, classic bolt silhouette running
+       from upper-left corner to lower-right corner of the diagonal envelope. -->
+  <path
+    d="M 100 30
+       L 158 100
+       L 122 122
+       L 158 210
+       L 95 142
+       L 130 118
+       Z"
+    fill="currentColor"
+  />
+</svg>
