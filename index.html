@@ -1418,7 +1418,7 @@
   .toggle-strip .tg:hover { color: var(--ink); }
   .toggle-strip .tg:active { transform: scale(0.96); }
   .course-sub-tab { transition: background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s; }
-  .course-sub-tab:hover { transform: translateY(-1px); box-shadow: var(--shadow-xs); }
+  .course-sub-tab:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
   .work-search { transition: box-shadow 0.2s; }
   .work-search:focus-within { box-shadow: var(--shadow-sm), var(--shadow-glow); }
   .att-stat { transition: transform 0.18s; }
@@ -1605,6 +1605,13 @@
   }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   @media (max-width: 768px) { .toast { bottom: 96px; } }
+
+  /* Chip strips: never clip hover shadows on desktop (scroll only on mobile,
+     where there's no hover) — keeps Learn + Progress identical to Chat */
+  .context-strip, .filter-strip, .course-sub-tabs { overflow: visible; }
+  @media (max-width: 768px) {
+    .context-strip, .filter-strip, .course-sub-tabs { overflow-x: auto; overflow-y: hidden; }
+  }
 
   /* ============================
      MOBILE FIXES
