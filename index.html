@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
 <title>NICHE Institute — Student Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,7 +86,7 @@
     padding-bottom: 0;
   }
   @media (max-width: 768px) {
-    body { padding-bottom: 80px; }
+    body { padding-bottom: 126px; } /* clears the fixed bottom nav incl. safe area */
   }
   h1, h2, h3, h4 {
     font-family: 'Hanken Grotesk', 'IBM Plex Sans Thai', sans-serif;
@@ -1605,6 +1605,21 @@
   }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   @media (max-width: 768px) { .toast { bottom: 96px; } }
+
+  /* ============================
+     MOBILE FIXES
+     ============================ */
+  @media (max-width: 768px) {
+    /* iOS zooms in when a focused field is under 16px — keep all fields at 16px on mobile */
+    input, textarea { font-size: 16px !important; }
+
+    /* journey: drop the right status column, give the AI banners room */
+    .milestone { grid-template-columns: 42px 1fr; gap: 12px; }
+    .ms-status { display: none; }
+    .ms-action { flex-wrap: wrap; }
+    .ms-action .body { flex: 1 1 0; min-width: 160px; }
+    .ms-action .btn { flex: 1 1 100%; justify-content: center; margin-top: 2px; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
