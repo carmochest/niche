@@ -6,7 +6,7 @@
 <title>NICHE Institute — Student Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================
      DESIGN TOKENS
@@ -73,10 +73,10 @@
      RESET / BASE
      ============================ */
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scrollbar-gutter: stable; } /* prevents layout shift when scrollbar appears between tabs */
+  html { overflow-y: scroll; scrollbar-gutter: stable; } /* scrollbar always reserved — no layout shift between tabs */
   html, body { height: 100%; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Hanken Grotesk', 'IBM Plex Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--ink);
     font-size: 14px;
@@ -89,10 +89,13 @@
     body { padding-bottom: 80px; }
   }
   h1, h2, h3, h4 {
-    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-family: 'Hanken Grotesk', 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.022em;
     color: var(--ink);
+  }
+  html[lang="th"] body, html[lang="th"] h1, html[lang="th"] h2, html[lang="th"] h3, html[lang="th"] h4 {
+    font-family: 'IBM Plex Sans Thai', 'Hanken Grotesk', sans-serif;
   }
   h1 { font-size: 30px; line-height: 1.12; }
   h2 { font-size: 22px; line-height: 1.2; }
@@ -138,7 +141,7 @@
     box-shadow: var(--shadow-sm);
   }
   .brand-mark svg { width: 22px; height: 22px; }
-  .brand-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; line-height: 1.05; }
+  .brand-name { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-weight: 600; font-size: 17px; line-height: 1.05; }
   .brand-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
   .brand-text { line-height: 1.15; }
   @media (max-width: 768px) {
@@ -448,8 +451,8 @@
   .context-strip {
     display: flex; gap: 6px;
     overflow-x: auto;
-    padding: 0 0 12px;
-    margin: 0 -4px 0;
+    padding: 6px 6px 14px; /* headroom so chips can lift without clipping, incl. shadow below */
+    margin: -6px -6px 0;
     scrollbar-width: none;
   }
   .context-strip::-webkit-scrollbar { display: none; }
@@ -527,7 +530,7 @@
   .thread-back:hover { background: var(--surface-3); color: var(--ink); }
   .thread-head .t-info { flex: 1; min-width: 0; }
   .thread-head .t-title {
-    font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px;
+    font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-weight: 600; font-size: 15px;
     line-height: 1.2;
   }
   .thread-head .t-sub {
@@ -581,7 +584,8 @@
   .filter-strip {
     display: flex; gap: 6px;
     overflow-x: auto;
-    margin-bottom: 18px;
+    padding: 6px 6px 14px; /* extra bottom headroom — chip shadows reach further down */
+    margin: -6px -6px 4px;
     scrollbar-width: none;
   }
   .filter-strip::-webkit-scrollbar { display: none; }
@@ -611,7 +615,7 @@
 
   /* Today's classes — Live now (big) + Upcoming today (small) */
   .live-class {
-    background: linear-gradient(135deg, #D97757 0%, #B23A48 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
     color: #fff;
     border-radius: 20px;
     padding: 22px;
@@ -671,7 +675,7 @@
   }
   .upc-card .uc-code { font-family: 'JetBrains Mono', monospace; }
   .upc-card .uc-time { margin-left: auto; font-weight: 500; color: var(--ink-2); }
-  .upc-card h4 { font-family: 'Fraunces', serif; font-size: 14.5px; font-weight: 600; line-height: 1.25; margin-bottom: 3px; }
+  .upc-card h4 { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 14.5px; font-weight: 600; line-height: 1.25; margin-bottom: 3px; }
   .upc-card .uc-loc { font-size: 11px; color: var(--muted); }
 
   /* WORKSTATION — expands when a class is clicked */
@@ -679,7 +683,7 @@
     background: var(--surface);
     border-radius: 22px;
     padding: 24px;
-    margin-top: 16px;
+    margin: 14px 0; /* even gap above AND below when expanded between cards */
     box-shadow: var(--shadow);
     position: relative;
     animation: ws-in 0.3s ease;
@@ -760,7 +764,7 @@
   .ws-tab.active { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-xs); }
 
   .ws-content { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
-  .ws-content h4 { font-family: 'Fraunces', serif; font-size: 15px; margin: 12px 0 6px; color: var(--ink); }
+  .ws-content h4 { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 15px; margin: 12px 0 6px; color: var(--ink); }
   .ws-content ul { padding-left: 18px; }
   .ws-content li { margin-bottom: 4px; }
 
@@ -801,7 +805,7 @@
     padding: 10px 12px;
     text-align: center;
   }
-  .ws-attend .att-num { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; }
+  .ws-attend .att-num { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 18px; font-weight: 600; }
   .ws-attend .att-lab { font-size: 10px; color: var(--muted); margin-top: 1px; }
 
   /* SUBMISSIONS — clean list */
@@ -881,7 +885,7 @@
     text-transform: uppercase;
   }
   .class-row .cr-num {
-    font-family: 'Fraunces', serif;
+    font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em;
     font-size: 22px;
     font-weight: 600;
     line-height: 1;
@@ -913,7 +917,7 @@
   }
   .materials-collapsed .mc-body { flex: 1; }
   .materials-collapsed .mc-title {
-    font-family: 'Fraunces', serif;
+    font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em;
     font-size: 15px;
     font-weight: 600;
   }
@@ -965,28 +969,27 @@
      PROGRESS TAB
      ============================ */
   .course-sub-tabs {
-    display: flex; gap: 4px;
-    background: var(--surface);
-    border-radius: 14px;
-    padding: 5px;
-    box-shadow: var(--shadow-xs);
-    margin-bottom: 22px;
+    display: flex; gap: 6px;
+    padding: 6px 6px 14px; /* headroom for hover lift + shadows, top and bottom */
+    margin: -6px -6px 8px;
     overflow-x: auto;
     scrollbar-width: none;
   }
   .course-sub-tabs::-webkit-scrollbar { display: none; }
   .course-sub-tab {
     padding: 8px 14px;
-    border-radius: 10px;
+    border-radius: 999px;
     font-size: 12px; font-weight: 500;
+    background: var(--surface);
     color: var(--ink-2);
+    box-shadow: var(--shadow-xs);
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     transition: background 0.15s, color 0.15s;
   }
   .course-sub-tab:hover { background: var(--surface-2); }
-  .course-sub-tab.active { background: var(--ink); color: var(--bg); box-shadow: var(--shadow-xs); }
+  .course-sub-tab.active { background: var(--ink); color: var(--bg); }
 
   .progress-head {
     display: flex; align-items: flex-end; justify-content: space-between;
@@ -1011,7 +1014,7 @@
     box-shadow: var(--shadow-xs);
   }
   .stat .label { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
-  .stat .value { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .stat .value { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 26px; font-weight: 600; line-height: 1; }
   .stat .delta { font-size: 11px; color: var(--success); margin-top: 6px; font-weight: 500; }
   .stat .delta.flat { color: var(--muted); }
   .stat .delta.warn { color: var(--accent); }
@@ -1062,7 +1065,7 @@
     color: var(--muted);
     margin-bottom: 2px;
   }
-  .ms-body .ms-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; }
+  .ms-body .ms-title { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 16px; font-weight: 600; }
   .ms-body .ms-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .ms-feedback {
     background: var(--surface-2);
@@ -1099,7 +1102,7 @@
     text-align: right;
     padding-top: 4px;
   }
-  .ms-status .grade { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--success); display: block; line-height: 1; }
+  .ms-status .grade { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-size: 22px; font-weight: 600; color: var(--success); display: block; line-height: 1; }
   .ms-status .grade-flat { color: var(--ink); }
 
   /* Portfolio */
@@ -1144,7 +1147,7 @@
     flex-shrink: 0;
   }
   .rail-head h3 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em;
     font-size: 14.5px;
     font-weight: 600;
   }
@@ -1209,7 +1212,7 @@
     border-radius: 9px;
     display: grid; place-items: center;
     color: #fff;
-    font-family: 'Fraunces', serif;
+    font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em;
     font-weight: 700;
     font-size: 12px;
     flex-shrink: 0;
@@ -1515,6 +1518,73 @@
   .share-menu button:hover svg { color: var(--accent-2); }
   [data-theme="dark"] .share-menu button:hover svg { color: var(--accent); }
 
+  /* Theme personalisation swatches */
+  .theme-group { padding: 12px 0; border-bottom: 1px solid var(--hairline); }
+  .theme-group:last-child { border-bottom: none; padding-bottom: 4px; }
+  .tg-lab { font-size: 13.5px; font-weight: 500; margin-bottom: 9px; }
+  .swatch-row { display: flex; gap: 9px; flex-wrap: wrap; }
+  .swatch {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), var(--shadow-xs);
+    transition: transform 0.15s, box-shadow 0.15s;
+    flex-shrink: 0;
+  }
+  .swatch.sq { border-radius: 10px; }
+  .swatch:hover { transform: scale(1.12); }
+  .swatch:active { transform: scale(0.95); }
+  .swatch.active { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+
+  /* Video thumbnails — YouTube-style */
+  .vthumb {
+    width: 76px; height: 44px;
+    border-radius: 9px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    color: #fff;
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.2s;
+  }
+  .mat-row:hover .vthumb { transform: scale(1.06); }
+  .vthumb::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.22), transparent 55%);
+  }
+  .vthumb .vt-play {
+    position: relative; z-index: 1;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    display: grid; place-items: center;
+    backdrop-filter: blur(2px);
+  }
+  .vthumb .vt-play svg { width: 9px; height: 9px; margin-left: 1px; }
+  .vthumb .dur {
+    position: absolute; bottom: 3px; right: 3px;
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+    font-size: 8px; font-weight: 600;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    z-index: 1;
+    letter-spacing: 0.02em;
+  }
+  .vt-1 { background: linear-gradient(135deg, #4B3A8C 0%, #7A5FC4 55%, #B98ED6 100%); }
+  .vt-2 { background: linear-gradient(135deg, #1F4D3A 0%, #2E8763 55%, #7CC1A0 100%); }
+  .vt-3 { background: linear-gradient(135deg, #8C3A2A 0%, #C2542F 55%, #E0A06E 100%); }
+
+  /* Typing indicator */
+  .typing { display: inline-flex; gap: 4px; padding: 3px 2px; }
+  .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: tdot 1.1s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes tdot { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
   /* Toast */
   .toast {
     position: fixed;
@@ -1582,7 +1652,7 @@
       </button>
       <button class="tab" data-target="coursework">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-        Coursework
+        Learn
         <span class="badge">3</span>
       </button>
       <button class="tab" data-target="progress">
@@ -1813,7 +1883,6 @@
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
               Join video call
             </button>
-            <button class="btn ghost" onclick="event.stopPropagation(); openWorkstation('psyc214-live')">Open workstation</button>
           </div>
         </div>
 
@@ -2105,9 +2174,10 @@
           </div>
 
           <div class="mat-list">
-            <div class="mat-row">
-              <div class="mr-ico video">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            <div class="mat-row" data-type="video">
+              <div class="vthumb vt-1">
+                <span class="vt-play"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="6 4 20 12 6 20 6 4"/></svg></span>
+                <span class="dur">47:12</span>
               </div>
               <div class="mr-body">
                 <div class="t">Lecture recording — Bottleneck theories</div>
@@ -2145,9 +2215,10 @@
               </div>
               <button class="btn ghost small">Download</button>
             </div>
-            <div class="mat-row">
-              <div class="mr-ico video">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            <div class="mat-row" data-type="video">
+              <div class="vthumb vt-2">
+                <span class="vt-play"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="6 4 20 12 6 20 6 4"/></svg></span>
+                <span class="dur">38:05</span>
               </div>
               <div class="mr-body">
                 <div class="t">Recording — Carbon markets lecture</div>
@@ -2189,8 +2260,9 @@
             <div class="ph-sub" id="progressSub">Prof. Diane Halliday · Spring 2026</div>
           </div>
           <div style="display:flex; gap:8px;">
-            <button class="btn secondary small">Export</button>
-            <button class="btn small">Share</button>
+            <button class="icon-btn" title="Share" onclick="openShare(event, 'PSYC 214 progress report')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
           </div>
         </div>
 
@@ -2538,7 +2610,7 @@
     </button>
     <button class="mtab" data-target="coursework">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-      <span class="label">Coursework</span>
+      <span class="label">Learn</span>
       <span class="mbadge">3</span>
     </button>
     <button class="mtab" data-target="progress">
@@ -2630,12 +2702,49 @@
   </div>
 
   <div class="card mb-12">
+    <div class="card-head"><h3>Personalise</h3><a href="#" class="link" onclick="resetTheme(); return false;">Reset</a></div>
+    <div class="theme-group">
+      <div class="tg-lab">Key colour</div>
+      <div class="swatch-row" id="swKey">
+        <button class="swatch active" data-k="terracotta" style="background:#D97757" title="Terracotta" data-fn></button>
+        <button class="swatch" data-k="ochre" style="background:#C28A3A" title="Ochre" data-fn></button>
+        <button class="swatch" data-k="sage" style="background:#6E8F5E" title="Sage" data-fn></button>
+        <button class="swatch" data-k="indigo" style="background:#6B66C9" title="Indigo" data-fn></button>
+        <button class="swatch" data-k="rose" style="background:#C16179" title="Rose" data-fn></button>
+      </div>
+    </div>
+    <div class="theme-group">
+      <div class="tg-lab">Background</div>
+      <div class="swatch-row" id="swBg">
+        <button class="swatch sq active" data-b="beige" style="background:#F5F2EA" title="Beige" data-fn></button>
+        <button class="swatch sq" data-b="mist" style="background:#F1F2F4" title="Mist" data-fn></button>
+        <button class="swatch sq" data-b="linen" style="background:#FAF8F4" title="Linen" data-fn></button>
+      </div>
+    </div>
+    <div class="theme-group">
+      <div class="tg-lab">Cards</div>
+      <div class="swatch-row" id="swCard">
+        <button class="swatch sq active" data-c="white" style="background:#FFFFFF" title="White" data-fn></button>
+        <button class="swatch sq" data-c="cream" style="background:#FCF8EE" title="Cream" data-fn></button>
+        <button class="swatch sq" data-c="mist" style="background:#F4F5F8" title="Mist" data-fn></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-12">
     <div class="card-head"><h3>Account settings</h3></div>
     <div class="setting-row"><div class="body"><div class="t">Two-factor authentication</div><div class="s">Authenticator app · enabled</div></div><div class="switch on"></div></div>
     <div class="setting-row"><div class="body"><div class="t">Email notifications</div><div class="s">Announcements &amp; grades</div></div><div class="switch on"></div></div>
     <div class="setting-row"><div class="body"><div class="t">Push notifications</div><div class="s">Browser &amp; mobile</div></div><div class="switch on"></div></div>
     <div class="setting-row"><div class="body"><div class="t">Weekly digest</div><div class="s">Sunday mornings</div></div><div class="switch"></div></div>
     <div class="setting-row"><div class="body"><div class="t">Show me in classmate directory</div><div class="s">Visible to enrolled students</div></div><div class="switch on"></div></div>
+    <div class="setting-row">
+      <div class="body"><div class="t">Language</div><div class="s">English / ไทย</div></div>
+      <div class="toggle-strip" id="langToggle">
+        <button class="tg active" data-lang="en">EN</button>
+        <button class="tg" data-lang="th">ไทย</button>
+      </div>
+    </div>
   </div>
 
   <div class="card mb-12">
@@ -3109,6 +3218,351 @@
     const tb = document.querySelector('.topbar');
     if (window.scrollY > 4) tb.classList.add('scrolled');
     else tb.classList.remove('scrolled');
+  });
+
+  // ==========================================================
+  // FUNCTIONAL LAYER — every control does something
+  // ==========================================================
+
+  // ---------- "+" menu in chat inputs ----------
+  const PLUS_OPTS = [
+    ['Upload a file', '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'],
+    ['Add a photo', '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'],
+    ['Attach course material', '<path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8"/>'],
+  ];
+  document.querySelectorAll('.plus-btn').forEach(pb => {
+    pb.dataset.fn = '1';
+    pb.addEventListener('click', e => {
+      e.stopPropagation();
+      closeShare();
+      const menu = document.createElement('div');
+      menu.className = 'share-menu';
+      menu.id = 'shareMenu';
+      PLUS_OPTS.forEach(o => {
+        const b = document.createElement('button');
+        b.dataset.fn = '1';
+        b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + o[1] + '</svg>' + o[0];
+        b.addEventListener('click', () => { closeShare(); toast(o[0] + ' — added to this conversation ✓'); });
+        menu.appendChild(b);
+      });
+      document.body.appendChild(menu);
+      const r = pb.getBoundingClientRect();
+      const mh = menu.offsetHeight || 130;
+      menu.style.left = Math.max(8, r.left) + 'px';
+      menu.style.top = (r.top - mh - 8 > 0 ? r.top - mh - 8 : r.bottom + 8) + 'px';
+    });
+  });
+
+  // ---------- Chat send (main + reply) with AI response ----------
+  const ORIG_THREAD = document.getElementById('thread-msgs').innerHTML;
+  function nowTime() {
+    const d = new Date();
+    let h = d.getHours(); const mm = String(d.getMinutes()).padStart(2, '0');
+    const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    return h + ':' + mm + ' ' + ap;
+  }
+  function appendChatMsg(who, html, meta) {
+    const wrap = document.getElementById('thread-msgs');
+    const div = document.createElement('div');
+    div.className = 'msg ' + who;
+    div.innerHTML = (who === 'them' ? '<div class="ai-av">AI</div>' : '') +
+      '<div><div class="bubble">' + html + '</div><div class="msg-meta">' + meta + '</div></div>';
+    wrap.appendChild(div);
+    wrap.scrollTop = wrap.scrollHeight;
+    return div;
+  }
+  function aiRespond() {
+    const typing = appendChatMsg('them', '<span class="typing"><span></span><span></span><span></span></span>', '…');
+    setTimeout(() => {
+      typing.remove();
+      appendChatMsg('them', "Good question — let me pull from your course materials. Based on this week's readings, here's where I'd start…", nowTime());
+    }, 1100);
+  }
+  const mainTa = document.querySelector('#chat-new .chat-input textarea');
+  const replyTa = document.querySelector('#chat-thread .chat-input textarea');
+  function sendMain() {
+    const val = mainTa.value.trim();
+    if (!val) { mainTa.focus(); return; }
+    mainTa.value = ''; mainTa.style.height = 'auto';
+    document.getElementById('thread-title').textContent = val.length > 46 ? val.slice(0, 46) + '…' : val;
+    document.getElementById('thread-sub').textContent = 'General · NICHE Tutor · new conversation';
+    document.getElementById('thread-msgs').innerHTML = '';
+    document.getElementById('chat-new').classList.add('hidden');
+    document.getElementById('chat-thread').classList.remove('hidden');
+    appendChatMsg('me', val.replace(/</g, '&lt;'), nowTime());
+    aiRespond();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  function sendReply() {
+    const val = replyTa.value.trim();
+    if (!val) { replyTa.focus(); return; }
+    replyTa.value = ''; replyTa.style.height = 'auto';
+    appendChatMsg('me', val.replace(/</g, '&lt;'), nowTime());
+    aiRespond();
+  }
+  const mainSend = document.querySelector('#chat-new .send-btn');
+  const replySend = document.querySelector('#chat-thread .send-btn');
+  mainSend.dataset.fn = '1'; replySend.dataset.fn = '1';
+  mainSend.addEventListener('click', sendMain);
+  replySend.addEventListener('click', sendReply);
+  mainTa.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMain(); } });
+  replyTa.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendReply(); } });
+  // restore the canned conversation when reopening a recent
+  const __openThread = openThread;
+  openThread = function(key) {
+    document.getElementById('thread-msgs').innerHTML = ORIG_THREAD;
+    __openThread(key);
+  };
+
+  // ---------- Voice chip ----------
+  let recOn = false;
+  document.querySelectorAll('.input-chip').forEach(ch => {
+    if (!/Voice/.test(ch.textContent)) return;
+    ch.dataset.fn = '1';
+    ch.addEventListener('click', () => {
+      recOn = !recOn;
+      ch.style.background = recOn ? 'var(--danger-soft)' : '';
+      ch.style.color = recOn ? 'var(--danger)' : '';
+      toast(recOn ? 'Listening… (voice mock)' : 'Voice input stopped');
+    });
+  });
+
+  // ---------- Learn: search + course filter (really filters) ----------
+  const cwView = document.querySelector('[data-view="coursework"]');
+  const cwSearch = cwView.querySelector('.work-search input');
+  const courseStrip = cwView.querySelector(':scope > .filter-strip') || cwView.querySelector('.filter-strip');
+  let activeCourse = 'All courses';
+  const TYPE_MAP = { 'Videos': 'video', 'Slides': 'slides', 'Readings': 'pdf', 'Datasets': 'dataset' };
+  let activeType = 'All types';
+  function rowMatches(el, q) {
+    const txt = el.textContent.toLowerCase();
+    const courseOK = activeCourse === 'All courses' || el.textContent.includes(activeCourse);
+    const qOK = !q || txt.includes(q);
+    return courseOK && qOK;
+  }
+  function applyCwFilters() {
+    const q = cwSearch.value.trim().toLowerCase();
+    cwView.querySelectorAll('.class-row, .sub-row, .upc-card, .live-class').forEach(el => {
+      el.classList.toggle('hidden', !rowMatches(el, q));
+    });
+    applyMatFilters();
+  }
+  function applyMatFilters() {
+    const exp = document.getElementById('materials-expanded');
+    if (!exp) return;
+    const mq = (exp.querySelector('.mat-search input')?.value || '').trim().toLowerCase();
+    exp.querySelectorAll('.mat-row').forEach(r => {
+      const cls = TYPE_MAP[activeType] || '';
+      const typeOK = activeType === 'All types' || r.querySelector('.mr-ico.' + cls) || (cls === 'video' && r.querySelector('.vthumb'));
+      const ok = typeOK && rowMatches(r, mq);
+      r.classList.toggle('hidden', !ok);
+    });
+  }
+  cwSearch.addEventListener('input', applyCwFilters);
+  courseStrip.querySelectorAll('.filt').forEach(f => f.addEventListener('click', () => {
+    activeCourse = f.textContent.trim() === 'All courses' || f.dataset.en === 'All courses' ? 'All courses' : (f.dataset.code || f.textContent.trim());
+    if (!/^[A-Z]{3,4} \d{3}$/.test(activeCourse) && activeCourse !== 'All courses') activeCourse = 'All courses';
+    applyCwFilters();
+  }));
+  courseStrip.querySelectorAll('.filt').forEach(f => { const t = f.textContent.trim(); if (/^[A-Z]{3,4} \d{3}$/.test(t)) f.dataset.code = t; });
+  const matStrip = document.querySelector('#materials-expanded .filter-strip');
+  if (matStrip) {
+    matStrip.querySelectorAll('.filt').forEach(f => {
+      f.dataset.en = f.textContent.trim();
+      f.addEventListener('click', () => { activeType = f.dataset.en; applyMatFilters(); });
+    });
+  }
+  const matSearchInput = document.querySelector('#materials-expanded .mat-search input');
+  if (matSearchInput) matSearchInput.addEventListener('input', applyMatFilters);
+
+  // ---------- Load more materials ----------
+  const loadBtn = [...document.querySelectorAll('button')].find(b => b.textContent.trim().startsWith('Load more'));
+  if (loadBtn) {
+    loadBtn.dataset.fn = '1';
+    let loaded = false;
+    const EXTRA = [
+      ['video', 'Recording — Selective Attention', 'PSYC 214 · Module 4 · 51 min', 'Watch'],
+      ['pdf', 'Reading — Stern Review excerpt', 'ENVR 308 · PDF · 3.2 MB', 'Open'],
+      ['slides', 'Slides — Estimator Properties', 'STAT 210 · Module 5 · PDF · 1.8 MB', 'Open'],
+      ['dataset', 'Dataset — EU ETS prices 2015–2025', 'ENVR 308 · CSV · 64 KB', 'Download'],
+    ];
+    const MAT_ICONS = {
+      video: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
+      pdf: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>',
+      slides: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+      dataset: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>',
+    };
+    loadBtn.addEventListener('click', () => {
+      if (loaded) { toast('All loaded in this mock — 204 more on the real portal'); return; }
+      const list = document.querySelector('#materials-expanded .mat-list');
+      EXTRA.forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'mat-row';
+        row.style.animation = 'ws-in 0.35s ease both';
+        const lead = m[0] === 'video'
+          ? '<div class="vthumb vt-3"><span class="vt-play"><svg viewBox="0 0 24 24" fill="#fff"><polygon points="6 4 20 12 6 20 6 4"/></svg></span><span class="dur">51:30</span></div>'
+          : '<div class="mr-ico ' + m[0] + '">' + MAT_ICONS[m[0]] + '</div>';
+        row.innerHTML = lead +
+          '<div class="mr-body"><div class="t">' + m[1] + '</div><div class="s">' + m[2] + '</div></div>' +
+          '<button class="btn ghost small">' + m[3] + '</button>';
+        list.appendChild(row);
+      });
+      loadBtn.childNodes.forEach(n => { if (n.nodeType === 3 && n.textContent.trim()) n.textContent = 'Load more · 204 remaining'; });
+      if (!loadBtn.textContent.includes('204')) loadBtn.textContent = 'Load more · 204 remaining';
+      loaded = true;
+      applyMatFilters();
+    });
+  }
+
+  // ---------- Upload simulation (submissions) ----------
+  [...cwView.querySelectorAll('.sub-row .btn')].filter(b => b.textContent.trim() === 'Upload').forEach(b => {
+    b.dataset.fn = '1';
+    b.addEventListener('click', () => {
+      const row = b.closest('.sub-row');
+      b.disabled = true; b.style.opacity = '0.6'; b.textContent = 'Uploading…';
+      setTimeout(() => {
+        const ico = row.querySelector('.sub-ico');
+        ico.className = 'sub-ico done';
+        ico.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        const due = row.querySelector('.due-text');
+        if (due) { due.className = 'ok-text'; due.textContent = 'Submitted ✓'; }
+        b.outerHTML = '<button class="btn ghost small">View</button>';
+        toast('Essay uploaded — submitted ✓');
+      }, 1400);
+    });
+  });
+
+  // ---------- Language EN / ไทย ----------
+  const T = {
+    'Chat':'แชท','Learn':'เรียน','Progress':'ความคืบหน้า',
+    'Recents':'ล่าสุด','View all':'ดูทั้งหมด','General':'ทั่วไป','Career services':'บริการอาชีพ','Library':'ห้องสมุด','Voice':'เสียง',
+    "Today's classes":'คลาสวันนี้','All classes':'คลาสทั้งหมด','Submissions':'งานที่ต้องส่ง','Course materials':'เอกสารประกอบ',
+    'Upcoming':'กำลังจะถึง','Previous':'ที่ผ่านมา','All courses':'ทุกวิชา','All types':'ทุกประเภท',
+    'Videos':'วิดีโอ','Slides':'สไลด์','Readings':'เอกสารอ่าน','Datasets':'ชุดข้อมูล',
+    'Live now':'สดตอนนี้','Live online':'สดออนไลน์','In-person':'ในห้องเรียน','Seminar':'สัมมนา',
+    'Join video call':'เข้าร่วมวิดีโอคอล','QR check-in':'เช็คอินด้วย QR','Start lesson':'เริ่มบทเรียน','Directions to room':'เส้นทางไปห้องเรียน',
+    'Upload':'อัปโหลด','Open':'เปิด','Start':'เริ่ม','View':'ดู','Watch':'ดู','Download':'ดาวน์โหลด','Replay':'ดูย้อนหลัง','Collapse':'ย่อ',
+    'Stream':'สตรีม','Q&A':'ถาม-ตอบ',
+    'Updates':'อัปเดต','Announcements':'ประกาศ','Reminders':'การแจ้งเตือน','Job portal':'งานและฝึกงาน','Manage visibility':'จัดการการมองเห็น',
+    'Account & admin':'บัญชีและการตั้งค่า','Enrolment':'การลงทะเบียน','Tuition & payments':'ค่าเทอมและการชำระเงิน',
+    'Account settings':'การตั้งค่าบัญชี','Privacy & security':'ความเป็นส่วนตัวและความปลอดภัย',
+    'Help & support':'ช่วยเหลือ','Sign out':'ออกจากระบบ','Language':'ภาษา','Make a payment':'ชำระเงิน',
+    'Register for next term':'ลงทะเบียนเทอมถัดไป','Statement':'ใบแจ้งยอด','Good standing':'สถานะดี',
+    'Course progress':'ความคืบหน้าวิชา','Current grade':'เกรดปัจจุบัน','Milestones':'ไมล์สโตน','Portfolio':'พอร์ตโฟลิโอ',
+    'Full syllabus':'ดูหลักสูตรเต็ม','Export':'ส่งออก','Share':'แชร์','Overview':'ภาพรวม',
+    'Materials for this class':'เอกสารของคลาสนี้','Your attendance':'การเข้าเรียนของคุณ','Required reading':'เอกสารบังคับอ่าน','After the video':'หลังดูวิดีโอ',
+    'Personalise':'ปรับแต่งธีม','Key colour':'สีหลัก','Background':'พื้นหลัง','Cards':'การ์ด','Reset':'รีเซ็ต',
+  };
+  const PH = {
+    "Ask anything — about your course, an assignment, or what's due this week…": 'ถามได้ทุกเรื่อง — วิชา การบ้าน หรือกำหนดส่งสัปดาห์นี้…',
+    'Reply…': 'ตอบกลับ…',
+    'Search a class, lecture, file…': 'ค้นหาคลาส บทเรียน ไฟล์…',
+    'Search materials…': 'ค้นหาเอกสาร…',
+    'Ask the teacher…': 'ถามอาจารย์…',
+  };
+  const I18N_SEL = '.tab, .mtab .label, .sec-head h2, .toggle-strip .tg, .card-head h3, .card-head .link, .rail-top h2, .rail-head h3, .drawer-head h2, .btn, .ctx-chip, .filt, .setting-row .t, .stat .label, .course-sub-tab, .ws-tab, .ws-mini h5, .lc-pill, .pill, .input-chip, a.link, .tg-lab';
+  const i18nOrig = new WeakMap();
+  let currentLang = 'en';
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll(I18N_SEL).forEach(el => {
+      el.childNodes.forEach(n => {
+        if (n.nodeType !== 3 || !n.textContent.trim()) return;
+        if (!i18nOrig.has(n)) i18nOrig.set(n, n.textContent);
+        const orig = i18nOrig.get(n);
+        const en = orig.trim();
+        n.textContent = (lang === 'th' && T[en]) ? orig.replace(en, T[en]) : orig;
+      });
+    });
+    document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(el => {
+      if (!el.dataset.phEn) el.dataset.phEn = el.getAttribute('placeholder');
+      el.setAttribute('placeholder', lang === 'th' ? (PH[el.dataset.phEn] || el.dataset.phEn) : el.dataset.phEn);
+    });
+    document.querySelectorAll('#langToggle .tg').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    try { localStorage.setItem('niche-lang', lang); } catch (err) {}
+  }
+  document.querySelectorAll('#langToggle .tg').forEach(b => {
+    b.addEventListener('click', () => applyLang(b.dataset.lang));
+  });
+  // translate dynamically-inserted workstation content too
+  const __openWorkstation = openWorkstation;
+  openWorkstation = function(key) {
+    __openWorkstation(key);
+    if (currentLang === 'th') applyLang('th');
+  };
+  try { if (localStorage.getItem('niche-lang') === 'th') applyLang('th'); } catch (err) {}
+
+  // ---------- Personalised theme (key colour · background · cards) ----------
+  const THEME_KEY = {
+    terracotta: { light: { a:'#D97757', a2:'#C2542F', soft:'#FBEAE1', ink:'#6E2D14' }, dark: { a:'#E08A6E', a2:'#D97757', soft:'rgba(217,119,87,0.18)', ink:'#F0B898' } },
+    ochre:      { light: { a:'#C28A3A', a2:'#A66F24', soft:'#F7ECDA', ink:'#5F4112' }, dark: { a:'#D9A95C', a2:'#C28A3A', soft:'rgba(217,169,92,0.18)', ink:'#EDCB94' } },
+    sage:       { light: { a:'#6E8F5E', a2:'#55763F', soft:'#E9F0E3', ink:'#2F4322' }, dark: { a:'#8FAF7E', a2:'#6E8F5E', soft:'rgba(143,175,126,0.18)', ink:'#BCD4AC' } },
+    indigo:     { light: { a:'#6B66C9', a2:'#5049B0', soft:'#EAE9F8', ink:'#2E2A6B' }, dark: { a:'#8E89DD', a2:'#6B66C9', soft:'rgba(142,137,221,0.18)', ink:'#BDB9F0' } },
+    rose:       { light: { a:'#C16179', a2:'#A8425C', soft:'#F8E7EB', ink:'#5F2230' }, dark: { a:'#D9849A', a2:'#C16179', soft:'rgba(217,132,154,0.18)', ink:'#F0B9C6' } },
+  };
+  const THEME_BG = {
+    beige: { light: { bg:'#F5F2EA', s2:'#FBF8F0', s3:'#F0EBDE' }, dark: { bg:'#14130F', s:'#1E1C18', s2:'#25231F', s3:'#2D2B26' } },
+    mist:  { light: { bg:'#F1F2F4', s2:'#F7F8FA', s3:'#E9EBEE' }, dark: { bg:'#121316', s:'#1B1C20', s2:'#222327', s3:'#2A2B30' } },
+    linen: { light: { bg:'#FAF8F4', s2:'#FCFBF7', s3:'#F1EEE7' }, dark: { bg:'#161513', s:'#201E1B', s2:'#262420', s3:'#2E2C28' } },
+  };
+  const THEME_CARD = {
+    white: { light: '#FFFFFF', dark: null },   // dark: follows background set
+    cream: { light: '#FCF8EE', dark: '#242019' },
+    mist:  { light: '#F4F5F8', dark: '#1E2026' },
+  };
+  let themeState = { key: 'terracotta', bg: 'beige', card: 'white' };
+  function applyCustomTheme() {
+    const mode = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const st = root.style;
+    const K = THEME_KEY[themeState.key][mode];
+    st.setProperty('--accent', K.a);
+    st.setProperty('--accent-2', K.a2);
+    st.setProperty('--accent-soft', K.soft);
+    st.setProperty('--accent-ink', K.ink);
+    const B = THEME_BG[themeState.bg][mode];
+    st.setProperty('--bg', B.bg);
+    st.setProperty('--surface-2', B.s2);
+    st.setProperty('--surface-3', B.s3);
+    const C = THEME_CARD[themeState.card][mode];
+    if (mode === 'light') {
+      st.setProperty('--surface', C || '#FFFFFF');
+      st.setProperty('--surface-elev', C || '#FFFFFF');
+    } else {
+      st.setProperty('--surface', C || B.s);
+      st.setProperty('--surface-elev', C || B.s);
+    }
+    [['swKey', 'key', 'k'], ['swBg', 'bg', 'b'], ['swCard', 'card', 'c']].forEach(([id, prop, attr]) => {
+      document.querySelectorAll('#' + id + ' .swatch').forEach(s => s.classList.toggle('active', s.dataset[attr] === themeState[prop]));
+    });
+    try { localStorage.setItem('niche-custom', JSON.stringify(themeState)); } catch (err) {}
+  }
+  document.querySelectorAll('#swKey .swatch').forEach(s => s.addEventListener('click', () => { themeState.key = s.dataset.k; applyCustomTheme(); }));
+  document.querySelectorAll('#swBg .swatch').forEach(s => s.addEventListener('click', () => { themeState.bg = s.dataset.b; applyCustomTheme(); }));
+  document.querySelectorAll('#swCard .swatch').forEach(s => s.addEventListener('click', () => { themeState.card = s.dataset.c; applyCustomTheme(); }));
+  function resetTheme() {
+    themeState = { key: 'terracotta', bg: 'beige', card: 'white' };
+    applyCustomTheme();
+    toast('Theme reset to default');
+  }
+  // re-apply custom palette whenever day/night mode flips
+  const __setTheme = setTheme;
+  setTheme = function(t) { __setTheme(t); applyCustomTheme(); };
+  try {
+    const saved = JSON.parse(localStorage.getItem('niche-custom') || 'null');
+    if (saved && THEME_KEY[saved.key] && THEME_BG[saved.bg] && THEME_CARD[saved.card]) themeState = saved;
+  } catch (err) {}
+  applyCustomTheme();
+
+  // ---------- Fallback: every remaining control gives feedback ----------
+  document.querySelectorAll('.tab, .mtab, .toggle-strip .tg, .course-sub-tab, .filt, .switch, #themeToggle').forEach(el => el.dataset.fn = '1');
+  document.addEventListener('click', e => {
+    const b = e.target.closest('button, a');
+    if (!b) return;
+    if (b.tagName === 'A' && b.getAttribute('href') === '#') e.preventDefault();
+    if (b.dataset.fn || b.hasAttribute('onclick') || b.classList.contains('ws-tab')) return;
+    const label = (b.title || b.textContent.trim().replace(/\s+/g, ' ') || '•').slice(0, 40);
+    toast('“' + label + '” — mock action in this prototype');
   });
 
   // ---------- Esc closes overlays ----------
