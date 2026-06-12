@@ -21,10 +21,10 @@
     --ink-2: #4F4C46;
     --muted: #8A857A;
     --hairline: rgba(20, 18, 16, 0.06);
-    --accent: #D97757;
-    --accent-2: #C2542F;
-    --accent-soft: #FBEAE1;
-    --accent-ink: #6E2D14;
+    --accent: #FF4000;
+    --accent-2: #D63600;
+    --accent-soft: #FFE6DC;
+    --accent-ink: #7A1F00;
     --success: #1F8A5E;
     --success-soft: #E2F1EA;
     --warn: #C99656;
@@ -50,10 +50,10 @@
     --ink-2: #C5C0B5;
     --muted: #807C72;
     --hairline: rgba(255, 250, 240, 0.06);
-    --accent: #E08A6E;
-    --accent-2: #D97757;
-    --accent-soft: rgba(217, 119, 87, 0.18);
-    --accent-ink: #F0B898;
+    --accent: #FF6A38;
+    --accent-2: #FF4000;
+    --accent-soft: rgba(255, 64, 0, 0.18);
+    --accent-ink: #FFB59A;
     --success: #4FB389;
     --success-soft: rgba(79, 179, 137, 0.18);
     --warn: #D9B485;
@@ -132,20 +132,62 @@
   }
 
   .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .brand-mark {
-    width: 36px; height: 36px;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 10px;
-    display: grid; place-items: center;
-    box-shadow: var(--shadow-sm);
+  .brand-wm {
+    display: flex; align-items: flex-end; /* lockup spec: mark sits on the baseline */
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: 800; font-size: 23px;
+    letter-spacing: -0.03em; line-height: 1;
+    color: var(--ink);
+    user-select: none;
   }
-  .brand-mark svg { width: 22px; height: 22px; }
-  .brand-name { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: -0.015em; font-weight: 600; font-size: 17px; line-height: 1.05; }
-  .brand-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-  .brand-text { line-height: 1.15; }
+  .brand-wm span {
+    display: inline-block;
+    animation: wmBreathe 7s ease-in-out infinite;
+  }
+  .brand-wm span:nth-child(1) { animation-delay: 0s; }
+  .brand-wm span:nth-child(2) { animation-delay: 0.3s; }
+  .brand-wm span:nth-child(3) { animation-delay: 0.6s; }
+  .brand-wm span:nth-child(4) { animation-delay: 0.9s; }
+  .brand-wm span:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes wmBreathe {
+    0%, 100% { font-variation-settings: 'wght' 800; }
+    50% { font-variation-settings: 'wght' 420; }
+  }
+  @media (prefers-reduced-motion: reduce) { .brand-wm span { animation: none; } }
+  .brand-glyph {
+    /* small-size lockup spec: mark = 0.42em, gap 0.08em, baseline-aligned */
+    width: 0.42em; height: 0.42em;
+    margin-left: 0.08em; margin-bottom: 0.02em;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(.2,.9,.3,1.4);
+  }
+  .brand-glyph svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .brand-glyph .bg-ig {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    transform-box: fill-box; transform-origin: center;
+  }
+  .brand-glyph .bg-ig.on { opacity: 1; }
+  .brand-glyph .bg-circle.on { animation: bgBreathe 4s ease-in-out infinite; }
+  .brand-glyph .bg-tri.on { animation: bgTilt 3.2s ease-in-out infinite; }
+  @keyframes bgBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.86); }
+  }
+  @keyframes bgTilt {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+  }
+  .brand-glyph.pop svg { animation: bgPop 0.5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes bgPop {
+    0% { transform: scale(0.5) rotate(-20deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  .brand:hover .brand-glyph { transform: scale(1.35); }
+  @media (prefers-reduced-motion: reduce) { .brand-glyph .bg-ig { animation: none !important; } }
   @media (max-width: 768px) {
-    .brand-text { display: none; }
+    .brand-wm { font-size: 20px; }
   }
 
   /* Primary tab strip — embedded in topbar */
@@ -190,6 +232,28 @@
   .tab:hover .badge { transform: scale(1.12); }
   @media (max-width: 768px) {
     .tab-strip { display: none; }
+  }
+
+  /* Tab-switch reactivity: active pill pops, icon swings, view rises in */
+  .tab.active { animation: tabPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .tab.active svg { animation: tabIcon 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .mtab.active svg { animation: tabIcon 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes tabPop {
+    0% { transform: scale(0.93); }
+    55% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+  @keyframes tabIcon {
+    0% { transform: rotate(-14deg) scale(0.75); }
+    100% { transform: rotate(0) scale(1); }
+  }
+  .view { animation: viewEnter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @keyframes viewEnter {
+    from { opacity: 0; transform: translateY(14px) scale(0.994); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tab.active, .tab.active svg, .mtab.active svg, .view { animation: none; }
   }
 
   /* Utility actions */
@@ -1405,8 +1469,6 @@
   .ann-item .src { transition: transform 0.2s; }
   .ann-item:hover .src { transform: scale(1.1); }
 
-  .brand-mark { transition: transform 0.3s cubic-bezier(.2,.9,.3,1.4); }
-  .brand:hover .brand-mark { transform: rotate(-4deg) scale(1.05); }
   .thread-back { transition: background 0.15s, color 0.15s, transform 0.15s; }
   .thread-back:hover { transform: translateX(-2px); }
   .drawer-close { transition: background 0.15s, transform 0.2s; }
@@ -1651,17 +1713,8 @@
   <!-- ========== TOPBAR (tabs embedded in shell) ========== -->
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark">
-        <!-- Default NICHE mark -->
-        <svg viewBox="0 0 240 240" fill="currentColor">
-          <rect x="30"  y="30" width="22" height="180" rx="2"/>
-          <rect x="188" y="30" width="22" height="180" rx="2"/>
-          <polygon points="52,30 78,30 188,210 162,210"/>
-        </svg>
-      </div>
-      <div class="brand-text">
-        <div class="brand-name">NICHE</div>
-        <div class="brand-sub">Institute</div>
+      <div class="brand-wm" aria-label="NICHE">
+        <span>N</span><span>I</span><span>C</span><span>H</span><span>E</span><i class="brand-glyph" id="brandGlyph"></i>
       </div>
     </div>
 
@@ -2728,7 +2781,10 @@
     <div class="theme-group">
       <div class="tg-lab">Key colour</div>
       <div class="swatch-row" id="swKey">
-        <button class="swatch active" data-k="terracotta" style="background:#D97757" title="Terracotta" data-fn></button>
+        <button class="swatch active" data-k="creativity" style="background:#FF4000" title="Creativity" data-fn></button>
+        <button class="swatch" data-k="humanity" style="background:#E50695" title="Humanity" data-fn></button>
+        <button class="swatch" data-k="entrepreneurship" style="background:#0533F3" title="Entrepreneurship" data-fn></button>
+        <button class="swatch" data-k="terracotta" style="background:#D97757" title="Terracotta" data-fn></button>
         <button class="swatch" data-k="ochre" style="background:#C28A3A" title="Ochre" data-fn></button>
         <button class="swatch" data-k="sage" style="background:#6E8F5E" title="Sage" data-fn></button>
         <button class="swatch" data-k="indigo" style="background:#6B66C9" title="Indigo" data-fn></button>
@@ -3517,6 +3573,9 @@
 
   // ---------- Personalised theme (key colour · background · cards) ----------
   const THEME_KEY = {
+    creativity:       { light: { a:'#FF4000', a2:'#D63600', soft:'#FFE6DC', ink:'#7A1F00' }, dark: { a:'#FF6A38', a2:'#FF4000', soft:'rgba(255,64,0,0.18)', ink:'#FFB59A' } },
+    humanity:         { light: { a:'#E50695', a2:'#C00579', soft:'#FCE0F0', ink:'#75024C' }, dark: { a:'#F23DAE', a2:'#E50695', soft:'rgba(229,6,149,0.18)', ink:'#F9A8D9' } },
+    entrepreneurship: { light: { a:'#0533F3', a2:'#0426C8', soft:'#E2E8FE', ink:'#021670' }, dark: { a:'#4565FF', a2:'#0533F3', soft:'rgba(5,51,243,0.2)', ink:'#A7B6FF' } },
     terracotta: { light: { a:'#D97757', a2:'#C2542F', soft:'#FBEAE1', ink:'#6E2D14' }, dark: { a:'#E08A6E', a2:'#D97757', soft:'rgba(217,119,87,0.18)', ink:'#F0B898' } },
     ochre:      { light: { a:'#C28A3A', a2:'#A66F24', soft:'#F7ECDA', ink:'#5F4112' }, dark: { a:'#D9A95C', a2:'#C28A3A', soft:'rgba(217,169,92,0.18)', ink:'#EDCB94' } },
     sage:       { light: { a:'#6E8F5E', a2:'#55763F', soft:'#E9F0E3', ink:'#2F4322' }, dark: { a:'#8FAF7E', a2:'#6E8F5E', soft:'rgba(143,175,126,0.18)', ink:'#BCD4AC' } },
@@ -3533,7 +3592,7 @@
     cream: { light: '#FCF8EE', dark: '#242019' },
     mist:  { light: '#F4F5F8', dark: '#1E2026' },
   };
-  let themeState = { key: 'terracotta', bg: 'beige', card: 'white' };
+  let themeState = { key: 'creativity', bg: 'beige', card: 'white' };
   function applyCustomTheme() {
     const mode = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
     const st = root.style;
@@ -3557,13 +3616,13 @@
     [['swKey', 'key', 'k'], ['swBg', 'bg', 'b'], ['swCard', 'card', 'c']].forEach(([id, prop, attr]) => {
       document.querySelectorAll('#' + id + ' .swatch').forEach(s => s.classList.toggle('active', s.dataset[attr] === themeState[prop]));
     });
-    try { localStorage.setItem('niche-custom', JSON.stringify(themeState)); } catch (err) {}
+    try { localStorage.setItem('niche-custom-v2', JSON.stringify(themeState)); } catch (err) {}
   }
   document.querySelectorAll('#swKey .swatch').forEach(s => s.addEventListener('click', () => { themeState.key = s.dataset.k; applyCustomTheme(); }));
   document.querySelectorAll('#swBg .swatch').forEach(s => s.addEventListener('click', () => { themeState.bg = s.dataset.b; applyCustomTheme(); }));
   document.querySelectorAll('#swCard .swatch').forEach(s => s.addEventListener('click', () => { themeState.card = s.dataset.c; applyCustomTheme(); }));
   function resetTheme() {
-    themeState = { key: 'terracotta', bg: 'beige', card: 'white' };
+    themeState = { key: 'creativity', bg: 'beige', card: 'white' };
     applyCustomTheme();
     toast('Theme reset to default');
   }
@@ -3571,7 +3630,7 @@
   const __setTheme = setTheme;
   setTheme = function(t) { __setTheme(t); applyCustomTheme(); };
   try {
-    const saved = JSON.parse(localStorage.getItem('niche-custom') || 'null');
+    const saved = JSON.parse(localStorage.getItem('niche-custom-v2') || 'null');
     if (saved && THEME_KEY[saved.key] && THEME_BG[saved.bg] && THEME_CARD[saved.card]) themeState = saved;
   } catch (err) {}
   applyCustomTheme();
@@ -3591,6 +3650,53 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeDrawer(); closeQR(); closeRail(); closeShare(); }
   });
+
+  // ---------- Brand glyph: V2 mark — rotates blob / circle / triangle ----------
+  (function () {
+    const host = document.getElementById('brandGlyph');
+    if (!host) return;
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // calm procedural blob (same generator as the brand kit)
+    function blobPath(t) {
+      const N = 24, pts = [];
+      const a2 = 5 + 2.5 * Math.sin(t * 0.00037);
+      const a3 = 4 + 2 * Math.sin(t * 0.00053);
+      const p2 = t * 0.00045, p3 = -t * 0.00032;
+      for (let i = 0; i < N; i++) {
+        const a = (i / N) * Math.PI * 2;
+        const r = 39 + a2 * Math.sin(2 * a + p2) + a3 * Math.sin(3 * a + p3);
+        pts.push([50 + Math.cos(a) * r, 50 + Math.sin(a) * r]);
+      }
+      let d = '';
+      for (let j = 0; j < N; j++) {
+        const p0 = pts[(j - 1 + N) % N], p1 = pts[j], p2 = pts[(j + 1) % N], p3 = pts[(j + 2) % N];
+        const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        if (j === 0) d = 'M' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1);
+        d += 'C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+      }
+      return d + 'Z';
+    }
+    host.innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="bg-ig bg-blob on" fill="#FF4000" d="' + blobPath(0) + '"/>' +
+      '<circle class="bg-ig bg-circle" fill="#E50695" cx="50" cy="50" r="44"/>' +
+      '<path class="bg-ig bg-tri" fill="#0533F3" d="M10 88 L50 12 L90 88 Z"/>' +
+      '</svg>';
+    const igs = host.querySelectorAll('.bg-ig');
+    const blobEl = igs[0];
+    let cur = 0;
+    setInterval(() => {
+      cur = (cur + 1) % 3;
+      igs.forEach((g, j) => g.classList.toggle('on', j === cur));
+      if (!noMotion) { host.classList.remove('pop'); void host.offsetWidth; host.classList.add('pop'); }
+    }, 7000);
+    if (!noMotion) {
+      (function tick(ts) {
+        blobEl.setAttribute('d', blobPath(ts || 0));
+        requestAnimationFrame(tick);
+      })(0);
+    }
+  })();
 </script>
 </body>
 </html>

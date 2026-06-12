@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Kit · V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--black); color: var(--white); }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  /* ============================================================
+     THE LOCKUP — one ratio at every size.
+     Wordmark 900 / −4.5%, mark = 0.165em square, gap 0.07em,
+     baseline-aligned. Set font-size; everything else follows.
+     ============================================================ */
+  .lock {
+    display: inline-flex; align-items: flex-end;
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.86;
+    white-space: nowrap;
+  }
+  .lock .mark {
+    display: inline-block;
+    width: 0.165em; height: 0.165em;
+    margin-left: 0.07em; margin-bottom: 0.02em;
+    flex-shrink: 0;
+  }
+  /* small-size lockups (≤ ~32px): the mark enlarges so it stays legible */
+  .lock.sm .mark {
+    width: 0.42em; height: 0.42em;
+    margin-left: 0.08em; margin-bottom: 0;
+  }
+  [data-mark] svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .ig { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 0.18s ease, fill 0.4s ease; fill: var(--state); }
+  .ig.on { opacity: 1; }
+  .ig-circle.on { animation: circleBreathe 4s ease-in-out infinite; }
+  .ig-tri.on { animation: triTilt 3.2s ease-in-out infinite; }
+  @keyframes circleBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.88); }
+  }
+  @keyframes triTilt {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(9deg) translateY(-4%); }
+  }
+  [data-mark].pop svg { animation: markPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes markPop {
+    0% { transform: scale(0.5) rotate(-20deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  /* fixed-shape marks carry their OWN program color (not the page state) */
+  [data-fixed="0"] .ig { fill: var(--creativity); }
+  [data-fixed="1"] .ig { fill: var(--humanity); }
+  [data-fixed="2"] .ig { fill: var(--entrepreneurship); }
+  .markwhite .ig { fill: var(--white) !important; }
+  .markblack .ig { fill: var(--black) !important; }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .topbar nav a {
+    color: var(--black); text-decoration: none;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    border-bottom: 2px solid transparent; padding-bottom: 2px;
+  }
+  .topbar nav a:hover { border-bottom-color: var(--black); }
+  @media (max-width: 1100px) { .topbar nav { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: calc(100vh - 61px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px; border-bottom: 1px solid var(--black);
+    cursor: crosshair;
+  }
+  .hero .eyebrow { display: flex; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px; }
+  .hero h1 {
+    font-size: clamp(84px, 16.5vw, 300px);
+    letter-spacing: -0.045em; line-height: 0.86;
+    user-select: none; display: flex; align-items: flex-end;
+  }
+  .hero h1 .lt {
+    display: inline-block;
+    font-variation-settings: 'wght' 200;
+    will-change: font-variation-settings;
+  }
+  .hero h1 .mark { width: 0.165em; height: 0.165em; margin-left: 0.07em; margin-bottom: 0.02em; flex-shrink: 0; }
+  .hero .stateword {
+    font-size: clamp(30px, 4.8vw, 80px);
+    font-weight: 250; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 20px;
+    position: relative; height: 1.06em;
+    user-select: none;
+  }
+  .hero .stateword span {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(35%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+  }
+  .hero .stateword span.on { opacity: 1; transform: translateY(0); }
+  .hero .stateword em { font-style: normal; font-weight: 650; color: var(--state); transition: color 0.6s ease; }
+  .hero .hint { margin-top: 36px; max-width: 600px; font-size: clamp(16px, 1.9vw, 21px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+  .hero .hint b { font-weight: 800; }
+
+  /* ---------- Marquees ---------- */
+  .marquees { border-bottom: 1px solid var(--black); will-change: transform; }
+  .mq { overflow: hidden; white-space: nowrap; padding: 12px 0; }
+  .mq + .mq { border-top: 1px solid var(--black); }
+  .mq .track { display: inline-block; }
+  .mq span { display: inline-block; margin-right: 56px; text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
+  .mq-1 span { font-size: 40px; }
+  .mq-2 span { font-size: 18px; font-weight: 400; letter-spacing: 0.2em; margin-right: 72px; }
+  .mq-3 span { font-size: 40px; -webkit-text-stroke: 1.5px var(--black); color: transparent; }
+  .mq-1 .track { animation: mqL 30s linear infinite; }
+  .mq-2 .track { animation: mqR 24s linear infinite; }
+  .mq-3 .track { animation: mqL 38s linear infinite; }
+  @keyframes mqL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes mqR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--black); }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-bottom: 56px; align-items: baseline; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .sec-head .intro { margin-top: 16px; max-width: 640px; font-size: 16px; color: #333; }
+
+  /* ---------- 01 Wordmark board ---------- */
+  .wm-board { border: 1px solid var(--black); }
+  .wm-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .wm-row > div { padding: 56px 40px; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+  .wm-row > div + div { border-left: 1px solid var(--black); }
+  .wm-row + .wm-row { border-top: 1px solid var(--black); }
+  @media (max-width: 860px) {
+    .wm-row { grid-template-columns: 1fr; }
+    .wm-row > div + div { border-left: none; border-top: 1px solid var(--black); }
+  }
+  .wm-cell.inverse { background: var(--black); color: var(--white); }
+  .wm-cell .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .wm-cell .cap .desc { font-size: 13px; color: var(--gray); font-weight: 400; letter-spacing: 0; text-transform: none; max-width: 340px; }
+  .wm-cell.inverse .cap .desc { color: #999; }
+  .lockup-stacked { font-weight: 900; letter-spacing: -0.045em; line-height: 0.86; }
+  .lockup-stacked .row2 { display: inline-flex; align-items: flex-end; }
+  .lockup-stacked .row2 .mark { width: 0.165em; height: 0.165em; margin-left: 0.07em; margin-bottom: 0.02em; }
+
+  .wm-meta { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); border-top: none; }
+  .wm-meta > div { padding: 22px 40px; }
+  .wm-meta > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) {
+    .wm-meta { grid-template-columns: 1fr; }
+    .wm-meta > div + div { border-left: none; border-top: 1px solid var(--black); }
+  }
+  .wm-meta .k { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+  .wm-meta .v { font-size: 14px; font-weight: 600; }
+
+  /* scale row — proves alignment at every size */
+  .scale-row {
+    border: 1px solid var(--black); border-top: none;
+    padding: 44px 40px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 28px; flex-wrap: wrap;
+  }
+  .scale-row .si { text-align: left; }
+  .scale-row .si .label { display: block; margin-top: 10px; color: var(--gray); }
+
+  /* ---------- 02 Mark system ---------- */
+  .glyphs { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .glyphs { grid-template-columns: 1fr; } }
+  .glyph-cell { padding: 48px 36px 36px; cursor: pointer; transition: background 0.2s; }
+  .glyph-cell + .glyph-cell { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .glyph-cell + .glyph-cell { border-left: none; border-top: 1px solid var(--black); } }
+  .glyph-cell .big-glyph { width: 120px; height: 120px; margin-bottom: 28px; }
+  .glyph-cell .big-glyph svg { width: 100%; height: 100%; overflow: visible; }
+  .glyph-cell:nth-child(1) .big-glyph path { fill: var(--creativity); }
+  .glyph-cell:nth-child(2) .big-glyph circle { fill: var(--humanity); animation: circleBreathe 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .glyph-cell:nth-child(3) .big-glyph path { fill: var(--entrepreneurship); animation: triTilt 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .glyph-cell .nm { font-weight: 900; font-size: 22px; letter-spacing: -0.02em; }
+  .glyph-cell .sym { font-size: 12px; color: var(--gray); margin: 2px 0 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .glyph-cell p { font-size: 13.5px; color: #333; }
+  .glyph-cell:hover { background: #F5F5F5; }
+
+  .mark-rules { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--black); border-top: none; }
+  @media (max-width: 860px) { .mark-rules { grid-template-columns: 1fr; } }
+  .mark-rules > div { padding: 32px 36px; }
+  .mark-rules > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .mark-rules > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .mark-rules .k { font-weight: 800; font-size: 17px; margin-bottom: 6px; }
+  .mark-rules p { font-size: 14px; color: #333; }
+
+  .mark-demos { display: grid; grid-template-columns: 1.5fr 1fr; border: 1px solid var(--black); border-top: none; }
+  @media (max-width: 860px) { .mark-demos { grid-template-columns: 1fr; } }
+  .mark-demos > div { padding: 44px 36px; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .mark-demos > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .mark-demos > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .avatar-row { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .avatar { background: var(--black); display: grid; place-items: center; }
+  .avatar [data-mark] { width: 55%; height: 55%; }
+  .av-64 { width: 64px; height: 64px; }
+  .av-40 { width: 40px; height: 40px; }
+  .av-24 { width: 24px; height: 24px; }
+  .av-16 { width: 16px; height: 16px; }
+  .avatar-row .cap { font-size: 11px; color: var(--gray); font-weight: 600; }
+
+  /* ---------- 03 Typography ---------- */
+  .type-table { border: 1px solid var(--black); }
+  .type-row { display: grid; grid-template-columns: 220px 1fr; align-items: baseline; padding: 28px 40px; }
+  .type-row + .type-row { border-top: 1px solid var(--black); }
+  @media (max-width: 700px) { .type-row { grid-template-columns: 1fr; gap: 10px; } }
+  .type-row .spec { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); line-height: 1.7; }
+  .t-display { font-size: clamp(44px, 6vw, 84px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; }
+  .t-h1 { font-size: clamp(30px, 3.8vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .t-h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .t-body { font-size: 16px; font-weight: 400; line-height: 1.55; max-width: 560px; }
+  .t-caption { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* ---------- 04 Programs ---------- */
+  .subbrands { border: 1px solid var(--black); }
+  .subbrand {
+    display: grid; grid-template-columns: 1fr 300px;
+    align-items: center; padding: 44px 40px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .subbrand + .subbrand { border-top: 1px solid var(--black); }
+  @media (max-width: 860px) { .subbrand { grid-template-columns: 1fr; gap: 14px; } }
+  .subbrand .lockup { font-size: clamp(28px, 4.2vw, 52px); }
+  .subbrand .lockup em { font-style: normal; font-weight: 250; letter-spacing: -0.02em; margin-left: 0.35em; }
+  .subbrand .use { font-size: 13px; color: var(--gray); transition: color 0.25s ease; }
+  .subbrand:hover { color: var(--white); }
+  .subbrand:hover .use { color: rgba(255,255,255,0.75); }
+  .subbrand.sb-c:hover { background: var(--creativity); }
+  .subbrand.sb-h:hover { background: var(--humanity); }
+  .subbrand.sb-e:hover { background: var(--entrepreneurship); }
+  .subbrand:hover .ig { fill: var(--white); }
+
+  /* ---------- Floods ---------- */
+  .flood {
+    min-height: 88vh; color: var(--white);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 90px 40px 40px;
+    border-bottom: 1px solid var(--black);
+    overflow: hidden; position: relative;
+  }
+  .flood.c { background: var(--creativity); }
+  .flood.h { background: var(--humanity); }
+  .flood.e { background: var(--entrepreneurship); }
+  .flood .watermark {
+    position: absolute; right: -8%; top: 50%;
+    width: 56vmin; height: 56vmin;
+    transform: translateY(-50%);
+    opacity: 0.16; pointer-events: none;
+  }
+  .flood .watermark svg { width: 100%; height: 100%; overflow: visible; }
+  .flood .watermark .wm-shape { fill: #fff; transform-origin: 50% 50%; animation: slowSpin 40s linear infinite; }
+  .flood.h .watermark .wm-shape { animation: circleBreathe 8s ease-in-out infinite; }
+  @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .flood .idx { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; position: relative; }
+  .flood .big {
+    font-size: clamp(64px, 12vw, 200px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.84;
+    text-transform: uppercase; overflow: hidden; position: relative;
+  }
+  .flood .big .line { display: block; overflow: hidden; }
+  .flood .big .line > i {
+    font-style: normal; display: block;
+    transform: translateY(110%);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .flood.inview .big .line:nth-child(1) > i { transition-delay: 0.05s; }
+  .flood.inview .big .line:nth-child(2) > i { transition-delay: 0.18s; }
+  .flood.inview .big .line > i { transform: translateY(0); }
+  .flood .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-top: 48px; position: relative; }
+  .flood .foot p { max-width: 420px; font-size: 15px; font-weight: 500; }
+  .flood .foot .lk { font-size: clamp(20px, 2.6vw, 32px); }
+  .flood .foot .lk em { font-style: normal; font-weight: 250; margin-left: 0.35em; }
+
+  /* ---------- 05 Color ---------- */
+  .palette { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 900px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .palette { grid-template-columns: repeat(2, 1fr); } }
+  .pswatch { aspect-ratio: 1 / 1.5; padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .pswatch + .pswatch { border-left: 1px solid var(--black); }
+  @media (max-width: 900px) { .pswatch:nth-child(4) { border-left: none; } .pswatch:nth-child(n+4) { border-top: 1px solid var(--black); } }
+  .pswatch .nm { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .pswatch .hx { font-size: 11px; font-weight: 500; opacity: 0.65; margin-top: 2px; }
+  .color-rule { margin-top: 28px; max-width: 720px; font-size: 15px; }
+  .color-rule b { font-weight: 800; }
+
+  /* ---------- 06 Motion: scroll stage ---------- */
+  .scrollstage { height: 300vh; position: relative; border-bottom: 1px solid var(--black); }
+  .scrollstage .stick {
+    position: sticky; top: 61px; height: calc(100vh - 61px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    overflow: hidden;
+  }
+  .scrollstage h2 {
+    font-size: clamp(80px, 16vw, 280px);
+    letter-spacing: -0.045em; line-height: 1;
+    font-variation-settings: 'wght' 100;
+    will-change: font-variation-settings, transform;
+  }
+  .scrollstage .meter {
+    position: absolute; bottom: 32px; left: 40px; right: 40px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .scrollstage .bar { flex: 1; height: 1px; background: rgba(10,10,10,0.2); position: relative; }
+  .scrollstage .bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: var(--black); }
+  .scrollstage .wnum { font-variant-numeric: tabular-nums; min-width: 64px; text-align: right; }
+
+  /* ---------- 07 Swarm (campaign layer) ---------- */
+  .swarmsec { padding-bottom: 0; }
+  .swarm-stage {
+    position: relative;
+    height: 72vh; min-height: 420px;
+    border-top: 1px solid var(--black);
+    cursor: crosshair;
+    overflow: hidden;
+  }
+  .swarm-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .swarm-corner { position: absolute; left: 40px; bottom: 18px; }
+  .swarm-hintc { position: absolute; right: 40px; bottom: 18px; }
+
+  /* ---------- 08 Applications ---------- */
+  .apps { display: grid; grid-template-columns: 1.3fr 1fr; border: 1px solid var(--black); }
+  @media (max-width: 860px) { .apps { grid-template-columns: 1fr; } }
+  .app { min-height: 420px; position: relative; display: flex; flex-direction: column; }
+  .apps .app + .app { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .apps .app + .app { border-left: none; border-top: 1px solid var(--black); } }
+  .app .tag { position: absolute; top: 14px; left: 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; z-index: 2; }
+
+  .app.web { background: var(--white); padding: 48px 28px 28px; justify-content: center; }
+  .app.web .browser { border: 1px solid var(--black); }
+  .app.web .bbar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--black); }
+  .app.web .bbar i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--black); }
+  .app.web .bhead {
+    padding: 13px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--black); color: var(--white);
+  }
+  .app.web .bhead .label { font-size: 9px; }
+  .app.web .bbody {
+    background: var(--state); color: var(--white);
+    transition: background 0.6s ease;
+    padding: 34px 18px 26px;
+    position: relative; overflow: hidden;
+  }
+  .app.web .bbody .bigshape {
+    position: absolute; right: -34px; top: -20px;
+    width: 150px; height: 150px;
+    opacity: 0.2;
+  }
+  .app.web .bbody .hl {
+    font-size: clamp(30px, 3.4vw, 44px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 0.92;
+    position: relative;
+  }
+  .app.web .bbody .hl i { font-style: normal; font-weight: 250; display: block; }
+  .app.web .bbody .cta {
+    display: inline-block; margin-top: 20px; padding: 11px 22px;
+    background: var(--black); color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    position: relative;
+  }
+  .app.web .bstrip { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .app.web .bstrip > div {
+    padding: 12px 14px;
+    font-size: 10px; font-weight: 800; letter-spacing: -0.01em;
+    color: var(--white);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .app.web .bstrip [data-mark] { width: 11px; height: 11px; flex-shrink: 0; }
+  .app.web .bstrip .s1 { background: var(--creativity); }
+  .app.web .bstrip .s2 { background: var(--humanity); }
+  .app.web .bstrip .s3 { background: var(--entrepreneurship); }
+
+  .app.card { background: #F2F2F2; align-items: center; justify-content: center; padding: 40px; gap: 18px; }
+  .bizwrap { position: relative; width: 100%; max-width: 380px; padding-bottom: 56px; }
+  .biz {
+    background: var(--white); color: var(--black);
+    width: 88%; aspect-ratio: 1.72;
+    border: 1px solid var(--black);
+    padding: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+    position: relative; z-index: 2;
+  }
+  .biz .nm { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+  .biz .rl { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-top: 2px; }
+  .biz .ct { font-size: 11px; color: var(--gray); margin-top: 8px; }
+  .biz-back {
+    position: absolute; right: 0; bottom: 0;
+    width: 88%; aspect-ratio: 1.72;
+    background: var(--black);
+    transform: rotate(4deg);
+    display: flex; align-items: center; justify-content: space-evenly;
+    box-shadow: 0 16px 34px rgba(0,0,0,0.20);
+  }
+  .biz-back [data-mark] { width: 21%; height: 38%; }
+
+  /* ---------- 08 Collateral ---------- */
+  .coll-sub { margin: 64px 0 24px; display: flex; align-items: baseline; gap: 16px; }
+  .coll-sub h3 { font-size: clamp(22px, 3vw, 34px); font-weight: 800; letter-spacing: -0.025em; }
+  .coll-sub:first-of-type { margin-top: 0; }
+
+  /* photo placeholder ("mock photography") */
+  .photo {
+    background:
+      radial-gradient(130% 110% at 28% 18%, rgba(255,224,180,0.95), rgba(255,138,92,0.9) 42%, rgba(122,59,46,0.95) 100%);
+    position: relative; overflow: hidden;
+  }
+  .photo .ph-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0 1px, transparent 1px 3px);
+    mix-blend-mode: multiply; pointer-events: none;
+  }
+  .photo.cool { background: radial-gradient(130% 110% at 70% 20%, rgba(196,222,255,0.95), rgba(94,130,206,0.92) 45%, rgba(26,34,66,0.95) 100%); }
+  .photo .ph-tag {
+    position: absolute; left: 12px; bottom: 10px;
+    font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* billboard */
+  .bb-scene {
+    border: 1px solid var(--black);
+    background: linear-gradient(#EDF0F3, #D8DDE3 78%, #C2C8CF 78.5%, #CBD1D8);
+    padding: 64px 24px 0;
+    display: flex; flex-direction: column; align-items: center;
+    overflow: hidden;
+  }
+  .bb-board {
+    width: min(1040px, 96%);
+    background: var(--black);
+    box-shadow: 0 30px 60px rgba(20,30,40,0.35);
+    display: grid; grid-template-columns: 1.15fr 1fr;
+    aspect-ratio: 21 / 8;
+    position: relative;
+  }
+  @media (max-width: 700px) { .bb-board { grid-template-columns: 1fr; aspect-ratio: auto; } }
+  .bb-photo { position: relative; }
+  .bb-msg {
+    background: var(--state); color: var(--white);
+    transition: background 0.6s ease;
+    padding: 5% 6%;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .bb-msg .lock { font-size: clamp(34px, 5.2vw, 72px); }
+  .bb-msg .tag2 { font-weight: 250; font-size: clamp(15px, 1.9vw, 26px); letter-spacing: -0.015em; line-height: 1.15; margin-top: 4%; }
+  .bb-msg .url { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; }
+  .bb-legs { display: flex; gap: 220px; }
+  .bb-legs i { width: 16px; height: 110px; background: #2A2D31; }
+  @media (max-width: 700px) { .bb-legs { gap: 80px; } .bb-legs i { height: 60px; } }
+  .bb-cap { padding: 14px 0 18px; }
+
+  /* media / content */
+  .media-grid { display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid var(--black); }
+  @media (max-width: 860px) { .media-grid { grid-template-columns: 1fr; } }
+  .media-grid > div { padding: 40px 32px; }
+  .media-grid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .media-grid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+
+  .phone {
+    width: 100%; max-width: 250px; margin: 0 auto;
+    border: 2px solid var(--black); border-radius: 28px;
+    overflow: hidden; background: var(--white);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+  }
+  .phone .ph-top { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px; }
+  .phone .ph-av { width: 40px; height: 40px; border-radius: 50%; background: var(--black); display: grid; place-items: center; }
+  .phone .ph-av [data-mark] { width: 55%; height: 55%; }
+  .phone .ph-handle { font-weight: 800; font-size: 13px; letter-spacing: -0.01em; }
+  .phone .ph-sub { font-size: 9px; color: var(--gray); }
+  .phone .ph-stats { display: flex; gap: 14px; padding: 0 14px 12px; font-size: 9px; color: var(--gray); font-weight: 600; }
+  .phone .ph-stats b { color: var(--black); }
+  .phone .ph-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .phone .ph-tile { aspect-ratio: 1; position: relative; overflow: hidden; }
+  .ph-tile.t1 { background: var(--state); transition: background 0.6s ease; display: grid; place-items: center; }
+  .ph-tile.t1 .lock { font-size: 17px; color: var(--white); }
+  .ph-tile.t3 { background: var(--black); display: grid; place-items: center; }
+  .ph-tile.t3 [data-mark] { width: 44%; height: 44%; }
+
+  .yt {
+    border: 1px solid var(--black);
+    aspect-ratio: 16 / 9;
+    position: relative; overflow: hidden;
+    max-width: 560px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  }
+  .yt .lower {
+    position: absolute; left: 0; bottom: 0;
+    background: var(--black); color: var(--white);
+    padding: 14px 18px;
+    max-width: 78%;
+  }
+  .yt .lower .lock { font-size: 15px; }
+  .yt .lower .ttl { font-weight: 800; font-size: clamp(16px, 2vw, 24px); letter-spacing: -0.02em; line-height: 1.05; margin-top: 6px; }
+  .yt .dur { position: absolute; right: 10px; bottom: 10px; background: rgba(0,0,0,0.85); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 7px; }
+  .media-cap { font-size: 13px; color: #333; margin-top: 18px; max-width: 460px; }
+  .media-cap b { font-weight: 800; }
+
+  /* posters */
+  .posters { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 900px) { .posters { grid-template-columns: 1fr; } }
+  .pst { padding: 36px; }
+  .pst + .pst { border-left: 1px solid var(--black); }
+  @media (max-width: 900px) { .pst + .pst { border-left: none; border-top: 1px solid var(--black); } }
+  .pst .sheet {
+    aspect-ratio: 0.71; padding: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+    position: relative; overflow: hidden;
+  }
+  .pst.p1 .sheet { background: var(--creativity); color: var(--white); }
+  .pst.p1 .giant {
+    font-weight: 900; font-size: clamp(54px, 6vw, 84px); line-height: 0.82;
+    letter-spacing: -0.04em; text-transform: uppercase; margin-left: -4px;
+  }
+  .pst.p2 .sheet { background: var(--white); color: var(--black); border: 1px solid var(--black); }
+  .pst.p2 .midshape { position: absolute; inset: 22% 18% 26%; }
+  .pst.p2 .midshape svg { width: 100%; height: 100%; overflow: visible; }
+  .pst.p2 .midshape circle { fill: var(--humanity); animation: circleBreathe 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .pst.p3 .sheet { color: var(--white); padding: 0; }
+  .pst.p3 .ph { position: absolute; inset: 0; }
+  .pst.p3 .band {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: var(--entrepreneurship);
+    padding: 14px 18px;
+  }
+  .pst .sm { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; }
+  .pst .cap { font-size: 13px; color: #333; margin-top: 18px; }
+  .pst .cap b { font-weight: 800; }
+  .pst .sheet .lock { font-size: 17px; }
+
+  /* merch */
+  .merch { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 980px) { .merch { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .merch { grid-template-columns: 1fr; } }
+  .m-cell {
+    background: #F4F4F4;
+    min-height: 320px;
+    padding: 32px 26px 22px;
+    display: flex; flex-direction: column;
+    border-left: 1px solid var(--black);
+    border-top: 1px solid var(--black);
+    position: relative;
+  }
+  .merch .m-cell:nth-child(1) { border-top: none; }
+  .merch .m-cell:nth-child(2) { border-top: none; }
+  .merch .m-cell:nth-child(3) { border-top: none; }
+  .merch .m-cell:nth-child(3n+1) { border-left: none; }
+  @media (max-width: 980px) {
+    .merch .m-cell { border-left: 1px solid var(--black); border-top: 1px solid var(--black); }
+    .merch .m-cell:nth-child(-n+2) { border-top: none; }
+    .merch .m-cell:nth-child(2n+1) { border-left: none; }
+  }
+  @media (max-width: 620px) {
+    .merch .m-cell { border-left: none !important; border-top: 1px solid var(--black); }
+    .merch .m-cell:first-child { border-top: none; }
+  }
+  .m-cell .m-stage { flex: 1; display: grid; place-items: center; padding: 10px 0 22px; }
+  .m-cell .m-name { font-weight: 800; font-size: 14px; letter-spacing: -0.01em; }
+  .m-cell .m-note { font-size: 11.5px; color: var(--gray); margin-top: 2px; }
+
+  /* tote */
+  .tote { width: 150px; height: 180px; position: relative; }
+  .tote .bag {
+    position: absolute; left: 0; right: 0; bottom: 0; top: 38px;
+    background: #FBF8F1; border: 1.5px solid #D8D2C2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    box-shadow: 0 12px 22px rgba(0,0,0,0.10);
+  }
+  .tote .handle {
+    position: absolute; top: 0; width: 64px; height: 56px;
+    border: 7px solid #0A0A0A; border-bottom: none;
+    border-radius: 36px 36px 0 0;
+    left: 50%; transform: translateX(-50%);
+  }
+  .tote .lock { font-size: 24px; }
+  .tote .sub { font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+
+  /* takeaway cup */
+  .cup { width: 96px; height: 170px; position: relative; filter: drop-shadow(0 12px 18px rgba(0,0,0,0.13)); }
+  .cup .lid { position: absolute; top: 0; left: 2px; right: 2px; height: 17px; background: #1B1B1B; border-radius: 4px 4px 2px 2px; }
+  .cup .lid::before { content: ''; position: absolute; top: -6px; left: 14%; right: 14%; height: 7px; background: #1B1B1B; border-radius: 3px 3px 0 0; }
+  .cup .body {
+    position: absolute; top: 17px; bottom: 0; left: 0; right: 0;
+    background: #FCFAF6;
+    clip-path: polygon(4% 0, 96% 0, 84% 100%, 16% 100%);
+    border: 1px solid #E5E0D4;
+  }
+  .cup .sleeve {
+    position: absolute; top: 38%; height: 34%; left: 0; right: 0;
+    background: var(--state); transition: background 0.6s ease;
+    clip-path: polygon(7.5% 0, 92.5% 0, 88% 100%, 12% 100%);
+    display: grid; place-items: center;
+  }
+  .cup .sleeve .lock { font-size: 16px; color: var(--white); }
+
+  /* mug */
+  .mug { width: 150px; height: 130px; position: relative; }
+  .mug .body {
+    position: absolute; left: 8px; top: 14px; bottom: 6px; width: 102px;
+    background: #FCFAF6; border: 1.5px solid #E0DBCF;
+    border-radius: 6px 6px 14px 14px;
+    display: grid; place-items: center;
+    box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+  }
+  .mug .body [data-mark] { width: 44px; height: 44px; }
+  .mug .handle {
+    position: absolute; right: 6px; top: 36px; width: 42px; height: 52px;
+    border: 10px solid #FCFAF6; border-left: none;
+    border-radius: 0 26px 26px 0;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.08);
+  }
+
+  /* hoodie */
+  .hoodie { width: 190px; height: 170px; position: relative; }
+  .hoodie svg { width: 100%; height: 100%; }
+  .hoodie .chest {
+    position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+    color: var(--white);
+  }
+  .hoodie .chest .lock { font-size: 21px; }
+
+  /* cap */
+  .cap-hat { width: 150px; height: 110px; position: relative; }
+  .cap-hat .dome {
+    position: absolute; left: 18px; top: 8px; width: 112px; height: 64px;
+    background: #0A0A0A; border-radius: 70px 70px 6px 6px;
+  }
+  .cap-hat .dome::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.18); }
+  .cap-hat .brim {
+    position: absolute; left: 8px; top: 66px; width: 134px; height: 22px;
+    background: #1B1B1B; border-radius: 6px 6px 48px 48px;
+    box-shadow: 0 10px 16px rgba(0,0,0,0.16);
+  }
+  .cap-hat .front-mark { position: absolute; left: 50%; top: 30px; transform: translateX(-50%); width: 26px; height: 26px; }
+
+  /* stickers */
+  .stickers { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .stk {
+    background: var(--white); border-radius: 50%;
+    width: 76px; height: 76px;
+    display: grid; place-items: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.16);
+    transform: rotate(-6deg);
+  }
+  .stk + .stk { transform: rotate(5deg); }
+  .stk + .stk + .stk { transform: rotate(-3deg); }
+  .stk [data-mark] { width: 56%; height: 56%; }
+  .stk.dark { background: var(--black); }
+  .stk.word { width: auto; height: auto; border-radius: 8px; padding: 10px 14px; }
+  .stk.word .lock { font-size: 18px; }
+
+  /* lanyard */
+  .lanyard { width: 120px; height: 190px; position: relative; }
+  .lanyard .strap {
+    position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+    width: 26px; height: 96px;
+    background: var(--state); transition: background 0.6s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-around;
+  }
+  .lanyard .strap b { color: var(--white); font-size: 6.5px; font-weight: 900; letter-spacing: 0.12em; }
+  .lanyard .badge {
+    position: absolute; left: 50%; top: 92px; transform: translateX(-50%);
+    width: 104px; height: 88px;
+    background: var(--white); border: 1.5px solid var(--black);
+    padding: 9px 10px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.14);
+  }
+  .lanyard .badge .lock { font-size: 13px; }
+  .lanyard .badge .bn { font-weight: 800; font-size: 10.5px; }
+  .lanyard .badge .br { font-size: 7.5px; color: var(--gray); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* notebook */
+  .notebook { width: 130px; height: 170px; position: relative; }
+  .notebook .cover {
+    position: absolute; inset: 0;
+    background: var(--black); color: var(--white);
+    border-radius: 3px 10px 10px 3px;
+    padding: 14px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    box-shadow: 0 14px 24px rgba(0,0,0,0.20);
+  }
+  .notebook .cover .lock { font-size: 19px; }
+  .notebook .band { position: absolute; top: -4px; bottom: -4px; right: 18px; width: 9px; background: var(--state); transition: background 0.6s ease; }
+
+  /* ---------- 09 Principles ---------- */
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid { grid-template-columns: 1fr; } }
+  .pgrid > div { padding: 28px 32px; }
+  .pgrid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .pgrid .k { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pgrid p { font-size: 14px; color: #333; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 64px 40px 48px; }
+  footer .lock { font-size: clamp(64px, 11vw, 180px); }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid var(--black); padding-top: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mq .track, .ig, .glyph-cell .big-glyph *, .flood .watermark .wm-shape, .pst.p2 .midshape circle { animation: none !important; }
+    .flood .big .line > i { transition: none; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="lock sm" style="font-size: 24px;">NICHE<span class="mark" data-mark></span></div>
+  <nav>
+    <a href="#wordmark">Wordmark</a>
+    <a href="#mark">Mark</a>
+    <a href="#type">Type</a>
+    <a href="#programs">Programs</a>
+    <a href="#color">Color</a>
+    <a href="#swarm">Swarm</a>
+    <a href="#applications">Applications</a>
+    <a href="#collateral">Collateral</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="eyebrow">
+    <span class="label">NICHE Brand Kit · V2</span>
+    <span class="label dim">Move your cursor through the letters · Click to change state</span>
+  </div>
+  <h1 id="kinetic-wm" aria-label="NICHE">
+    <span class="lt">N</span><span class="lt">I</span><span class="lt">C</span><span class="lt">H</span><span class="lt">E</span><span class="mark" data-mark></span>
+  </h1>
+  <div class="stateword" id="stateword" aria-live="polite">
+    <span class="on">is <em>creativity</em>.</span>
+    <span>is <em>humanity</em>.</span>
+    <span>is <em>entrepreneurship</em>.</span>
+  </div>
+  <p class="hint"><b>Find your niche.</b> The name always ends with a mark — but the mark refuses to be a full stop. It drifts, breathes, or points forward, depending on which value is speaking. The sentence is never finished; neither are our students.</p>
+</section>
+
+<!-- ============ MARQUEES ============ -->
+<div class="marquees" id="marquees" aria-hidden="true">
+  <div class="mq mq-1"><div class="track">
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+  </div></div>
+  <div class="mq mq-2"><div class="track">
+    <span>Find your niche</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+    <span>Find your niche</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+    <span>Find your niche</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+  </div></div>
+  <div class="mq mq-3"><div class="track">
+    <span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span>
+    <span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span>
+  </div></div>
+</div>
+
+<!-- ============ 01 WORDMARK ============ -->
+<section id="wordmark">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — Wordmark</span>
+      <div>
+        <h2>One word, one mark, one ratio.</h2>
+        <p class="intro">Libre Franklin Black, tracked −4.5%, with the mark sitting on the baseline after the final E — always 0.165× the type size, always one gap of 0.07em. Set the size; everything else is fixed.</p>
+      </div>
+    </div>
+
+    <div class="wm-board">
+      <div class="wm-row">
+        <div class="wm-cell">
+          <div class="lock" style="font-size: clamp(48px, 6vw, 88px);">NICHE<span class="mark" data-mark></span></div>
+          <div class="cap">
+            <span class="label">Primary</span>
+            <span class="desc">Single line. Default everywhere: headers, documents, signage.</span>
+          </div>
+        </div>
+        <div class="wm-cell">
+          <div class="lockup-stacked" style="font-size: clamp(52px, 6.5vw, 96px);">NI<br><span class="row2">CHE<span class="mark" data-mark></span></span></div>
+          <div class="cap">
+            <span class="label">Stacked</span>
+            <span class="desc">For square and vertical formats — totes, spines, social avatars.</span>
+          </div>
+        </div>
+      </div>
+      <div class="wm-row">
+        <div class="wm-cell inverse">
+          <div class="lock" style="font-size: clamp(48px, 6vw, 88px);">NICHE<span class="mark" data-mark></span></div>
+          <div class="cap">
+            <span class="label">Inverse</span>
+            <span class="desc">White on black. The mark keeps its state color in both polarities.</span>
+          </div>
+        </div>
+        <div class="wm-cell">
+          <div style="font-weight: 900; letter-spacing: -0.045em; line-height: 0.92; font-size: clamp(26px, 3.2vw, 42px);">
+            <span class="lock" style="font-size: 1em;">NICHE<span class="mark" data-mark></span></span><br>
+            <span style="font-weight: 250;">Institute</span>
+          </div>
+          <div class="cap">
+            <span class="label">Formal</span>
+            <span class="desc">Legal and ceremonial contexts. "Institute" in Thin — never bolder than the name.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wm-meta">
+      <div><div class="k">Typeface</div><div class="v">Libre Franklin Black (900) · −4.5%</div></div>
+      <div><div class="k">The mark</div><div class="v">0.165em · 0.07em gap · baseline — enlarges to 0.42em below ~32px</div></div>
+      <div><div class="k">Clear space / min size</div><div class="v">1 mark-width all sides · 14 px wide</div></div>
+    </div>
+
+    <div class="scale-row">
+      <div class="si"><div class="lock" style="font-size: 96px;">NICHE<span class="mark" data-mark></span></div><span class="label">96 px</span></div>
+      <div class="si"><div class="lock" style="font-size: 56px;">NICHE<span class="mark" data-mark></span></div><span class="label">56 px</span></div>
+      <div class="si"><div class="lock sm" style="font-size: 32px;">NICHE<span class="mark" data-mark></span></div><span class="label">32 px — mark enlarges</span></div>
+      <div class="si"><div class="lock sm" style="font-size: 20px;">NICHE<span class="mark" data-mark></span></div><span class="label">20 px</span></div>
+      <div class="si"><div class="lock sm" style="font-size: 14px;">NICHE<span class="mark" data-mark></span></div><span class="label">14 px — minimum</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 THE MARK ============ -->
+<section id="mark">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — The mark</span>
+      <div>
+        <h2>One punctuation mark, three shapes.</h2>
+        <p class="intro">The mark sits where a period would — after the name. It takes the shape of whichever value is speaking. Click a shape to set the page's state.</p>
+      </div>
+    </div>
+
+    <div class="glyphs" id="glyphs">
+      <div class="glyph-cell" data-i="0">
+        <div class="big-glyph">
+          <svg viewBox="0 0 100 100"><path class="blob-live" d="M48 8 C64 2 84 10 90 28 C96 46 86 56 88 70 C90 86 74 96 58 94 C42 92 30 98 18 86 C6 74 4 56 10 40 C16 24 32 14 48 8 Z"/></svg>
+        </div>
+        <div class="nm">The blob</div>
+        <div class="sym">Creativity — never the same twice</div>
+        <p>Hand-drawn, irregular, alive. The shape of an idea before it has rules. Its outline drifts constantly, refusing symmetry.</p>
+      </div>
+      <div class="glyph-cell" data-i="1">
+        <div class="big-glyph">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>
+        </div>
+        <div class="nm">The circle</div>
+        <div class="sym">Humanity — whole, breathing</div>
+        <p>The oldest symbol of people gathered. It breathes slowly — in and out — like the room it represents.</p>
+      </div>
+      <div class="glyph-cell" data-i="2">
+        <div class="big-glyph">
+          <svg viewBox="0 0 100 100"><path d="M14 88 L50 10 L86 88 Z"/></svg>
+        </div>
+        <div class="nm">The triangle</div>
+        <div class="sym">Entrepreneurship — pointed forward</div>
+        <p>A vector, not a shape. It leans and tips toward what's next — momentum frozen mid-launch.</p>
+      </div>
+    </div>
+
+    <div class="mark-rules">
+      <div>
+        <div class="k">It's punctuation, not a logo.</div>
+        <p>The mark never floats beside the wordmark like a corporate symbol. It ends the name — NICHE<b>●</b> — or stands completely alone as an avatar, favicon, or stamp. Never both at once.</p>
+      </div>
+      <div>
+        <div class="k">In motion on screens, frozen in print.</div>
+        <p>Digital surfaces let the mark move and morph between states. Print picks one shape, one color, and commits — the same freeze rule as the wordmark's weight.</p>
+      </div>
+    </div>
+
+    <div class="mark-demos">
+      <div>
+        <span class="label dim">Lockup</span>
+        <div class="lock" style="font-size: clamp(44px, 6vw, 84px);">NICHE<span class="mark" data-mark></span></div>
+      </div>
+      <div>
+        <span class="label dim">Alone — avatar &amp; favicon</span>
+        <div class="avatar-row">
+          <div><div class="avatar av-64"><span data-mark></span></div><div class="cap">64</div></div>
+          <div><div class="avatar av-40"><span data-mark></span></div><div class="cap">40</div></div>
+          <div><div class="avatar av-24"><span data-mark></span></div><div class="cap">24</div></div>
+          <div><div class="avatar av-16"><span data-mark></span></div><div class="cap">16</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 TYPOGRAPHY ============ -->
+<section id="type">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">03 — Typography</span>
+      <div>
+        <h2>One family, every weight.</h2>
+        <p class="intro">Libre Franklin — the open revival of Franklin Gothic — in all nine weights. Hierarchy is built with weight and scale, never with a second typeface.</p>
+      </div>
+    </div>
+
+    <div class="type-table">
+      <div class="type-row">
+        <div class="spec">Display<br>Black 900 · −4.5%</div>
+        <div class="t-display">Make it new.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Heading 1<br>ExtraBold 800 · −3%</div>
+        <div class="t-h1">Eleven ventures launched this spring.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Heading 2<br>Bold 700 · −2%</div>
+        <div class="t-h2">Applications open for the 2027 cohort</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Body<br>Regular 400</div>
+        <div class="t-body">NICHE is a school built around three convictions: that creativity can be taught, that technology should serve people, and that the surest way to learn something is to build it and ship it.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Caption<br>SemiBold 600 · +14% · Caps</div>
+        <div class="t-caption">Main Hall · June 14 · 19:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 PROGRAMS ============ -->
+<section id="programs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">04 — Programs</span>
+      <div>
+        <h2>Weight does the work.</h2>
+        <p class="intro">Sub-brands need no extra symbols. The institute is Black; the program is Thin; the mark takes the program's shape. One color may flood the surface when a program speaks alone — hover to see it.</p>
+      </div>
+    </div>
+
+    <div class="subbrands">
+      <div class="subbrand sb-c" data-i="0">
+        <div class="lockup lock">NICHE<span class="mark" data-mark data-fixed="0"></span><em>Creativity</em></div>
+        <div class="use">Studios, arts &amp; design programs, exhibitions, student showcases.</div>
+      </div>
+      <div class="subbrand sb-h" data-i="1">
+        <div class="lockup lock">NICHE<span class="mark" data-mark data-fixed="1"></span><em>Humanity</em></div>
+        <div class="use">Partnerships, community, ethics &amp; the humanities, service programs.</div>
+      </div>
+      <div class="subbrand sb-e" data-i="2">
+        <div class="lockup lock">NICHE<span class="mark" data-mark data-fixed="2"></span><em>Entrepreneurship</em></div>
+        <div class="use">Ventures, business programs, innovation labs, demo days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOODS ============ -->
+<section class="flood c">
+  <div class="watermark"><svg viewBox="0 0 100 100"><path class="wm-shape blob-live" d="M48 8 C64 2 84 10 90 28 C96 46 86 56 88 70 C90 86 74 96 58 94 C42 92 30 98 18 86 C6 74 4 56 10 40 C16 24 32 14 48 8 Z"/></svg></div>
+  <div class="idx">01 / Program flood</div>
+  <div class="big">
+    <span class="line"><i>Crea—</i></span>
+    <span class="line"><i>tivity</i></span>
+  </div>
+  <div class="foot">
+    <p>Studios, arts &amp; design, exhibitions, showcases. The flood color is the room; the type is the voice; the blob is the signature.</p>
+    <div class="lk lock markwhite">NICHE<span class="mark" data-mark data-fixed="0"></span><em>Creativity</em></div>
+  </div>
+</section>
+
+<section class="flood h">
+  <div class="watermark"><svg viewBox="0 0 100 100"><circle class="wm-shape" cx="50" cy="50" r="44"/></svg></div>
+  <div class="idx">02 / Program flood</div>
+  <div class="big">
+    <span class="line"><i>Huma—</i></span>
+    <span class="line"><i>nity</i></span>
+  </div>
+  <div class="foot">
+    <p>Partnerships, community, ethics &amp; the humanities. One color per piece — flooded, never sprinkled.</p>
+    <div class="lk lock markwhite">NICHE<span class="mark" data-mark data-fixed="1"></span><em>Humanity</em></div>
+  </div>
+</section>
+
+<section class="flood e">
+  <div class="watermark"><svg viewBox="0 0 100 100"><path class="wm-shape" d="M14 88 L50 10 L86 88 Z"/></svg></div>
+  <div class="idx">03 / Program flood</div>
+  <div class="big">
+    <span class="line"><i>Entrepre—</i></span>
+    <span class="line"><i>neurship</i></span>
+  </div>
+  <div class="foot">
+    <p>Ventures, innovation labs, demo days. Momentum is the message; the type arrives moving.</p>
+    <div class="lk lock markwhite">NICHE<span class="mark" data-mark data-fixed="2"></span><em>Entrepreneurship</em></div>
+  </div>
+</section>
+
+<!-- ============ 05 COLOR ============ -->
+<section id="color">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">05 — Color</span>
+      <div>
+        <h2>Black, white, and one loud voice at a time.</h2>
+      </div>
+    </div>
+
+    <div class="palette">
+      <div class="pswatch" style="background:#0A0A0A; color:#fff;"><div class="nm">Black</div><div class="hx">#0A0A0A</div></div>
+      <div class="pswatch" style="background:#FFFFFF;"><div class="nm">White</div><div class="hx">#FFFFFF</div></div>
+      <div class="pswatch" style="background:#757575; color:#fff;"><div class="nm">Gray</div><div class="hx">#757575</div></div>
+      <div class="pswatch" style="background:var(--creativity); color:#fff;"><div class="nm">Creativity</div><div class="hx">#FF4000</div></div>
+      <div class="pswatch" style="background:var(--humanity); color:#fff;"><div class="nm">Humanity</div><div class="hx">#E50695</div></div>
+      <div class="pswatch" style="background:var(--entrepreneurship); color:#fff;"><div class="nm">Entrepreneurship</div><div class="hx">#0533F3</div></div>
+    </div>
+
+    <p class="color-rule"><b>The rule:</b> the identity is black on white. A program color appears only as a full flood — an entire poster, an entire banner, an entire wall — or inside the mark itself. Never as an accent, a tint, or a decoration. One color per piece.</p>
+  </div>
+</section>
+
+<!-- ============ 06 MOTION ============ -->
+<section class="scrollstage" id="motion">
+  <div class="stick">
+    <h2 id="scroll-wm">NICHE</h2>
+    <div class="meter">
+      <span class="label dim">06 — Motion · scroll = weight</span>
+      <div class="bar"><i id="scroll-bar"></i></div>
+      <span class="label wnum" id="scroll-num">100</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 THE SWARM ============ -->
+<section class="swarmsec" id="swarm">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">07 — The swarm</span>
+      <div>
+        <h2>The mark, made of people.</h2>
+        <p class="intro">The campaign and interactive layer: the mark dissolves into a crowd of dots — one per student — that scatters around your cursor and always regroups. For site takeovers, event screens, social loops, and launch moments. Click to gather around the next value.</p>
+      </div>
+    </div>
+  </div>
+  <div class="swarm-stage" id="swarmStage">
+    <canvas id="swarmCanvas"></canvas>
+    <span class="swarm-corner label dim" id="swarmCount"></span>
+    <span class="swarm-hintc label dim">Push through it · click to change state</span>
+  </div>
+</section>
+
+<!-- ============ 08 APPLICATIONS ============ -->
+<section id="applications">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">08 — Applications</span>
+      <div>
+        <h2>The basics, on-system.</h2>
+        <p class="intro">Everything reads from the same state: the website, stationery, and screens recolor together.</p>
+      </div>
+    </div>
+
+    <div class="apps">
+      <div class="app web">
+        <div class="tag">Website · auto-themed</div>
+        <div class="browser">
+          <div class="bbar"><i></i><i></i><i></i></div>
+          <div class="bhead">
+            <span class="lock sm markwhite" style="font-size: 18px;">NICHE<span class="mark" data-mark></span></span>
+            <span class="label">Programs · Admissions · Apply</span>
+          </div>
+          <div class="bbody">
+            <span class="bigshape" data-mark aria-hidden="true"></span>
+            <div class="hl"><i>Find your</i>niche.</div>
+            <span class="cta">Apply for 2027</span>
+          </div>
+          <div class="bstrip">
+            <div class="s1"><span data-mark data-fixed="0" class="markwhite"></span>Creativity</div>
+            <div class="s2"><span data-mark data-fixed="1" class="markwhite"></span>Humanity</div>
+            <div class="s3"><span data-mark data-fixed="2" class="markwhite"></span>Entrepreneurship</div>
+          </div>
+        </div>
+      </div>
+      <div class="app card">
+        <div class="tag">Name card · front &amp; back</div>
+        <div class="bizwrap">
+          <div class="biz">
+            <div class="lock sm" style="font-size: 22px;">NICHE<span class="mark" data-mark></span></div>
+            <div>
+              <div class="nm">Amara Mendes</div>
+              <div class="rl">Studio Lead — Creativity</div>
+              <div class="ct">amara@niche.edu · niche.edu · Find your niche.</div>
+            </div>
+          </div>
+          <div class="biz-back">
+            <span data-mark data-fixed="0"></span>
+            <span data-mark data-fixed="1"></span>
+            <span data-mark data-fixed="2"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 COLLATERAL ============ -->
+<section id="collateral">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">09 — Collateral</span>
+      <div>
+        <h2>Out in the world.</h2>
+        <p class="intro">Billboards, media, content, posters, and merch — all built from the same four ingredients: the lockup, the mark, one flood color, and Libre Franklin. Photography is warm, human, and always behind the system, never competing with it.</p>
+      </div>
+    </div>
+
+    <!-- billboard -->
+    <div class="coll-sub"><span class="label dim">A</span><h3>Billboard</h3></div>
+    <div class="bb-scene">
+      <div class="bb-board">
+        <div class="bb-photo photo"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1000&q=60&auto=format&fit=crop" onerror="this.style.display='none'"><span class="ph-tag">Campus photography</span></div>
+        <div class="bb-msg">
+          <div class="lock markwhite">NICHE<span class="mark" data-mark></span></div>
+          <div class="tag2">Find your<br><b style="font-weight:850;">niche.</b></div>
+          <div class="url">niche.edu · Applications open</div>
+        </div>
+      </div>
+      <div class="bb-legs"><i></i><i></i></div>
+    </div>
+    <div class="bb-cap label dim">14×48 ft highway bulletin · photo left, message right · one flood color per placement</div>
+
+    <!-- media + content -->
+    <div class="coll-sub"><span class="label dim">B</span><h3>Media &amp; content</h3></div>
+    <div class="media-grid">
+      <div>
+        <div class="phone">
+          <div class="ph-top">
+            <div class="ph-av"><span data-mark></span></div>
+            <div>
+              <div class="ph-handle">niche.institute</div>
+              <div class="ph-sub">New Institute of Creativity, Humanity &amp; Entrepreneurship</div>
+            </div>
+          </div>
+          <div class="ph-stats"><span><b>214</b> posts</span><span><b>18.2k</b> followers</span><span><b>3</b> programs</span></div>
+          <div class="ph-grid">
+            <div class="ph-tile t1"><span class="lock sm">NICHE<span class="mark" data-mark></span></span></div>
+            <div class="ph-tile photo"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=400&q=60&auto=format&fit=crop" onerror="this.style.display='none'"></div>
+            <div class="ph-tile t3"><span data-mark></span></div>
+          </div>
+        </div>
+        <p class="media-cap" style="text-align:center;"><b>Social.</b> Avatar = the mark alone. The grid alternates flood, photo, mark.</p>
+      </div>
+      <div>
+        <div class="yt photo cool">
+          <img class="ph-img" alt="" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=60&auto=format&fit=crop" onerror="this.style.display='none'">
+          <div class="lower">
+            <span class="lock sm markwhite" style="font-size: 14px;">NICHE<span class="mark" data-mark></span></span>
+            <div class="ttl">Build something real — Demo Day 2026</div>
+          </div>
+          <div class="dur">12:48</div>
+        </div>
+        <p class="media-cap"><b>Video content.</b> Lower-third in black carries the lockup and title. Thumbnails never use more than one type size over the photo — the black bar does the talking.</p>
+      </div>
+    </div>
+
+    <!-- posters -->
+    <div class="coll-sub"><span class="label dim">C</span><h3>Poster series</h3></div>
+    <div class="posters">
+      <div class="pst p1">
+        <div class="sheet">
+          <div class="lock sm markwhite">NICHE<span class="mark" data-mark data-fixed="0"></span></div>
+          <div class="giant">Open<br>studio<br>night</div>
+          <div class="sm">Jun 20 · 18:00 · Building A</div>
+        </div>
+        <div class="cap"><b>Flood.</b> One color, cropped type, the program's mark.</div>
+      </div>
+      <div class="pst p2">
+        <div class="sheet">
+          <div class="lock sm">NICHE<span class="mark" data-mark data-fixed="1"></span></div>
+          <div class="midshape"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg></div>
+          <div class="sm" style="color:var(--gray);">Partners forum · Jul 03 · Main Hall</div>
+        </div>
+        <div class="cap"><b>Shape.</b> White sheet, the mark blown up to poster scale.</div>
+      </div>
+      <div class="pst p3">
+        <div class="sheet">
+          <div class="ph photo"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=60&auto=format&fit=crop" onerror="this.style.display='none'"></div>
+          <div class="band">
+            <div class="lock sm markwhite" style="font-size: 17px;">NICHE<span class="mark" data-mark data-fixed="2"></span></div>
+            <div class="sm">Spring Demo Day · Jun 14 · 19:00</div>
+          </div>
+        </div>
+        <div class="cap"><b>Photo.</b> Full-bleed photography with a flood band.</div>
+      </div>
+    </div>
+
+    <!-- merch -->
+    <div class="coll-sub"><span class="label dim">D</span><h3>Merch</h3></div>
+    <div class="merch">
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="tote">
+            <div class="handle"></div>
+            <div class="bag">
+              <div class="lock sm">NICHE<span class="mark" data-mark></span></div>
+              <div class="sub">Find your niche</div>
+            </div>
+          </div>
+        </div>
+        <div class="m-name">Tote bag</div>
+        <div class="m-note">Natural canvas · black print · mark in state color</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="cup">
+            <div class="lid"></div>
+            <div class="body"></div>
+            <div class="sleeve"><span class="lock sm markwhite">NICHE<span class="mark" data-mark></span></span></div>
+          </div>
+        </div>
+        <div class="m-name">Takeaway cup</div>
+        <div class="m-note">White cup · flood-colored sleeve, white lockup</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="mug">
+            <div class="body"><span data-mark></span></div>
+            <div class="handle"></div>
+          </div>
+        </div>
+        <div class="m-name">Mug</div>
+        <div class="m-note">The mark alone, oversized — no wordmark needed at arm's length</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="hoodie">
+            <svg viewBox="0 0 220 200">
+              <path d="M62 38 C62 16 158 16 158 38 L186 52 C198 58 204 70 206 84 L212 138 L184 146 L178 106 L178 178 C178 186 172 192 164 192 L56 192 C48 192 42 186 42 178 L42 106 L36 146 L8 138 L14 84 C16 70 22 58 34 52 Z" fill="#0A0A0A"/>
+              <path d="M78 40 C78 64 142 64 142 40 C142 58 124 70 110 70 C96 70 78 58 78 40 Z" fill="#1E1E1E"/>
+              <path d="M88 192 L88 168 C88 160 132 160 132 168 L132 192" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="3"/>
+            </svg>
+            <div class="chest"><span class="lock markwhite" style="color:#fff;">NICHE<span class="mark" data-mark></span></span></div>
+          </div>
+        </div>
+        <div class="m-name">Hoodie</div>
+        <div class="m-note">Black fleece · chest lockup, white + state-color mark</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="cap-hat">
+            <div class="dome"></div>
+            <div class="brim"></div>
+            <div class="front-mark"><span data-mark style="display:block; width:100%; height:100%;"></span></div>
+          </div>
+        </div>
+        <div class="m-name">Cap</div>
+        <div class="m-note">Black six-panel · the mark embroidered front-center</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="stickers">
+            <div class="stk"><span data-mark style="display:block;width:100%;height:100%;"></span></div>
+            <div class="stk dark"><span data-mark style="display:block;width:100%;height:100%;"></span></div>
+            <div class="stk word"><span class="lock sm">NICHE<span class="mark" data-mark></span></span></div>
+          </div>
+        </div>
+        <div class="m-name">Stickers</div>
+        <div class="m-note">Die-cut · laptop-lid scale · shapes alone or full lockup</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="lanyard">
+            <div class="strap"><b>NICHE</b><b>NICHE</b><b>NICHE</b><b>NICHE</b></div>
+            <div class="badge">
+              <span class="lock sm" style="font-size: 13px;">NICHE<span class="mark" data-mark></span></span>
+              <div>
+                <div class="bn">Amara Mendes</div>
+                <div class="br">Student · Creativity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="m-name">Lanyard &amp; badge</div>
+        <div class="m-note">Flood-colored strap, repeating wordmark · white card</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div class="notebook">
+            <div class="cover"><span class="lock sm">NICHE<span class="mark" data-mark></span></span></div>
+            <div class="band"></div>
+          </div>
+        </div>
+        <div class="m-name">Notebook</div>
+        <div class="m-note">Black cover, blind-embossed lockup · elastic in state color</div>
+      </div>
+      <div class="m-cell">
+        <div class="m-stage">
+          <div style="display:flex; flex-direction:column; gap:12px; align-items:center;">
+            <div style="width:170px; height:34px; background:var(--black); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 12px;">
+              <span class="lock sm" style="font-size:14px;">NICHE<span class="mark" data-mark></span></span>
+              <span style="font-size:8px; font-weight:700; letter-spacing:0.18em; opacity:0.6;">PENCIL · HB</span>
+            </div>
+            <div style="width:170px; height:34px; background:var(--state); transition: background 0.6s ease; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 12px;">
+              <span class="lock sm markwhite" style="font-size:14px;">NICHE<span class="mark" data-mark></span></span>
+              <span style="font-size:8px; font-weight:700; letter-spacing:0.18em; opacity:0.75;">WRISTBAND</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-name">Small goods</div>
+        <div class="m-note">Pencils, wristbands, ribbons — wordmark strip, nothing else</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 PRINCIPLES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">10 — The system</span>
+      <div>
+        <h2>Four ingredients, no exceptions.</h2>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div>
+        <div class="k">Print freezes everything</div>
+        <p>Static media use weight 900 and one mark shape in one color. Motion is a screen privilege, not a requirement.</p>
+      </div>
+      <div>
+        <div class="k">Weight = attention, shape = voice</div>
+        <p>The wordmark answers "are you looking?"; the mark answers "who is speaking?". Two variables, never more.</p>
+      </div>
+      <div>
+        <div class="k">Nothing decorative moves</div>
+        <p>Only the wordmark, headlines, and the mark animate. Body text, rules, and layout stay still — the institution doesn't fidget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="lock">NICHE<span class="mark" data-mark></span></div>
+  <div class="row">
+    <span class="label">NICHE Brand Kit · V2 · Draft for review</span>
+    <span class="label dim">Libre Franklin · blob / circle / triangle · one flood at a time</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- Procedural blob: two low harmonics (2-lobe + 3-lobe) travelling
+     around the ring in opposite directions. Only smooth, wide curves can
+     exist — fluid lava-lamp motion with no angular kinks, ever. ----- */
+  function blobPath(t, seed) {
+    var N = 24, pts = [];
+    var a2 = 5 + 2.5 * Math.sin(t * 0.00037 + seed);
+    var a3 = 4 + 2 * Math.sin(t * 0.00053 + seed * 1.7);
+    var p2 = t * 0.00045 + seed * 2.0;
+    var p3 = -t * 0.00032 + seed * 3.1;
+    for (var i = 0; i < N; i++) {
+      var a = (i / N) * Math.PI * 2;
+      var r = 39 + a2 * Math.sin(2 * a + p2) + a3 * Math.sin(3 * a + p3);
+      pts.push([50 + Math.cos(a) * r, 50 + Math.sin(a) * r]);
+    }
+    var d = '';
+    for (var j = 0; j < N; j++) {
+      var p0 = pts[(j - 1 + N) % N], p1 = pts[j], p2 = pts[(j + 1) % N], p3 = pts[(j + 2) % N];
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      if (j === 0) d = 'M' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1);
+      d += 'C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d + 'Z';
+  }
+
+  /* ----- The mark: blob + circle + triangle, injected everywhere ----- */
+  var MARK_SVG =
+    '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="ig ig-blob" data-st="0" d="' + blobPath(0, 0) + '"/>' +
+      '<circle class="ig ig-circle" data-st="1" cx="50" cy="50" r="44"/>' +
+      '<path class="ig ig-tri" data-st="2" d="M10 88 L50 12 L90 88 Z"/>' +
+    '</svg>';
+  var markEls = Array.prototype.slice.call(document.querySelectorAll('[data-mark]'));
+  markEls.forEach(function (el) { el.innerHTML = MARK_SVG; });
+
+  /* ----- State machine: color + word + glyph shape ----- */
+  var stateColors = ['var(--creativity)', 'var(--humanity)', 'var(--entrepreneurship)'];
+  var stateWords = document.querySelectorAll('#stateword span');
+  var stateCur = -1, statePause = 0;
+  var onStateChange = null; /* hook for the swarm */
+  function setState(i, pop) {
+    if (i === stateCur) return;
+    stateCur = i;
+    document.documentElement.style.setProperty('--state', stateColors[i]);
+    if (onStateChange) onStateChange();
+    stateWords.forEach(function (w, j) { w.classList.toggle('on', j === i); });
+    markEls.forEach(function (el) {
+      var fixed = el.getAttribute('data-fixed');
+      var idx = fixed !== null ? +fixed : i;
+      el.querySelectorAll('.ig').forEach(function (g) {
+        g.classList.toggle('on', +g.getAttribute('data-st') === idx);
+      });
+      if (pop && fixed === null && !reduced) {
+        el.classList.remove('pop');
+        void el.offsetWidth;
+        el.classList.add('pop');
+      }
+    });
+  }
+  setState(0, false);
+  setInterval(function () {
+    if (Date.now() > statePause) setState((stateCur + 1) % 3, true);
+  }, 4500);
+  document.getElementById('hero').addEventListener('click', function () {
+    setState((stateCur + 1) % 3, true);
+    statePause = Date.now() + 12000;
+  });
+  document.querySelectorAll('#glyphs .glyph-cell, .subbrand').forEach(function (c) {
+    c.addEventListener('click', function () {
+      setState(+c.dataset.i, true);
+      statePause = Date.now() + 12000;
+    });
+  });
+
+  /* ----- Hero: cursor-proximity weight ----- */
+  var spans = Array.prototype.slice.call(document.querySelectorAll('#kinetic-wm .lt'));
+  var targets = spans.map(function () { return 200; });
+  var currents = spans.map(function () { return 200; });
+  var mouseX = -9999, mouseY = -9999, hasPointer = false;
+  document.addEventListener('mousemove', function (e) {
+    hasPointer = true; mouseX = e.clientX; mouseY = e.clientY;
+  });
+
+  var t0 = 0;
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    for (var i = 0; i < spans.length; i++) {
+      var r = spans[i].getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      if (hasPointer && !reduced) {
+        var d = Math.hypot(mouseX - cx, mouseY - cy);
+        var max = Math.max(window.innerWidth * 0.45, 320);
+        var p = Math.max(0, 1 - d / max);
+        targets[i] = 200 + p * 700;
+      } else if (!reduced) {
+        targets[i] = 550 + 350 * Math.sin((ts - t0) / 900 + i * 0.9);
+      }
+      currents[i] += (targets[i] - currents[i]) * 0.12;
+      spans[i].style.fontVariationSettings = "'wght' " + Math.round(currents[i]);
+    }
+
+    /* ----- Scroll stage: progress -> weight ----- */
+    var stage = document.getElementById('motion');
+    var sr = stage.getBoundingClientRect();
+    var total = sr.height - window.innerHeight;
+    var prog = Math.min(1, Math.max(0, -sr.top / total));
+    var w = Math.round(100 + prog * 800);
+    document.getElementById('scroll-wm').style.fontVariationSettings = "'wght' " + w;
+    document.getElementById('scroll-bar').style.width = (prog * 100) + '%';
+    document.getElementById('scroll-num').textContent = w;
+
+    /* ----- Live blobs: regenerate every frame, each with its own seed ----- */
+    if (!reduced) {
+      for (var b = 0; b < liveBlobs.length; b++) {
+        liveBlobs[b].setAttribute('d', blobPath(ts, b * 2.7));
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+  var liveBlobs = Array.prototype.slice.call(document.querySelectorAll('.ig-blob, .blob-live'));
+  requestAnimationFrame(frame);
+
+  /* ----- Marquee skew on scroll velocity ----- */
+  var lastY = window.scrollY, skew = 0;
+  var mqs = document.getElementById('marquees');
+  setInterval(function () {
+    var y = window.scrollY, v = y - lastY; lastY = y;
+    skew += ((Math.max(-12, Math.min(12, v * 0.35))) - skew) * 0.2;
+    if (!reduced) mqs.style.transform = 'skewY(' + skew.toFixed(2) + 'deg)';
+  }, 16);
+
+  /* ----- Flood reveal ----- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) en.target.classList.add('inview');
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.flood').forEach(function (f) { io.observe(f); });
+
+  /* ===========================================================
+     THE SWARM — campaign layer (merged from V5).
+     Dots sample the current mark shape, scatter from the cursor,
+     regroup; the blob state rides a gentle flow field.
+     =========================================================== */
+  var swarmStage = document.getElementById('swarmStage');
+  var swarmCanvas = document.getElementById('swarmCanvas');
+  var sctx = swarmCanvas.getContext('2d');
+  var SAMPLE = 240;
+  function samplePts(idx, step) {
+    var oc = document.createElement('canvas');
+    oc.width = SAMPLE; oc.height = SAMPLE;
+    var o = oc.getContext('2d');
+    o.fillStyle = '#000';
+    if (idx === 1) {
+      o.beginPath(); o.arc(SAMPLE / 2, SAMPLE / 2, SAMPLE * 0.44, 0, 6.2832); o.fill();
+    } else {
+      o.save();
+      o.scale(SAMPLE / 100, SAMPLE / 100);
+      o.fill(new Path2D(idx === 0 ? blobPath(0, 0) : 'M14 88 L50 10 L86 88 Z'));
+      o.restore();
+    }
+    var data = o.getImageData(0, 0, SAMPLE, SAMPLE).data, pts = [];
+    for (var y = step / 2; y < SAMPLE; y += step) {
+      for (var x = step / 2; x < SAMPLE; x += step) {
+        if (data[((y | 0) * SAMPLE + (x | 0)) * 4 + 3] > 128) pts.push({ x: x / SAMPLE, y: y / SAMPLE });
+      }
+    }
+    return pts;
+  }
+  var sSets = [samplePts(0, 6), samplePts(1, 6), samplePts(2, 6)];
+  var sMax = Math.max(sSets[0].length, sSets[1].length, sSets[2].length);
+  document.getElementById('swarmCount').textContent = sMax + ' dots · one cohort';
+  var SW_COLORS = ['#FF4000', '#E50695', '#0533F3'];
+  var sParts = [], sW = 0, sH = 0, sSize = 0;
+  for (var si = 0; si < sMax; si++) {
+    sParts.push({ x: Math.random() * 900, y: Math.random() * 500, vx: 0, vy: 0, tx: 0, ty: 0, nx: 0, ny: 0 });
+  }
+  function swarmRetarget() {
+    if (!sW) return;
+    var pts = sSets[Math.max(0, stateCur)];
+    var size = Math.min(sW, sH) * 0.72;
+    sSize = size;
+    var ox = sW / 2 - size / 2, oy = sH / 2 - size / 2;
+    for (var i = 0; i < sParts.length; i++) {
+      var p = pts[i % pts.length];
+      sParts[i].tx = ox + p.x * size;
+      sParts[i].ty = oy + p.y * size;
+      sParts[i].nx = p.x;
+      sParts[i].ny = p.y;
+    }
+  }
+  onStateChange = swarmRetarget;
+  function swarmResize() {
+    sW = swarmStage.clientWidth; sH = swarmStage.clientHeight;
+    var DPR = Math.min(2, window.devicePixelRatio || 1);
+    swarmCanvas.width = sW * DPR; swarmCanvas.height = sH * DPR;
+    sctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    swarmRetarget();
+  }
+  var sMx = -9999, sMy = -9999;
+  swarmStage.addEventListener('mousemove', function (e) {
+    var r = swarmStage.getBoundingClientRect();
+    sMx = e.clientX - r.left; sMy = e.clientY - r.top;
+  });
+  swarmStage.addEventListener('mouseleave', function () { sMx = -9999; sMy = -9999; });
+  swarmStage.addEventListener('touchmove', function (e) {
+    var r = swarmStage.getBoundingClientRect();
+    sMx = e.touches[0].clientX - r.left; sMy = e.touches[0].clientY - r.top;
+  }, { passive: true });
+  swarmStage.addEventListener('click', function () {
+    setState((stateCur + 1) % 3, true);
+    statePause = Date.now() + 12000;
+    if (!reduced) {
+      sParts.forEach(function (p) {
+        var a = Math.random() * 6.2832, m = 4 + Math.random() * 10;
+        p.vx += Math.cos(a) * m; p.vy += Math.sin(a) * m;
+      });
+    }
+  });
+  function swarmFrame(ts) {
+    sctx.clearRect(0, 0, sW, sH);
+    sctx.fillStyle = SW_COLORS[Math.max(0, stateCur)];
+    var blobOn = stateCur === 0 && !reduced;
+    var t1 = ts * 0.00044, t2 = ts * 0.00029, t3 = ts * 0.00064, t4 = ts * 0.00037;
+    /* circle breathes, triangle tilts — same idle motion as section 02 */
+    var scl = 1, rot = 0, liftY = 0;
+    if (!reduced) {
+      if (stateCur === 1) scl = 0.94 + 0.06 * Math.cos(ts * 0.00157);            /* 4 s breathe, 1 → 0.88 */
+      if (stateCur === 2) {
+        var ph = 0.5 - 0.5 * Math.cos(ts * 0.00196);                              /* 3.2 s tilt cycle */
+        rot = 0.157 * ph;                                                          /* 0 → 9° */
+        liftY = -0.04 * sSize * ph;                                                /* 0 → −4% lift */
+      }
+    }
+    var ccx = sW / 2, ccy = sH / 2, cosR = Math.cos(rot), sinR = Math.sin(rot);
+    var R = 100, R2 = R * R;
+    for (var i = 0; i < sParts.length; i++) {
+      var p = sParts[i];
+      var txx = p.tx, tyy = p.ty;
+      if (blobOn) {
+        txx += sSize * (0.034 * Math.sin(t1 + p.ny * 4.1) + 0.022 * Math.sin(t2 + p.nx * 3.3 + 2.0) + 0.013 * Math.sin(t3 + (p.nx + p.ny) * 2.5));
+        tyy += sSize * (0.034 * Math.cos(t4 + p.nx * 3.7) + 0.022 * Math.sin(t3 + p.ny * 2.9 + 1.1) + 0.013 * Math.cos(t1 + (p.nx - p.ny) * 2.7));
+      } else if (scl !== 1) {
+        txx = ccx + (txx - ccx) * scl;
+        tyy = ccy + (tyy - ccy) * scl;
+      } else if (rot !== 0) {
+        var rx = txx - ccx, ry = tyy - ccy;
+        txx = ccx + rx * cosR - ry * sinR;
+        tyy = ccy + rx * sinR + ry * cosR + liftY;
+      }
+      p.vx += (txx - p.x) * 0.012;
+      p.vy += (tyy - p.y) * 0.012;
+      var dx = p.x - sMx, dy = p.y - sMy, d2 = dx * dx + dy * dy;
+      if (d2 < R2 && d2 > 0.01 && !reduced) {
+        var dd = Math.sqrt(d2), f = (1 - dd / R) * 2.2;
+        p.vx += (dx / dd) * f;
+        p.vy += (dy / dd) * f;
+      }
+      p.vx *= 0.86; p.vy *= 0.86;
+      if (!reduced) { p.vx += (Math.random() - 0.5) * 0.12; p.vy += (Math.random() - 0.5) * 0.12; }
+      p.x += p.vx; p.y += p.vy;
+      sctx.beginPath();
+      sctx.arc(p.x, p.y, 2.2, 0, 6.2832);
+      sctx.fill();
+    }
+    requestAnimationFrame(swarmFrame);
+  }
+  swarmResize();
+  window.addEventListener('resize', swarmResize);
+  requestAnimationFrame(swarmFrame);
+})();
+</script>
+
+</body>
+</html>
