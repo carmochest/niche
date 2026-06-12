@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · Kinetic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--black); color: var(--white); }
+
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+  .topbar .wm i {
+    font-style: normal; display: inline-block;
+    width: 0.55em; height: 0.55em; border-radius: 50%;
+    background: var(--state); margin-left: 8px;
+    transition: background 0.6s ease;
+  }
+  .topbar .label a { color: inherit; text-decoration: none; border-bottom: 2px solid transparent; }
+  .topbar .label a:hover { border-bottom-color: var(--black); }
+
+  /* ---------- Hero: cursor-reactive ---------- */
+  .hero {
+    min-height: calc(100vh - 61px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px; border-bottom: 1px solid var(--black);
+    cursor: crosshair;
+  }
+  .hero .eyebrow { display: flex; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px; }
+  .hero h1 {
+    font-size: clamp(90px, 18vw, 320px);
+    letter-spacing: -0.045em; line-height: 0.86;
+    user-select: none; display: flex;
+  }
+  .hero h1 span {
+    display: inline-block;
+    font-variation-settings: 'wght' 200;
+    will-change: font-variation-settings;
+  }
+  .hero .hint { margin-top: 36px; max-width: 560px; font-size: clamp(17px, 2vw, 22px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+  .hero .hint b { font-weight: 800; }
+
+  /* state line (from Option C) */
+  .hero .stateword {
+    font-size: clamp(32px, 5vw, 84px);
+    font-weight: 250; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 16px;
+    position: relative; height: 1.06em;
+    user-select: none;
+  }
+  .hero .stateword span {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(35%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+  }
+  .hero .stateword span.on { opacity: 1; transform: translateY(0); }
+  .hero .stateword em { font-style: normal; font-weight: 650; color: var(--state); transition: color 0.6s ease; }
+
+  /* ---------- Marquees ---------- */
+  .marquees { border-bottom: 1px solid var(--black); will-change: transform; }
+  .mq { overflow: hidden; white-space: nowrap; padding: 12px 0; }
+  .mq + .mq { border-top: 1px solid var(--black); }
+  .mq .track { display: inline-block; }
+  .mq span { display: inline-block; margin-right: 56px; text-transform: uppercase; font-weight: 800; letter-spacing: -0.01em; }
+  .mq-1 span { font-size: 40px; }
+  .mq-2 span { font-size: 18px; font-weight: 400; letter-spacing: 0.2em; margin-right: 72px; }
+  .mq-3 span { font-size: 40px; -webkit-text-stroke: 1.5px var(--black); color: transparent; }
+  .mq-1 .track { animation: mqL 30s linear infinite; }
+  .mq-2 .track { animation: mqR 24s linear infinite; }
+  .mq-3 .track { animation: mqL 38s linear infinite; }
+  @keyframes mqL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes mqR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  /* ---------- Scroll-weight stage ---------- */
+  .scrollstage { height: 320vh; position: relative; border-bottom: 1px solid var(--black); }
+  .scrollstage .stick {
+    position: sticky; top: 61px; height: calc(100vh - 61px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    overflow: hidden;
+  }
+  .scrollstage h2 {
+    font-size: clamp(80px, 16vw, 280px);
+    letter-spacing: -0.045em; line-height: 1;
+    font-variation-settings: 'wght' 100;
+    will-change: font-variation-settings, transform;
+  }
+  .scrollstage .meter {
+    position: absolute; bottom: 32px; left: 40px; right: 40px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .scrollstage .bar { flex: 1; height: 1px; background: rgba(10,10,10,0.2); position: relative; }
+  .scrollstage .bar i { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: var(--black); }
+  .scrollstage .wnum { font-variant-numeric: tabular-nums; min-width: 64px; text-align: right; }
+
+  /* ---------- Program floods ---------- */
+  .flood {
+    min-height: 100vh; color: var(--white);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 100px 40px 40px;
+    border-bottom: 1px solid var(--black);
+    overflow: hidden;
+  }
+  .flood.c { background: var(--creativity); }
+  .flood.h { background: var(--humanity); }
+  .flood.e { background: var(--entrepreneurship); }
+  .flood .idx { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; }
+  .flood .big {
+    font-size: clamp(64px, 12.5vw, 220px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.84;
+    text-transform: uppercase; overflow: hidden;
+  }
+  .flood .big .line { display: block; overflow: hidden; }
+  .flood .big .line > i {
+    font-style: normal; display: block;
+    transform: translateY(110%);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .flood.inview .big .line:nth-child(1) > i { transition-delay: 0.05s; }
+  .flood.inview .big .line:nth-child(2) > i { transition-delay: 0.18s; }
+  .flood.inview .big .line > i { transform: translateY(0); }
+  .flood .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-top: 48px; }
+  .flood .foot p { max-width: 420px; font-size: 15px; font-weight: 500; }
+  .flood .foot .lk { font-weight: 900; font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.03em; }
+  .flood .foot .lk em { font-style: normal; font-weight: 250; }
+
+  /* ---------- Principles ---------- */
+  .principles { padding: 88px 40px; border-bottom: 1px solid var(--black); }
+  .principles h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; max-width: 800px; }
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); margin-top: 48px; }
+  @media (max-width: 860px) { .pgrid { grid-template-columns: 1fr; } }
+  .pgrid > div { padding: 28px 32px; }
+  .pgrid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .pgrid .k { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pgrid p { font-size: 14px; color: #333; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 64px 40px 48px; }
+  footer .big { font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid var(--black); padding-top: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mq .track { animation: none; }
+    .flood .big .line > i { transition: none; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm">NICHE<i></i></div>
+  <span class="label">Option A — Kinetic · <a href="brand-moma.html">back to v0.2 →</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="eyebrow">
+    <span class="label">Brand Identity · Option A</span>
+    <span class="label dim">Move your cursor through the letters · Click to change state</span>
+  </div>
+  <h1 id="kinetic-wm" aria-label="NICHE"><span>N</span><span>I</span><span>C</span><span>H</span><span>E</span></h1>
+  <div class="stateword" id="stateword" aria-live="polite">
+    <span class="on">is <em>creativity</em>.</span>
+    <span>is <em>humanity</em>.</span>
+    <span>is <em>entrepreneurship</em>.</span>
+  </div>
+  <p class="hint"><b>The wordmark leans toward you.</b> Weight follows the cursor; the state line declares which value is speaking — it rotates on its own, or on click.</p>
+</section>
+
+<!-- ============ MARQUEES ============ -->
+<div class="marquees" id="marquees" aria-hidden="true">
+  <div class="mq mq-1"><div class="track">
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span>
+  </div></div>
+  <div class="mq mq-2"><div class="track">
+    <span>New Institute</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+    <span>New Institute</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+    <span>New Institute</span><span>Est. 2026</span><span>Learn by building</span><span>NICHE</span>
+  </div></div>
+  <div class="mq mq-3"><div class="track">
+    <span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span>
+    <span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span><span>NICHE</span>
+  </div></div>
+</div>
+
+<!-- ============ SCROLL WEIGHT ============ -->
+<section class="scrollstage" id="scrollstage">
+  <div class="stick">
+    <h2 id="scroll-wm">NICHE</h2>
+    <div class="meter">
+      <span class="label dim">Scroll = weight</span>
+      <div class="bar"><i id="scroll-bar"></i></div>
+      <span class="label wnum" id="scroll-num">100</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOODS ============ -->
+<section class="flood c">
+  <div class="idx">01 / Program</div>
+  <div class="big">
+    <span class="line"><i>Crea—</i></span>
+    <span class="line"><i>tivity</i></span>
+  </div>
+  <div class="foot">
+    <p>Studios, arts &amp; design, exhibitions, showcases. The flood color is the room; the type is the voice.</p>
+    <div class="lk">NICHE<em> Creativity</em></div>
+  </div>
+</section>
+
+<section class="flood h">
+  <div class="idx">02 / Program</div>
+  <div class="big">
+    <span class="line"><i>Huma—</i></span>
+    <span class="line"><i>nity</i></span>
+  </div>
+  <div class="foot">
+    <p>Partnerships, community, ethics &amp; the humanities. One color per piece — flooded, never sprinkled.</p>
+    <div class="lk">NICHE<em> Humanity</em></div>
+  </div>
+</section>
+
+<section class="flood e">
+  <div class="idx">03 / Program</div>
+  <div class="big">
+    <span class="line"><i>Entrepre—</i></span>
+    <span class="line"><i>neurship</i></span>
+  </div>
+  <div class="foot">
+    <p>Ventures, innovation labs, demo days. Momentum is the message; the type arrives moving.</p>
+    <div class="lk">NICHE<em> Entrepreneurship</em></div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="principles">
+  <span class="label dim">The system</span>
+  <h2 style="margin-top:12px;">Same skeleton as v0.2 — Libre Franklin, black on white, 1px rules. Motion is the only addition.</h2>
+  <div class="pgrid">
+    <div>
+      <div class="k">Print freezes at 900</div>
+      <p>Static media always use the heaviest weight. Motion is a screen privilege, not a requirement.</p>
+    </div>
+    <div>
+      <div class="k">Weight = attention</div>
+      <p>Cursor proximity, scroll progress, and viewport entry all map to the weight axis. One variable, many behaviors.</p>
+    </div>
+    <div>
+      <div class="k">Nothing decorative moves</div>
+      <p>Only the wordmark and headlines animate. Body text, rules, and layout stay still — the institution doesn't fidget.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big" id="footer-wm">NICHE</div>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · Option A — Kinetic · Draft</span>
+    <span class="label dim">Set in Libre Franklin · variable weight 100–900</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- State line (from Option C) ----- */
+  var stateColors = ['var(--creativity)', 'var(--humanity)', 'var(--entrepreneurship)'];
+  var stateWords = document.querySelectorAll('#stateword span');
+  var stateCur = 0, statePause = 0;
+  function setState(i) {
+    stateCur = i;
+    document.documentElement.style.setProperty('--state', stateColors[i]);
+    stateWords.forEach(function (w, j) { w.classList.toggle('on', j === i); });
+  }
+  setInterval(function () {
+    if (Date.now() > statePause) setState((stateCur + 1) % 3);
+  }, 4500);
+  document.getElementById('hero').addEventListener('click', function () {
+    setState((stateCur + 1) % 3);
+    statePause = Date.now() + 12000;
+  });
+
+  /* ----- Hero: cursor-proximity weight ----- */
+  var spans = Array.prototype.slice.call(document.querySelectorAll('#kinetic-wm span'));
+  var targets = spans.map(function () { return 200; });
+  var currents = spans.map(function () { return 200; });
+  var mouseX = -9999, mouseY = -9999, hasPointer = false;
+
+  document.addEventListener('mousemove', function (e) {
+    hasPointer = true; mouseX = e.clientX; mouseY = e.clientY;
+  });
+
+  var t0 = 0;
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    for (var i = 0; i < spans.length; i++) {
+      var r = spans[i].getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      if (hasPointer && !reduced) {
+        var d = Math.hypot(mouseX - cx, mouseY - cy);
+        var max = Math.max(window.innerWidth * 0.45, 320);
+        var p = Math.max(0, 1 - d / max);
+        targets[i] = 200 + p * 700;
+      } else if (!reduced) {
+        /* idle / touch: slow wave */
+        targets[i] = 550 + 350 * Math.sin((ts - t0) / 900 + i * 0.9);
+      }
+      currents[i] += (targets[i] - currents[i]) * 0.12;
+      spans[i].style.fontVariationSettings = "'wght' " + Math.round(currents[i]);
+    }
+
+    /* ----- Scroll stage: progress -> weight ----- */
+    var stage = document.getElementById('scrollstage');
+    var sr = stage.getBoundingClientRect();
+    var total = sr.height - window.innerHeight;
+    var prog = Math.min(1, Math.max(0, -sr.top / total));
+    var w = Math.round(100 + prog * 800);
+    document.getElementById('scroll-wm').style.fontVariationSettings = "'wght' " + w;
+    document.getElementById('scroll-bar').style.width = (prog * 100) + '%';
+    document.getElementById('scroll-num').textContent = w;
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ----- Marquee skew on scroll velocity ----- */
+  var lastY = window.scrollY, skew = 0;
+  var mqs = document.getElementById('marquees');
+  setInterval(function () {
+    var y = window.scrollY, v = y - lastY; lastY = y;
+    skew += ((Math.max(-12, Math.min(12, v * 0.35))) - skew) * 0.2;
+    if (!reduced) mqs.style.transform = 'skewY(' + skew.toFixed(2) + 'deg)';
+  }, 16);
+
+  /* ----- Flood reveal ----- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) en.target.classList.add('inview');
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.flood').forEach(function (f) { io.observe(f); });
+})();
+</script>
+
+</body>
+</html>

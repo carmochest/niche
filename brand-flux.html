@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · Flux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--state); color: var(--white); }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+  .topbar .wm i { font-style: normal; display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--state); margin-left: 8px; transition: background 0.6s ease; }
+  .topbar a { color: inherit; text-decoration: none; }
+  .topbar a:hover { text-decoration: underline; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: calc(100vh - 61px);
+    background: var(--state);
+    color: var(--white);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 32px 40px 40px;
+    border-bottom: 1px solid var(--black);
+    transition: background 0.6s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .hero .top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .hero .mid { user-select: none; }
+  .hero h1 {
+    font-size: clamp(90px, 16vw, 280px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.84;
+  }
+  .hero .stateword {
+    font-size: clamp(34px, 5.5vw, 92px);
+    font-weight: 250; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 10px;
+    position: relative; height: 1.05em;
+  }
+  .hero .stateword span {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(35%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+  }
+  .hero .stateword span.on { opacity: 1; transform: translateY(0); }
+  .hero .bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .hero .bottom p { max-width: 460px; font-size: 15px; font-weight: 500; }
+  .hero .dots { display: flex; gap: 10px; align-items: center; }
+  .hero .dots button {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.85); background: transparent;
+    cursor: pointer; position: relative;
+  }
+  .hero .dots button.on { background: var(--white); }
+  .hero .timer {
+    height: 2px; background: rgba(255,255,255,0.3);
+    margin-top: 18px; position: relative; width: 100%;
+  }
+  .hero .timer i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--white); width: 0%; }
+
+  /* ---------- Concept ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--black); }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-bottom: 56px; align-items: baseline; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .sec-head .intro { margin-top: 16px; max-width: 640px; font-size: 16px; color: #333; }
+
+  .states { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .states { grid-template-columns: 1fr; } }
+  .state-card { padding: 0; cursor: pointer; transition: opacity 0.2s; }
+  .state-card + .state-card { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .state-card + .state-card { border-left: none; border-top: 1px solid var(--black); } }
+  .state-card .chip { height: 180px; transition: height 0.35s cubic-bezier(0.16,1,0.3,1); }
+  .state-card:hover .chip, .state-card.on .chip { height: 230px; }
+  .state-card .body { padding: 24px 28px 30px; border-top: 1px solid var(--black); }
+  .state-card .nm { font-weight: 900; font-size: 22px; letter-spacing: -0.02em; }
+  .state-card .hx { font-size: 12px; color: var(--gray); margin: 2px 0 10px; }
+  .state-card p { font-size: 13.5px; color: #333; }
+  .state-card .now { display: inline-block; margin-top: 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0; }
+  .state-card.on .now { opacity: 1; color: var(--state); transition: color 0.6s ease; }
+
+  /* ---------- Live mocks ---------- */
+  .mocks { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0; border: 1px solid var(--black); }
+  @media (max-width: 860px) { .mocks { grid-template-columns: 1fr; } }
+  .mock { min-height: 420px; position: relative; display: flex; flex-direction: column; }
+  .mocks .mock + .mock { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .mocks .mock + .mock { border-left: none; border-top: 1px solid var(--black); } }
+  .mock .tag { position: absolute; top: 14px; left: 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; z-index: 2; }
+
+  .mock.poster { background: var(--state); color: var(--white); padding: 24px; justify-content: space-between; transition: background 0.6s ease; }
+  .mock.poster .wm-s { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; margin-top: 24px; }
+  .mock.poster .big { font-size: clamp(48px, 6vw, 92px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.88; }
+  .mock.poster .big em { font-style: normal; font-weight: 250; display: block; }
+  .mock.poster .meta { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin-top: 14px; }
+
+  .mock.web { background: var(--white); padding: 48px 28px 28px; justify-content: center; gap: 0; }
+  .mock.web .browser { border: 1px solid var(--black); }
+  .mock.web .bbar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--black); }
+  .mock.web .bbar i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--black); }
+  .mock.web .bhead { padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--black); }
+  .mock.web .bhead .l { font-weight: 900; font-size: 18px; letter-spacing: -0.03em; }
+  .mock.web .bhead .l i { font-style: normal; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--state); margin-left: 6px; transition: background 0.6s ease; }
+  .mock.web .bhead .label { font-size: 9px; }
+  .mock.web .bbody { padding: 18px 16px 22px; }
+  .mock.web .bbody .hl { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+  .mock.web .bbody .hl b { color: var(--state); transition: color 0.6s ease; font-weight: 800; }
+  .mock.web .bbody .cta {
+    display: inline-block; margin-top: 16px; padding: 9px 18px;
+    background: var(--state); color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.6s ease;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 64px 40px 48px; background: var(--black); color: var(--white); }
+  footer .big { font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85; }
+  footer .big i { font-style: normal; color: var(--state); transition: color 0.6s ease; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm">NICHE<i></i></div>
+  <span class="label">Option C — Flux · <a href="brand-moma.html">back to v0.2 →</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" title="Click to change state">
+  <div class="top">
+    <span class="label">Brand Identity · Option C</span>
+    <span class="label">Click anywhere — the institute changes state</span>
+  </div>
+  <div class="mid">
+    <h1>NICHE</h1>
+    <div class="stateword" id="stateword">
+      <span class="on">is creativity.</span>
+      <span>is humanity.</span>
+      <span>is entrepreneurship.</span>
+    </div>
+  </div>
+  <div class="bottom">
+    <p><b>One institution, three states.</b> The identity never sits still: every touchpoint declares which value is speaking right now — and the whole surface changes with it.</p>
+    <div class="dots" id="dots" aria-label="state switcher">
+      <button class="on" aria-label="Creativity"></button>
+      <button aria-label="Humanity"></button>
+      <button aria-label="Entrepreneurship"></button>
+    </div>
+  </div>
+  <div class="timer"><i id="timerbar"></i></div>
+</section>
+
+<!-- ============ STATES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — The states</span>
+      <div>
+        <h2>Color is a verb here.</h2>
+        <p class="intro">The base identity is still black on white — but any surface can enter a state. Click a card to switch the whole page. In digital, states rotate; in print, the editor picks one and commits.</p>
+      </div>
+    </div>
+
+    <div class="states" id="states">
+      <div class="state-card on" data-i="0">
+        <div class="chip" style="background: var(--creativity);"></div>
+        <div class="body">
+          <div class="nm">Creativity</div>
+          <div class="hx">#FF4000</div>
+          <p>Studios, exhibitions, showcases. The loudest state — used wherever work is shown.</p>
+          <span class="now">● Current state</span>
+        </div>
+      </div>
+      <div class="state-card" data-i="1">
+        <div class="chip" style="background: var(--humanity);"></div>
+        <div class="body">
+          <div class="nm">Humanity</div>
+          <div class="hx">#E50695</div>
+          <p>Community, ethics, partnerships. The warm state — people-facing programs and reports.</p>
+          <span class="now">● Current state</span>
+        </div>
+      </div>
+      <div class="state-card" data-i="2">
+        <div class="chip" style="background: var(--entrepreneurship);"></div>
+        <div class="body">
+          <div class="nm">Entrepreneurship</div>
+          <div class="hx">#0533F3</div>
+          <p>Ventures, labs, demo days. The fast state — launches, deadlines, announcements.</p>
+          <span class="now">● Current state</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE MOCKS ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — Live</span>
+      <div>
+        <h2>Everything follows the state.</h2>
+        <p class="intro">Posters, the website, signage — all read from a single state variable. Watch them recolor as the state changes.</p>
+      </div>
+    </div>
+
+    <div class="mocks">
+      <div class="mock poster">
+        <div class="tag" style="color:#fff;">Poster · auto-themed</div>
+        <div class="wm-s">NICHE</div>
+        <div>
+          <div class="big" id="poster-line">Open<em id="poster-sub">Studio Night</em></div>
+          <div class="meta" id="poster-meta">Jun 20 · 18:00 · Building A</div>
+        </div>
+      </div>
+      <div class="mock web">
+        <div class="tag">Website header · auto-themed</div>
+        <div class="browser">
+          <div class="bbar"><i></i><i></i><i></i></div>
+          <div class="bhead">
+            <span class="l">NICHE<i></i></span>
+            <span class="label">Programs · Admissions · About</span>
+          </div>
+          <div class="bbody">
+            <div class="hl">Applications for the 2027 cohort are <b id="web-word">open</b>.</div>
+            <span class="cta">Apply now</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="big">NICHE<i>.</i></div>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · Option C — Flux · Draft</span>
+    <span class="label" style="opacity:0.6;">Set in Libre Franklin · one state variable</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var states = [
+    { color: 'var(--creativity)', poster: 'Open', sub: 'Studio Night', meta: 'Jun 20 · 18:00 · Building A', web: 'open' },
+    { color: 'var(--humanity)', poster: 'Community', sub: 'Partners Forum', meta: 'Jul 03 · 10:00 · Main Hall', web: 'human' },
+    { color: 'var(--entrepreneurship)', poster: 'Spring', sub: 'Demo Day', meta: 'Jun 14 · 19:00 · Main Hall', web: 'live' }
+  ];
+  var cur = 0, t = 0, INTERVAL = 5000, paused = 0;
+  var words = document.querySelectorAll('#stateword span');
+  var dots = document.querySelectorAll('#dots button');
+  var cards = document.querySelectorAll('.state-card');
+  var bar = document.getElementById('timerbar');
+
+  function setState(i) {
+    cur = i; t = 0;
+    document.documentElement.style.setProperty('--state', states[i].color);
+    words.forEach(function (w, j) { w.classList.toggle('on', j === i); });
+    dots.forEach(function (d, j) { d.classList.toggle('on', j === i); });
+    cards.forEach(function (c, j) { c.classList.toggle('on', j === i); });
+    document.getElementById('poster-line').childNodes[0].nodeValue = states[i].poster;
+    document.getElementById('poster-sub').textContent = states[i].sub;
+    document.getElementById('poster-meta').textContent = states[i].meta;
+    document.getElementById('web-word').textContent = states[i].web;
+  }
+
+  function manual(i) { setState(i); paused = Date.now() + 12000; }
+
+  document.getElementById('hero').addEventListener('click', function (e) {
+    if (e.target.tagName === 'BUTTON') return;
+    manual((cur + 1) % states.length);
+  });
+  dots.forEach(function (d, j) { d.addEventListener('click', function () { manual(j); }); });
+  cards.forEach(function (c) { c.addEventListener('click', function () { manual(+c.dataset.i); }); });
+
+  var last = performance.now();
+  function tick(now) {
+    var dt = now - last; last = now;
+    if (Date.now() > paused) {
+      t += dt;
+      if (t >= INTERVAL) setState((cur + 1) % states.length);
+    }
+    bar.style.width = Math.min(100, (t / INTERVAL) * 100) + '%';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+</body>
+</html>

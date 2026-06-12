@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · V3 — You are the I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--black); color: var(--white); }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+  .topbar .wm em { font-style: normal; color: var(--state); transition: color 0.6s ease; }
+  .topbar .label a { color: inherit; text-decoration: none; border-bottom: 2px solid transparent; }
+  .topbar .label a:hover { border-bottom-color: var(--black); }
+
+  /* ---------- The dotted i ---------- */
+  /* The ı is a real dotless-i letter — the mark sits exactly where the
+     tittle belongs, inside cap height, so the lockup stays tight. */
+  .iwrap { position: relative; }
+  .imark {
+    position: absolute;
+    left: 50%; top: 0.04em;
+    width: 0.17em; height: 0.17em;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .imark svg { will-change: transform; }
+  .imark svg, .mark-full svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .ig { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 0.16s ease; fill: var(--state); }
+  .ig.on { opacity: 1; }
+  .ig-bar, .ig-stem { fill: currentColor; }
+  .ig-stem { opacity: 1; }
+  .ig-circle.on { animation: circleBreathe 4s ease-in-out infinite; }
+  .ig-tri.on { animation: triTilt 3.2s ease-in-out infinite; }
+  @keyframes circleBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.86); }
+  }
+  @keyframes triTilt {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(10deg) translateY(-3%); }
+  }
+  [data-imark].pop svg, [data-mark].pop svg { animation: iPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes iPop {
+    0% { transform: scale(0.45) rotate(-18deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: calc(100vh - 61px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px; border-bottom: 1px solid var(--black);
+    cursor: crosshair;
+  }
+  .hero .eyebrow { display: flex; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 8px; }
+  .hero h1 {
+    font-size: clamp(84px, 16.5vw, 300px);
+    letter-spacing: -0.045em; line-height: 0.86;
+    user-select: none; display: flex; align-items: flex-end;
+  }
+  .hero h1 .lt {
+    display: inline-block;
+    font-variation-settings: 'wght' 200;
+    will-change: font-variation-settings;
+  }
+  .hero .stateword {
+    font-size: clamp(30px, 4.8vw, 80px);
+    font-weight: 250; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 22px;
+    position: relative; height: 1.06em;
+    user-select: none;
+  }
+  .hero .stateword span {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(35%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+  }
+  .hero .stateword span.on { opacity: 1; transform: translateY(0); }
+  .hero .stateword em { font-style: normal; font-weight: 650; color: var(--state); transition: color 0.6s ease; }
+  .hero .hint { margin-top: 36px; max-width: 620px; font-size: clamp(16px, 1.9vw, 21px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+  .hero .hint b { font-weight: 800; }
+
+  /* ---------- Manifesto strip ---------- */
+  .manifesto {
+    border-bottom: 1px solid var(--black);
+    padding: 56px 40px;
+    background: var(--black); color: var(--white);
+  }
+  .manifesto .line {
+    font-size: clamp(28px, 4.6vw, 64px);
+    font-weight: 250; letter-spacing: -0.025em; line-height: 1.12;
+    max-width: 1100px;
+  }
+  .manifesto .line b { font-weight: 850; }
+  .manifesto .line em { font-style: normal; font-weight: 850; color: var(--state); transition: color 0.6s ease; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--black); }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-bottom: 56px; align-items: baseline; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .sec-head .intro { margin-top: 16px; max-width: 640px; font-size: 16px; color: #333; }
+
+  /* ---------- The four I's ---------- */
+  .eyes { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 980px) { .eyes { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .eyes { grid-template-columns: 1fr; } }
+  .eye-cell { padding: 44px 30px 32px; cursor: pointer; transition: background 0.2s; }
+  .eye-cell:hover { background: #F5F5F5; }
+  .eye-cell + .eye-cell { border-left: 1px solid var(--black); }
+  @media (max-width: 980px) {
+    .eye-cell:nth-child(3) { border-left: none; }
+    .eye-cell:nth-child(n+3) { border-top: 1px solid var(--black); }
+  }
+  @media (max-width: 560px) {
+    .eye-cell + .eye-cell { border-left: none; border-top: 1px solid var(--black); }
+  }
+  .eye-cell .stage { height: 130px; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 24px; }
+  .eye-cell .stage svg { height: 100%; width: auto; overflow: visible; }
+  .eye-cell .nm { font-weight: 900; font-size: 19px; letter-spacing: -0.02em; }
+  .eye-cell .sym { font-size: 11px; color: var(--gray); margin: 2px 0 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .eye-cell p { font-size: 13px; color: #333; }
+  .eye-cell .stage .sh { transform-box: fill-box; transform-origin: center; }
+  .eye-cell:nth-child(1) .sh { fill: var(--black); }
+  .eye-cell:nth-child(2) .sh { fill: var(--creativity); }
+  .eye-cell:nth-child(3) .sh { fill: var(--humanity); animation: circleBreathe 4s ease-in-out infinite; }
+  .eye-cell:nth-child(4) .sh { fill: var(--entrepreneurship); animation: triTilt 3.2s ease-in-out infinite; }
+
+  /* ---------- ID card application ---------- */
+  .apps { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--black); }
+  @media (max-width: 860px) { .apps { grid-template-columns: 1fr; } }
+  .apps > div { padding: 44px 36px; position: relative; min-height: 420px; display: flex; align-items: center; justify-content: center; }
+  .apps > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .apps > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .apps .tag { position: absolute; top: 16px; left: 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; }
+
+  .idcard {
+    background: var(--black); color: var(--white);
+    width: 100%; max-width: 340px; aspect-ratio: 0.63;
+    padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.22);
+  }
+  .idcard .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .idcard .wm { font-weight: 900; font-size: 20px; letter-spacing: -0.03em; }
+  .idcard .wm em { font-style: normal; color: var(--state); transition: color 0.6s ease; }
+  .idcard .my-i { width: 56px; height: 132px; align-self: center; }
+  .idcard .my-i svg { width: 100%; height: 100%; overflow: visible; }
+  .idcard .nm { font-weight: 800; font-size: 20px; letter-spacing: -0.01em; }
+  .idcard .rl { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.65; margin-top: 3px; }
+  .idcard .num { font-size: 11px; opacity: 0.5; margin-top: 10px; font-variant-numeric: tabular-nums; }
+
+  .poster-v3 {
+    background: var(--state); color: var(--white);
+    width: 100%; max-width: 340px; aspect-ratio: 0.71;
+    padding: 26px; display: flex; flex-direction: column; justify-content: space-between;
+    transition: background 0.6s ease;
+    box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+  }
+  .poster-v3 .big { font-weight: 900; font-size: 46px; letter-spacing: -0.04em; line-height: 0.92; }
+  .poster-v3 .big .you { font-weight: 250; display: block; }
+  .poster-v3 .meta { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+
+  /* ---------- Principles ---------- */
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid { grid-template-columns: 1fr; } }
+  .pgrid > div { padding: 28px 32px; }
+  .pgrid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .pgrid .k { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pgrid p { font-size: 14px; color: #333; }
+
+  footer { padding: 64px 40px 48px; }
+  footer .big {
+    font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85;
+  }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid var(--black); padding-top: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ig, .eye-cell .sh { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm">N<span class="iwrap">ı<span class="imark" data-imark></span></span>CHE</div>
+  <span class="label">V3 — You are the I · <a href="brand-kinetic-v2.html">← V2</a> · <a href="brand-kinetic-v4.html">V4 →</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="eyebrow">
+    <span class="label">Brand Identity · V3</span>
+    <span class="label dim">Move your cursor through the letters · Click to change the dot</span>
+  </div>
+  <h1 id="kinetic-wm" aria-label="NICHE">
+    <span class="lt">N</span><span class="lt iwrap">ı<span class="imark" data-imark></span></span><span class="lt">C</span><span class="lt">H</span><span class="lt">E</span>
+  </h1>
+  <div class="stateword" id="stateword" aria-live="polite">
+    <span class="on">is <em>creativity</em>.</span>
+    <span>is <em>humanity</em>.</span>
+    <span>is <em>entrepreneurship</em>.</span>
+  </div>
+  <p class="hint"><b>The dot on our i is alive.</b> All five letters carry the institution's weight — but the dot above the i belongs to a person: wobbling, breathing, or pointing, depending on who's wearing it.</p>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<div class="manifesto">
+  <div class="line">Every school says <b>"you belong here."</b> We built it into the name: there is no NICHE without an <em>I</em> — and the <em>I</em> is <b>you</b>.</div>
+</div>
+
+<!-- ============ THE FOUR I'S ============ -->
+<section id="eyes">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — The I</span>
+      <div>
+        <h2>One dot, four residents.</h2>
+        <p class="intro">In formal contexts the i goes undotted — the institution standing straight. In living contexts the dot is whoever occupies it. Click a resident to set the page's state.</p>
+      </div>
+    </div>
+
+    <div class="eyes" id="eyeCells">
+      <div class="eye-cell" data-i="-1">
+        <div class="stage"><svg viewBox="0 0 100 240"><rect class="sh" x="36" y="0" width="28" height="240"/></svg></div>
+        <div class="nm">Undotted</div>
+        <div class="sym">Institutional — formal, print</div>
+        <p>Diplomas, legal documents, signage. The i stands at attention, no dot. Always black.</p>
+      </div>
+      <div class="eye-cell" data-i="0">
+        <div class="stage"><svg viewBox="0 0 100 240"><rect x="36" y="92" width="28" height="148" fill="var(--black)"/><g transform="translate(20,8) scale(0.6)"><path class="sh blob-live" d="M48 8 C64 2 84 10 90 28 C96 46 86 56 88 70 C90 86 74 96 58 94 C42 92 30 98 18 86 C6 74 4 56 10 40 C16 24 32 14 48 8 Z"/></g></svg></div>
+        <div class="nm">The maker</div>
+        <div class="sym">Creativity — never the same twice</div>
+        <p>Studio walls, showcase posters, degree shows. The I is mid-idea.</p>
+      </div>
+      <div class="eye-cell" data-i="1">
+        <div class="stage"><svg viewBox="0 0 100 240"><rect x="36" y="92" width="28" height="148" fill="var(--black)"/><circle class="sh" cx="50" cy="39" r="25"/></svg></div>
+        <div class="nm">The neighbor</div>
+        <div class="sym">Humanity — whole, breathing</div>
+        <p>Community reports, partnership decks, ethics forums. The I makes room.</p>
+      </div>
+      <div class="eye-cell" data-i="2">
+        <div class="stage"><svg viewBox="0 0 100 240"><rect x="36" y="92" width="28" height="148" fill="var(--black)"/><path class="sh" d="M27 62 L50 14 L73 62 Z"/></svg></div>
+        <div class="nm">The founder</div>
+        <div class="sym">Entrepreneurship — pointed forward</div>
+        <p>Demo days, venture announcements, launch mail. The I is about to jump.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATIONS ============ -->
+<section id="apps">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — Yours</span>
+      <div>
+        <h2>Every student gets their own I.</h2>
+        <p class="intro">The system scales to people: on ID cards, portfolios, and profiles, each student's I takes their program's shape and color. The institution's name carries the individual's mark.</p>
+      </div>
+    </div>
+
+    <div class="apps">
+      <div>
+        <div class="tag">Student ID</div>
+        <div class="idcard">
+          <div class="top">
+            <div class="wm">N<span class="iwrap">ı<span class="imark" data-imark></span></span>CHE</div>
+            <span class="label" style="opacity:0.5;">2026—27</span>
+          </div>
+          <div class="my-i" data-mark></div>
+          <div>
+            <div class="nm">Amara Mendes</div>
+            <div class="rl">Creativity · Studio Track</div>
+            <div class="num">ID 2026-0184 · niche.edu</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tag">Recruitment poster</div>
+        <div class="poster-v3">
+          <div class="big">Be the<span class="you">I in NICHE.</span></div>
+          <div class="meta">Applications open · Fall 2027 cohort · niche.edu/apply</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">03 — Rules</span>
+      <div>
+        <h2>How the I behaves.</h2>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div>
+        <div class="k">The other four never move</div>
+        <p>N, C, H, E are always Black 900 (cursor weight on screens is the only exception). All life is concentrated in the I — contrast is the point.</p>
+      </div>
+      <div>
+        <div class="k">Formal = bar, living = shape</div>
+        <p>If the document outlives the moment (diploma, contract), the I is a black bar. If it speaks for now (poster, post, profile), it takes a resident.</p>
+      </div>
+      <div>
+        <div class="k">One I per piece</div>
+        <p>The I never appears in two shapes on one surface. The slot has one occupant at a time — like a chair.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">N<span class="iwrap">ı<span class="imark" data-imark></span></span>CHE</div>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · V3 — You are the I · Draft</span>
+    <span class="label dim">Set in Libre Franklin · the I is a person</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- Procedural blob: polar anchors driven by layered sine waves —
+     the outline undulates in every direction and never repeats. ----- */
+  function blobPath(t, seed) {
+    var N = 10, pts = [];
+    for (var i = 0; i < N; i++) {
+      var a = (i / N) * Math.PI * 2;
+      var r = 40
+        + 4.5 * Math.sin(t * 0.0006 + seed + i * 0.9)
+        + 3 * Math.sin(t * 0.00038 + seed * 2.3 + i * 1.4)
+        + 2 * Math.sin(t * 0.00084 + seed * 0.7 + i * 0.6);
+      pts.push([50 + Math.cos(a) * r, 50 + Math.sin(a) * r]);
+    }
+    var d = '';
+    for (var j = 0; j < N; j++) {
+      var p0 = pts[(j - 1 + N) % N], p1 = pts[j], p2 = pts[(j + 1) % N], p3 = pts[(j + 2) % N];
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      if (j === 0) d = 'M' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1);
+      d += 'C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d + 'Z';
+  }
+
+  /* ----- The marks: dot above the ı (and full lowercase-i glyph for standalone) ----- */
+  /* dot only — sits in the tittle position */
+  var DOT_SVG =
+    '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="ig ig-blob" data-st="0" d="' + blobPath(0, 0) + '"/>' +
+      '<circle class="ig ig-circle" data-st="1" cx="50" cy="50" r="44"/>' +
+      '<path class="ig ig-tri" data-st="2" d="M10 88 L50 12 L90 88 Z"/>' +
+    '</svg>';
+  /* full lowercase-i glyph — stem + dot, stands alone (ID cards, avatars) */
+  var FULL_SVG =
+    '<svg viewBox="0 0 100 240" aria-hidden="true">' +
+      '<rect class="ig ig-bar" data-st="-1" x="36" y="0" width="28" height="240"/>' +
+      '<rect class="ig-stem" x="36" y="92" width="28" height="148"/>' +
+      '<g transform="translate(20,8) scale(0.6)"><path class="ig ig-blob" data-st="0" d="' + blobPath(0, 3) + '"/></g>' +
+      '<circle class="ig ig-circle" data-st="1" cx="50" cy="39" r="25"/>' +
+      '<path class="ig ig-tri" data-st="2" d="M27 62 L50 14 L73 62 Z"/>' +
+    '</svg>';
+  var slots = [];
+  document.querySelectorAll('[data-imark]').forEach(function (el) { el.innerHTML = DOT_SVG; slots.push(el); });
+  document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = FULL_SVG; slots.push(el); });
+
+  /* ----- State machine ----- */
+  var stateColors = ['var(--creativity)', 'var(--humanity)', 'var(--entrepreneurship)'];
+  var stateWords = document.querySelectorAll('#stateword span');
+  var stateCur = -2, statePause = 0;
+
+  function refreshSlots(pop) {
+    slots.forEach(function (el) {
+      el.querySelectorAll('.ig').forEach(function (g) {
+        g.classList.toggle('on', +g.getAttribute('data-st') === stateCur);
+      });
+      if (pop && !reduced) {
+        el.classList.remove('pop');
+        void el.offsetWidth;
+        el.classList.add('pop');
+      }
+    });
+  }
+
+  function setState(i, pop) {
+    if (i === stateCur) return;
+    stateCur = i;
+    if (i >= 0) document.documentElement.style.setProperty('--state', stateColors[i]);
+    stateWords.forEach(function (w, j) { w.classList.toggle('on', j === i); });
+    refreshSlots(pop);
+  }
+  setState(0, false);
+  setInterval(function () {
+    if (Date.now() > statePause) setState(((stateCur < 0 ? -1 : stateCur) + 1) % 3, true);
+  }, 4500);
+  document.getElementById('hero').addEventListener('click', function () {
+    setState(((stateCur < 0 ? -1 : stateCur) + 1) % 3, true);
+    statePause = Date.now() + 12000;
+  });
+  document.querySelectorAll('#eyeCells .eye-cell').forEach(function (c) {
+    c.addEventListener('click', function () {
+      setState(+c.dataset.i, true);
+      statePause = Date.now() + (+c.dataset.i < 0 ? 8000 : 12000);
+    });
+  });
+
+  /* ----- Hero: cursor-proximity weight on N C H E ----- */
+  var spans = Array.prototype.slice.call(document.querySelectorAll('#kinetic-wm .lt'));
+  var targets = spans.map(function () { return 200; });
+  var currents = spans.map(function () { return 200; });
+  var mouseX = -9999, mouseY = -9999, hasPointer = false;
+  document.addEventListener('mousemove', function (e) {
+    hasPointer = true; mouseX = e.clientX; mouseY = e.clientY;
+  });
+  var t0 = 0;
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    for (var i = 0; i < spans.length; i++) {
+      var r = spans[i].getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      if (hasPointer && !reduced) {
+        var d = Math.hypot(mouseX - cx, mouseY - cy);
+        var max = Math.max(window.innerWidth * 0.45, 320);
+        var p = Math.max(0, 1 - d / max);
+        targets[i] = 200 + p * 700;
+      } else if (!reduced) {
+        targets[i] = 550 + 350 * Math.sin((ts - t0) / 900 + i * 0.9);
+      }
+      currents[i] += (targets[i] - currents[i]) * 0.12;
+      spans[i].style.fontVariationSettings = "'wght' " + Math.round(currents[i]);
+    }
+
+    /* ----- Live blobs: regenerate every frame, each with its own seed ----- */
+    if (!reduced) {
+      for (var b = 0; b < liveBlobs.length; b++) {
+        liveBlobs[b].setAttribute('d', blobPath(ts, b * 2.7));
+      }
+    }
+
+    /* ----- The dot looks at your cursor ----- */
+    if (heroDot && !reduced) {
+      var dr = heroDot.getBoundingClientRect();
+      var dcx = dr.left + dr.width / 2, dcy = dr.top + dr.height / 2;
+      var rotT, txT;
+      if (hasPointer) {
+        var ddx = mouseX - dcx, ddy = mouseY - dcy;
+        rotT = Math.max(-14, Math.min(14, ddx * 0.02));
+        txT = Math.max(-10, Math.min(10, ddx * 0.012));
+      } else {
+        rotT = 7 * Math.sin((ts - t0) / 1300);
+        txT = 0;
+      }
+      dotRot += (rotT - dotRot) * 0.1;
+      dotTx += (txT - dotTx) * 0.1;
+      heroDot.style.transform = 'translateX(' + dotTx.toFixed(1) + '%) rotate(' + dotRot.toFixed(1) + 'deg)';
+    }
+
+    requestAnimationFrame(frame);
+  }
+  var liveBlobs = Array.prototype.slice.call(document.querySelectorAll('.ig-blob, .blob-live'));
+  var heroDot = document.querySelector('#kinetic-wm .imark svg');
+  var dotRot = 0, dotTx = 0;
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

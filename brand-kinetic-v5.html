@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · V5 — The Swarm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--black); color: var(--white); }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+
+  /* ---------- The lockup: NICHE● — the mark ends the name (V2 system) ---------- */
+  .lock {
+    display: inline-flex; align-items: flex-end;
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.86;
+    white-space: nowrap;
+  }
+  .lock .mark {
+    display: inline-block;
+    width: 0.165em; height: 0.165em;
+    margin-left: 0.07em; margin-bottom: 0.02em;
+    flex-shrink: 0;
+  }
+  .lock.sm .mark {
+    width: 0.42em; height: 0.42em;
+    margin-left: 0.08em; margin-bottom: 0;
+  }
+  [data-mark] svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .ig { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 0.18s ease; fill: var(--state); }
+  .ig.on { opacity: 1; }
+  .ig-circle.on { animation: circleBreathe 4s ease-in-out infinite; }
+  .ig-tri.on { animation: triTilt 3.2s ease-in-out infinite; }
+  @keyframes circleBreathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.88); }
+  }
+  @keyframes triTilt {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(9deg) translateY(-4%); }
+  }
+  [data-mark].pop svg { animation: markPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes markPop {
+    0% { transform: scale(0.5) rotate(-20deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+  .dp .lock .ig { fill: currentColor; } /* poster wordmark dot follows the sheet's type color */
+  @media (prefers-reduced-motion: reduce) { .ig { animation: none !important; } }
+  .topbar .label a { color: inherit; text-decoration: none; border-bottom: 2px solid transparent; }
+  .topbar .label a:hover { border-bottom-color: var(--black); }
+
+  /* ---------- Hero: the swarm ---------- */
+  .hero {
+    position: relative;
+    height: calc(100vh - 61px);
+    min-height: 560px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--black);
+    cursor: crosshair;
+  }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px;
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: clamp(64px, 9.5vw, 170px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.86;
+    max-width: 55%;
+  }
+  @media (max-width: 700px) { .hero h1 { max-width: 100%; } }
+  .hero .stateword {
+    font-size: clamp(26px, 3.6vw, 58px);
+    font-weight: 250; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 18px;
+    position: relative; height: 1.06em;
+  }
+  .hero .stateword span {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(35%);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    white-space: nowrap;
+  }
+  .hero .stateword span.on { opacity: 1; transform: translateY(0); }
+  .hero .stateword em { font-style: normal; font-weight: 650; color: var(--state); transition: color 0.6s ease; }
+  .hero .hint {
+    margin-top: 30px; max-width: 460px;
+    font-size: clamp(15px, 1.7vw, 19px); font-weight: 500;
+    letter-spacing: -0.01em; line-height: 1.35;
+  }
+  .hero .hint b { font-weight: 800; }
+  .hero .corner {
+    position: absolute; left: 40px; bottom: 28px;
+    display: flex; gap: 24px;
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--black); }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-bottom: 56px; align-items: baseline; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .sec-head .intro { margin-top: 16px; max-width: 640px; font-size: 16px; color: #333; }
+
+  /* ---------- Concept cells ---------- */
+  .cells { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .cells { grid-template-columns: 1fr; } }
+  .cell { padding: 36px 32px; }
+  .cell + .cell { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .cell + .cell { border-left: none; border-top: 1px solid var(--black); } }
+  .cell .num { font-weight: 900; font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.04em; line-height: 1; color: var(--state); transition: color 0.6s ease; }
+  .cell .k { font-weight: 800; font-size: 17px; margin: 12px 0 6px; }
+  .cell p { font-size: 14px; color: #333; }
+
+  /* ---------- Dot figure posters ---------- */
+  .posters { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 900px) { .posters { grid-template-columns: 1fr; } }
+  .dp { padding: 36px; cursor: pointer; transition: background 0.2s; }
+  .dp:hover { background: #F5F5F5; }
+  .dp + .dp { border-left: 1px solid var(--black); }
+  @media (max-width: 900px) { .dp + .dp { border-left: none; border-top: 1px solid var(--black); } }
+  .dp .sheet {
+    aspect-ratio: 0.71;
+    padding: 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+  }
+  .dp.d1 .sheet { background: var(--white); border: 1px solid var(--black); color: var(--black); }
+  .dp.d2 .sheet { background: var(--black); color: var(--white); }
+  .dp.d3 .sheet { background: var(--entrepreneurship); color: var(--white); }
+  .dp .sheet .wm { font-weight: 900; font-size: 17px; letter-spacing: -0.03em; }
+  .dp .fig { width: 76%; align-self: center; }
+  .dp .fig svg { width: 100%; height: auto; display: block; }
+  .dp .sheet .meta { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.65; }
+  .dp .cap { font-size: 13px; color: #333; margin-top: 18px; }
+  .dp .cap b { font-weight: 800; color: var(--black); }
+
+  /* ---------- Principles ---------- */
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid { grid-template-columns: 1fr; } }
+  .pgrid > div { padding: 28px 32px; }
+  .pgrid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .pgrid .k { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pgrid p { font-size: 14px; color: #333; }
+
+  footer { padding: 64px 40px 48px; }
+  footer .big { font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid var(--black); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm lock sm">NICHE<span class="mark" data-mark></span></div>
+  <span class="label">V5 — The Swarm · <a href="brand-kinetic-v4.html">← V4</a> · <a href="brand/">V2</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <canvas id="swarm"></canvas>
+  <div class="overlay">
+    <h1><span class="lock">NICHE<span class="mark" data-mark></span></span></h1>
+    <div class="stateword" id="stateword" aria-live="polite">
+      <span class="on">is <em>creativity</em>.</span>
+      <span>is <em>humanity</em>.</span>
+      <span>is <em>entrepreneurship</em>.</span>
+    </div>
+    <p class="hint"><b>One institution, hundreds of individuals.</b> The mark is a crowd — every dot a student. Push through it with your cursor; it scatters and regroups. Click to gather around the next value.</p>
+  </div>
+  <div class="corner">
+    <span class="label dim">Brand Identity · V5</span>
+    <span class="label dim" id="dotCount"></span>
+  </div>
+</section>
+
+<!-- ============ CONCEPT ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — One of many</span>
+      <div>
+        <h2>The mark is not drawn. It assembles.</h2>
+        <p class="intro">No single dot matters; together they're unmistakable. The crowd scatters when you push through it — and always finds its shape again. That's the institution.</p>
+      </div>
+    </div>
+    <div class="cells">
+      <div class="cell">
+        <div class="num">1</div>
+        <div class="k">dot = one student</div>
+        <p>The unit of the brand is a person, not a pixel. Headcount literally shapes the mark — a bigger cohort is a denser mark.</p>
+      </div>
+      <div class="cell">
+        <div class="num">3</div>
+        <div class="k">shapes to gather around</div>
+        <p>The crowd forms the blob, the circle, or the triangle — the same shape language as the rest of the system.</p>
+      </div>
+      <div class="cell">
+        <div class="num">0</div>
+        <div class="k">outlines</div>
+        <p>The swarm never gets a containing stroke. Its edge is fuzzy because real communities are — held together by pull, not fences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POSTERS ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — In print</span>
+      <div>
+        <h2>Frozen mid-assembly.</h2>
+        <p class="intro">Print captures the swarm a moment before it settles — dots slightly loose, shape clearly readable. Click a sheet to set the page's state.</p>
+      </div>
+    </div>
+    <div class="posters" id="dotPosters">
+      <div class="dp d1" data-i="0">
+        <div class="sheet">
+          <div class="wm lock sm">NICHE<span class="mark" data-mark data-fixed="0"></span></div>
+          <div class="fig" data-fig="0" data-color="var(--creativity)"></div>
+          <div class="meta">Open studio night · Jun 20 · Building A</div>
+        </div>
+        <div class="cap"><b>Creativity.</b> The blob, 600 students loose on white.</div>
+      </div>
+      <div class="dp d2" data-i="1">
+        <div class="sheet">
+          <div class="wm lock sm">NICHE<span class="mark" data-mark data-fixed="1"></span></div>
+          <div class="fig" data-fig="1" data-color="var(--humanity)"></div>
+          <div class="meta">Partners forum · Jul 03 · Main Hall</div>
+        </div>
+        <div class="cap"><b>Humanity.</b> The circle, gathered on black.</div>
+      </div>
+      <div class="dp d3" data-i="2">
+        <div class="sheet">
+          <div class="wm lock sm">NICHE<span class="mark" data-mark data-fixed="2"></span></div>
+          <div class="fig" data-fig="2" data-color="#FFFFFF"></div>
+          <div class="meta">Spring demo day · Jun 14 · Main Hall</div>
+        </div>
+        <div class="cap"><b>Entrepreneurship.</b> White crowd on flood blue.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">03 — Rules</span>
+      <div>
+        <h2>How the swarm behaves.</h2>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div>
+        <div class="k">Alive on screens, settling in print</div>
+        <p>Digital surfaces run the simulation. Print uses a frame exported from it — never a perfectly regular dot grid, which would kill the life.</p>
+      </div>
+      <div>
+        <div class="k">The crowd has one color</div>
+        <p>All dots share the state color. A multi-colored swarm reads as confetti; a single-colored one reads as intention.</p>
+      </div>
+      <div>
+        <div class="k">Wordmark stays solid</div>
+        <p>NICHE itself is always set in solid Libre Franklin 900. Only the mark is a crowd — the name is the building they're in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big"><span class="lock">NICHE<span class="mark" data-mark></span></span></div>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · V5 — The Swarm · Draft</span>
+    <span class="label dim">Set in Libre Franklin · the mark assembles</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- Shapes (100x100 space) ----- */
+  var BLOB_A = 'M48 8 C64 2 84 10 90 28 C96 46 86 56 88 70 C90 86 74 96 58 94 C42 92 30 98 18 86 C6 74 4 56 10 40 C16 24 32 14 48 8 Z';
+  var PATHS = [
+    BLOB_A,
+    null, /* circle handled separately */
+    'M14 88 L50 10 L86 88 Z'
+  ];
+  var COLORS = ['#FF4000', '#E50695', '#0533F3'];
+  var STATE_VARS = ['var(--creativity)', 'var(--humanity)', 'var(--entrepreneurship)'];
+
+  /* ----- Procedural blob for the lockup dot (shared system with V2/V3) ----- */
+  function blobPath(t, seed) {
+    var N = 24, pts = [];
+    var a2 = 5 + 2.5 * Math.sin(t * 0.00037 + seed);
+    var a3 = 4 + 2 * Math.sin(t * 0.00053 + seed * 1.7);
+    var p2 = t * 0.00045 + seed * 2.0;
+    var p3 = -t * 0.00032 + seed * 3.1;
+    for (var i = 0; i < N; i++) {
+      var a = (i / N) * Math.PI * 2;
+      var r = 39 + a2 * Math.sin(2 * a + p2) + a3 * Math.sin(3 * a + p3);
+      pts.push([50 + Math.cos(a) * r, 50 + Math.sin(a) * r]);
+    }
+    var d = '';
+    for (var j = 0; j < N; j++) {
+      var p0 = pts[(j - 1 + N) % N], p1 = pts[j], p2 = pts[(j + 1) % N], p3 = pts[(j + 2) % N];
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      if (j === 0) d = 'M' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1);
+      d += 'C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d + 'Z';
+  }
+  var DOT_SVG =
+    '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="ig ig-blob" data-st="0" d="' + blobPath(0, 0) + '"/>' +
+      '<circle class="ig ig-circle" data-st="1" cx="50" cy="50" r="44"/>' +
+      '<path class="ig ig-tri" data-st="2" d="M10 88 L50 12 L90 88 Z"/>' +
+    '</svg>';
+  var markEls = Array.prototype.slice.call(document.querySelectorAll('[data-mark]'));
+  markEls.forEach(function (el) { el.innerHTML = DOT_SVG; });
+  function refreshMarks(pop) {
+    markEls.forEach(function (el) {
+      var fixed = el.getAttribute('data-fixed');
+      var idx = fixed !== null ? +fixed : cur;
+      el.querySelectorAll('.ig').forEach(function (g) {
+        g.classList.toggle('on', +g.getAttribute('data-st') === idx);
+      });
+      if (pop && fixed === null) {
+        el.classList.remove('pop');
+        void el.offsetWidth;
+        el.classList.add('pop');
+      }
+    });
+  }
+  var liveBlobs = Array.prototype.slice.call(document.querySelectorAll('.ig-blob'));
+
+  /* sample dot targets from a shape */
+  var SAMPLE = 240;
+  function samplePoints(shapeIdx, step) {
+    var oc = document.createElement('canvas');
+    oc.width = SAMPLE; oc.height = SAMPLE;
+    var octx = oc.getContext('2d');
+    octx.fillStyle = '#000';
+    if (shapeIdx === 1) {
+      octx.beginPath();
+      octx.arc(SAMPLE / 2, SAMPLE / 2, SAMPLE * 0.44, 0, Math.PI * 2);
+      octx.fill();
+    } else {
+      octx.save();
+      octx.scale(SAMPLE / 100, SAMPLE / 100);
+      octx.fill(new Path2D(PATHS[shapeIdx]));
+      octx.restore();
+    }
+    var data = octx.getImageData(0, 0, SAMPLE, SAMPLE).data;
+    var pts = [];
+    for (var y = step / 2; y < SAMPLE; y += step) {
+      for (var x = step / 2; x < SAMPLE; x += step) {
+        var a = data[((y | 0) * SAMPLE + (x | 0)) * 4 + 3];
+        if (a > 128) pts.push({ x: x / SAMPLE, y: y / SAMPLE });
+      }
+    }
+    return pts;
+  }
+
+  /* ----- Static dot figures for posters ----- */
+  document.querySelectorAll('[data-fig]').forEach(function (el) {
+    var idx = +el.dataset.fig;
+    var pts = samplePoints(idx, 9);
+    var svg = '<svg viewBox="0 0 240 240">';
+    pts.forEach(function (p) {
+      var jx = (Math.random() - 0.5) * 5, jy = (Math.random() - 0.5) * 5;
+      svg += '<circle cx="' + (p.x * 240 + jx).toFixed(1) + '" cy="' + (p.y * 240 + jy).toFixed(1) + '" r="3" fill="' + el.dataset.color + '"/>';
+    });
+    el.innerHTML = svg + '</svg>';
+  });
+
+  /* ----- Hero swarm ----- */
+  var hero = document.getElementById('hero');
+  var canvas = document.getElementById('swarm');
+  var ctx = canvas.getContext('2d');
+  var DPR = Math.min(2, window.devicePixelRatio || 1);
+  var W = 0, H = 0;
+  function resize() {
+    W = hero.clientWidth; H = hero.clientHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    placeTargets();
+  }
+
+  var shapeSets = [samplePoints(0, 6), samplePoints(1, 6), samplePoints(2, 6)];
+  var maxCount = Math.max(shapeSets[0].length, shapeSets[1].length, shapeSets[2].length);
+  document.getElementById('dotCount').textContent = maxCount + ' dots · one cohort';
+
+  var parts = [];
+  for (var i = 0; i < maxCount; i++) {
+    parts.push({ x: Math.random(), y: Math.random(), vx: 0, vy: 0, tx: 0, ty: 0, nx: 0, ny: 0 });
+  }
+  /* convert normalized samples to canvas coords for current shape.
+     Each particle also remembers its normalized position (nx/ny) so the blob's
+     flow field can displace it COHERENTLY — neighbours share the field, so the
+     blob deforms as one body. */
+  var cur = 0, sizeNow = 0;
+  function placeTargets() {
+    var pts = shapeSets[cur];
+    var size = Math.min(W, H) * 0.66;
+    sizeNow = size;
+    var ox = W > 760 ? W * 0.66 - size / 2 : W * 0.5 - size / 2;
+    var oy = H * 0.5 - size / 2;
+    for (var i = 0; i < parts.length; i++) {
+      var p = pts[i % pts.length];
+      parts[i].tx = ox + p.x * size;
+      parts[i].ty = oy + p.y * size;
+      parts[i].nx = p.x;
+      parts[i].ny = p.y;
+    }
+  }
+
+  var stateWords = document.querySelectorAll('#stateword span');
+  var statePause = 0;
+  function setState(i, burst) {
+    cur = i;
+    document.documentElement.style.setProperty('--state', STATE_VARS[i]);
+    stateWords.forEach(function (w, j) { w.classList.toggle('on', j === i); });
+    refreshMarks(burst && !reduced);
+    placeTargets();
+    if (burst && !reduced) {
+      parts.forEach(function (p) {
+        var a = Math.random() * Math.PI * 2, m = 4 + Math.random() * 10;
+        p.vx += Math.cos(a) * m; p.vy += Math.sin(a) * m;
+      });
+    }
+  }
+
+  var mx = -9999, my = -9999;
+  hero.addEventListener('mousemove', function (e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+  });
+  hero.addEventListener('mouseleave', function () { mx = -9999; my = -9999; });
+  hero.addEventListener('touchmove', function (e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.touches[0].clientX - r.left; my = e.touches[0].clientY - r.top;
+  }, { passive: true });
+  hero.addEventListener('click', function () {
+    setState((cur + 1) % 3, true);
+    statePause = Date.now() + 12000;
+  });
+  setInterval(function () {
+    if (Date.now() > statePause) setState((cur + 1) % 3, true);
+  }, 6000);
+
+  /* init scattered, then form */
+  resize();
+  window.addEventListener('resize', resize);
+  parts.forEach(function (p) { p.x = Math.random() * W; p.y = Math.random() * H; });
+  setState(0, false);
+
+  function getStateColor() { return COLORS[cur]; }
+
+  function frame(ts) {
+    /* live lockup blobs */
+    if (!reduced) {
+      for (var lb = 0; lb < liveBlobs.length; lb++) {
+        liveBlobs[lb].setAttribute('d', blobPath(ts, lb * 2.7));
+      }
+    }
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = getStateColor();
+    var R = 110, R2 = R * R;
+    /* blob state: a time-varying flow field pushes the whole body around —
+       several incommensurate frequencies per axis, so the deformation drifts
+       in every direction and never settles into one bulge */
+    var blobOn = (cur === 0 && !reduced);
+    var t1 = ts * 0.00044, t2 = ts * 0.00029, t3 = ts * 0.00064, t4 = ts * 0.00037;
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var txx = p.tx, tyy = p.ty;
+      if (blobOn) {
+        /* gentle, low-frequency field — the body sways and rolls but stays round */
+        txx += sizeNow * (0.034 * Math.sin(t1 + p.ny * 4.1) + 0.022 * Math.sin(t2 + p.nx * 3.3 + 2.0) + 0.013 * Math.sin(t3 + (p.nx + p.ny) * 2.5));
+        tyy += sizeNow * (0.034 * Math.cos(t4 + p.nx * 3.7) + 0.022 * Math.sin(t3 + p.ny * 2.9 + 1.1) + 0.013 * Math.cos(t1 + (p.nx - p.ny) * 2.7));
+      }
+      /* spring to (possibly flowing) target */
+      p.vx += (txx - p.x) * 0.012;
+      p.vy += (tyy - p.y) * 0.012;
+      /* cursor repulsion */
+      var dx = p.x - mx, dy = p.y - my;
+      var d2 = dx * dx + dy * dy;
+      if (d2 < R2 && d2 > 0.01 && !reduced) {
+        var d = Math.sqrt(d2);
+        var f = (1 - d / R) * 2.2;
+        p.vx += (dx / d) * f;
+        p.vy += (dy / d) * f;
+      }
+      /* damping + jitter */
+      p.vx *= 0.86; p.vy *= 0.86;
+      if (!reduced) { p.vx += (Math.random() - 0.5) * 0.12; p.vy += (Math.random() - 0.5) * 0.12; }
+      p.x += p.vx; p.y += p.vy;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.4, 0, 6.2832);
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

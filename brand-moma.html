@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity v0.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --hairline: #0A0A0A;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--black); color: var(--white); }
+
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+
+  /* ---------- Labels ---------- */
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .label.dim { color: var(--gray); }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--hairline);
+    background: var(--white);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm {
+    font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1;
+  }
+  .topbar nav { display: flex; gap: 28px; }
+  .topbar nav a {
+    color: var(--black); text-decoration: none;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    border-bottom: 2px solid transparent; padding-bottom: 2px;
+  }
+  .topbar nav a:hover { border-bottom-color: var(--black); }
+  @media (max-width: 860px) { .topbar nav { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 96px 0 72px; border-bottom: 1px solid var(--hairline); }
+  .hero .eyebrow { margin-bottom: 36px; display: flex; justify-content: space-between; }
+  .hero h1 {
+    font-size: clamp(96px, 17.5vw, 300px);
+    font-weight: 900;
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+    user-select: none;
+  }
+  .hero h1 span {
+    display: inline-block;
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .hero h1 span:nth-child(1) { animation-delay: 0s; }
+  .hero h1 span:nth-child(2) { animation-delay: 0.35s; }
+  .hero h1 span:nth-child(3) { animation-delay: 0.7s; }
+  .hero h1 span:nth-child(4) { animation-delay: 1.05s; }
+  .hero h1 span:nth-child(5) { animation-delay: 1.4s; }
+  @keyframes breathe {
+    0%, 100% { font-weight: 900; }
+    50% { font-weight: 200; }
+  }
+  .hero .statement {
+    margin-top: 56px;
+    max-width: 720px;
+    font-size: clamp(20px, 2.6vw, 30px);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+  }
+  .hero .statement b { font-weight: 800; }
+
+  /* ---------- Marquee ---------- */
+  .marquee {
+    border-bottom: 1px solid var(--hairline);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+  .marquee .track {
+    display: inline-block;
+    animation: slide 28s linear infinite;
+  }
+  .marquee span {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    margin-right: 64px;
+  }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--hairline); }
+  .sec-head {
+    display: grid; grid-template-columns: 160px 1fr; gap: 24px;
+    margin-bottom: 56px; align-items: baseline;
+  }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 {
+    font-size: clamp(34px, 4.6vw, 56px);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.02;
+  }
+  .sec-head .intro { margin-top: 16px; max-width: 620px; font-size: 16px; color: #333; }
+
+  /* ---------- Wordmark section ---------- */
+  .wm-board {
+    border: 1px solid var(--hairline);
+  }
+  .wm-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .wm-row > div { padding: 56px 40px; }
+  .wm-row > div + div { border-left: 1px solid var(--hairline); }
+  .wm-row + .wm-row { border-top: 1px solid var(--hairline); }
+  @media (max-width: 860px) {
+    .wm-row { grid-template-columns: 1fr; }
+    .wm-row > div + div { border-left: none; border-top: 1px solid var(--hairline); }
+  }
+  .wm-cell { display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; gap: 32px; }
+  .wm-display { font-weight: 900; letter-spacing: -0.045em; line-height: 0.86; }
+  .wm-primary { font-size: clamp(56px, 7vw, 96px); }
+  .wm-stacked { font-size: clamp(64px, 8vw, 110px); }
+  .wm-cell.inverse { background: var(--black); color: var(--white); }
+  .wm-cell .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .wm-cell .cap .desc { font-size: 13px; color: var(--gray); font-weight: 400; letter-spacing: 0; text-transform: none; max-width: 340px; }
+  .wm-cell.inverse .cap .desc { color: #999; }
+
+  .wm-meta {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--hairline); border-top: none;
+  }
+  .wm-meta > div { padding: 22px 40px; }
+  .wm-meta > div + div { border-left: 1px solid var(--hairline); }
+  @media (max-width: 860px) {
+    .wm-meta { grid-template-columns: 1fr; }
+    .wm-meta > div + div { border-left: none; border-top: 1px solid var(--hairline); }
+  }
+  .wm-meta .k { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+  .wm-meta .v { font-size: 14px; font-weight: 600; }
+
+  /* ---------- Type scale ---------- */
+  .type-table { border: 1px solid var(--hairline); }
+  .type-row {
+    display: grid; grid-template-columns: 220px 1fr;
+    align-items: baseline;
+    padding: 28px 40px;
+  }
+  .type-row + .type-row { border-top: 1px solid var(--hairline); }
+  @media (max-width: 700px) { .type-row { grid-template-columns: 1fr; gap: 10px; } }
+  .type-row .spec { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); line-height: 1.7; }
+  .t-display { font-size: clamp(44px, 6vw, 84px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; }
+  .t-h1 { font-size: clamp(30px, 3.8vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .t-h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .t-body { font-size: 16px; font-weight: 400; line-height: 1.55; max-width: 560px; }
+  .t-caption { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* ---------- Sub-brands ---------- */
+  .subbrands { border: 1px solid var(--hairline); }
+  .subbrand {
+    display: grid; grid-template-columns: 1fr 300px;
+    align-items: center;
+    padding: 44px 40px;
+    cursor: default;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .subbrand + .subbrand { border-top: 1px solid var(--hairline); }
+  @media (max-width: 860px) { .subbrand { grid-template-columns: 1fr; gap: 14px; } }
+  .subbrand .lockup {
+    font-size: clamp(30px, 4.4vw, 54px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+  }
+  .subbrand .lockup em { font-style: normal; font-weight: 250; }
+  .subbrand .use { font-size: 13px; color: var(--gray); transition: color 0.25s ease; }
+  .subbrand:hover { color: var(--white); }
+  .subbrand:hover .use { color: rgba(255,255,255,0.75); }
+  .subbrand.sb-c:hover { background: var(--creativity); }
+  .subbrand.sb-h:hover { background: var(--humanity); }
+  .subbrand.sb-e:hover { background: var(--entrepreneurship); }
+
+  /* ---------- Color ---------- */
+  .palette { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--hairline); }
+  @media (max-width: 900px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .palette { grid-template-columns: repeat(2, 1fr); } }
+  .pswatch { aspect-ratio: 1 / 1.5; padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .pswatch + .pswatch { border-left: 1px solid var(--hairline); }
+  @media (max-width: 900px) { .pswatch:nth-child(4) { border-left: none; } .pswatch:nth-child(n+4) { border-top: 1px solid var(--hairline); } }
+  .pswatch .nm { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .pswatch .hx { font-size: 11px; font-weight: 500; opacity: 0.65; margin-top: 2px; }
+  .color-rule { margin-top: 28px; max-width: 720px; font-size: 15px; }
+  .color-rule b { font-weight: 800; }
+
+  /* ---------- Grid demo ---------- */
+  .grid-demo {
+    border: 1px solid var(--hairline);
+    padding: 40px;
+    position: relative;
+  }
+  .grid-cols {
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px;
+    position: absolute; inset: 40px;
+    pointer-events: none;
+  }
+  .grid-cols i { background: rgba(10,10,10,0.045); }
+  .grid-demo .content { position: relative; }
+  .grid-demo .gd-head {
+    font-size: clamp(38px, 5.5vw, 72px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92;
+    max-width: 70%;
+  }
+  .grid-demo .gd-cols { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-top: 48px; }
+  @media (max-width: 700px) { .grid-demo .gd-cols { grid-template-columns: 1fr; } .grid-demo .gd-head { max-width: 100%; } }
+  .grid-demo .gd-cols p { font-size: 13px; color: #333; }
+  .grid-demo .gd-cols .label { margin-bottom: 8px; }
+
+  /* ---------- Applications ---------- */
+  .apps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--hairline); }
+  @media (max-width: 860px) { .apps { grid-template-columns: 1fr; } }
+  .app { min-height: 460px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .apps .app:nth-child(2n) { border-left: 1px solid var(--hairline); }
+  .apps .app:nth-child(n+3) { border-top: 1px solid var(--hairline); }
+  @media (max-width: 860px) {
+    .apps .app:nth-child(2n) { border-left: none; }
+    .apps .app + .app { border-top: 1px solid var(--hairline); }
+  }
+  .app .tag {
+    position: absolute; top: 16px; left: 18px; z-index: 2;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  /* poster 1 — exhibition, cropped type */
+  .app.poster-c { background: var(--white); justify-content: flex-end; padding: 24px; }
+  .poster-c .big {
+    font-size: 130px; font-weight: 900; letter-spacing: -0.05em; line-height: 0.8;
+    color: var(--creativity);
+    margin-left: -10px;
+    word-break: break-all;
+  }
+  .poster-c .info { display: flex; justify-content: space-between; border-top: 1px solid var(--hairline); margin-top: 24px; padding-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* poster 2 — demo day, blue */
+  .app.poster-e { background: var(--entrepreneurship); color: var(--white); padding: 24px; justify-content: space-between; }
+  .poster-e .wm-s { font-weight: 900; font-size: 26px; letter-spacing: -0.03em; margin-top: 26px; }
+  .poster-e .big { font-size: clamp(56px, 6vw, 84px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.88; }
+  .poster-e .meta { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; margin-top: 16px; }
+
+  /* banner — black strip */
+  .app.banner { background: var(--black); color: var(--white); align-items: stretch; justify-content: center; padding: 24px; gap: 18px; }
+  .banner .strip {
+    border-top: 1px solid rgba(255,255,255,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    padding: 18px 0;
+    font-size: 44px; font-weight: 900; letter-spacing: -0.03em; line-height: 1;
+    white-space: nowrap; overflow: hidden;
+  }
+  .banner .strip em { font-style: normal; font-weight: 250; }
+  .banner .sub { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.6; }
+
+  /* business card */
+  .app.card { background: #F2F2F2; align-items: center; justify-content: center; padding: 40px; }
+  .biz {
+    background: var(--white); color: var(--black);
+    width: 100%; max-width: 380px; aspect-ratio: 1.72;
+    border: 1px solid var(--hairline);
+    padding: 22px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+  }
+  .biz .top { font-weight: 900; font-size: 24px; letter-spacing: -0.035em; line-height: 1; }
+  .biz .nm { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+  .biz .rl { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-top: 2px; }
+  .biz .ct { font-size: 11px; color: var(--gray); margin-top: 8px; }
+
+  /* ---------- Don'ts ---------- */
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--hairline); }
+  @media (max-width: 860px) { .rules { grid-template-columns: 1fr; } }
+  .rule { padding: 32px 40px; }
+  .rule + .rule { border-left: 1px solid var(--hairline); }
+  @media (max-width: 860px) { .rule + .rule { border-left: none; border-top: 1px solid var(--hairline); } }
+  .rule .no { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--creativity); margin-bottom: 10px; }
+  .rule p { font-size: 14px; color: #333; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 72px 40px 56px; }
+  footer .big {
+    font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85;
+  }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 40px; border-top: 1px solid var(--hairline); padding-top: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="wm">NICHE</div>
+  <nav>
+    <a href="#wordmark">Wordmark</a>
+    <a href="#type">Typography</a>
+    <a href="#programs">Programs</a>
+    <a href="#color">Color</a>
+    <a href="#applications">Applications</a>
+    <a href="index.html">Portal →</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="label">Brand Identity · v0.2</span>
+      <span class="label dim">New Institute of Creativity, Humanity &amp; Entrepreneurship</span>
+    </div>
+    <h1 aria-label="NICHE"><span>N</span><span>I</span><span>C</span><span>H</span><span>E</span></h1>
+    <p class="statement">
+      The name is the mark. No symbol, no ornament — <b>five letters, set heavy,</b>
+      carrying the full weight of the institution. Everything else is typography, space, and a rule.
+    </p>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span><span>NICHE</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span><span>NICHE</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span><span>NICHE</span>
+    <span>Creativity</span><span>Humanity</span><span>Entrepreneurship</span><span>NICHE</span>
+  </div>
+</div>
+
+<!-- ============ WORDMARK ============ -->
+<section id="wordmark">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — Wordmark</span>
+      <div>
+        <h2>One word. Set in black.</h2>
+        <p class="intro">Libre Franklin Black, tracked tight. The wordmark is typeset, not drawn — it lives wherever text lives, at any size, in either polarity. Never outlined, never gradiented, never multi-colored.</p>
+      </div>
+    </div>
+
+    <div class="wm-board">
+      <div class="wm-row">
+        <div class="wm-cell">
+          <div class="wm-display wm-primary">NICHE</div>
+          <div class="cap">
+            <span class="label">Primary</span>
+            <span class="desc">Single line. Default everywhere: headers, documents, signage.</span>
+          </div>
+        </div>
+        <div class="wm-cell">
+          <div class="wm-display wm-stacked">NI<br>CHE</div>
+          <div class="cap">
+            <span class="label">Stacked</span>
+            <span class="desc">For square and vertical formats — totes, spines, social avatars.</span>
+          </div>
+        </div>
+      </div>
+      <div class="wm-row">
+        <div class="wm-cell inverse">
+          <div class="wm-display wm-primary">NICHE</div>
+          <div class="cap">
+            <span class="label">Inverse</span>
+            <span class="desc">White on black. The only two colors the wordmark is ever set in.</span>
+          </div>
+        </div>
+        <div class="wm-cell">
+          <div class="wm-display" style="font-size: clamp(28px, 3.4vw, 44px);">NICHE<br><span style="font-weight: 250;">Institute</span></div>
+          <div class="cap">
+            <span class="label">Formal</span>
+            <span class="desc">Legal and ceremonial contexts. "Institute" in Thin — never bolder than the name.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wm-meta">
+      <div><div class="k">Typeface</div><div class="v">Libre Franklin Black (900)</div></div>
+      <div><div class="k">Tracking</div><div class="v">−4.5%, all sizes</div></div>
+      <div><div class="k">Minimum size</div><div class="v">14 px / 5 mm wide</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPOGRAPHY ============ -->
+<section id="type">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — Typography</span>
+      <div>
+        <h2>One family, every weight.</h2>
+        <p class="intro">Libre Franklin — the open revival of Franklin Gothic — in all nine weights. Hierarchy is built with weight and scale, never with a second typeface.</p>
+      </div>
+    </div>
+
+    <div class="type-table">
+      <div class="type-row">
+        <div class="spec">Display<br>Black 900 · −4.5%</div>
+        <div class="t-display">Make it new.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Heading 1<br>ExtraBold 800 · −3%</div>
+        <div class="t-h1">Eleven ventures launched this spring.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Heading 2<br>Bold 700 · −2%</div>
+        <div class="t-h2">Applications open for the 2027 cohort</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Body<br>Regular 400</div>
+        <div class="t-body">NICHE is a school built around three convictions: that creativity can be taught, that technology should serve people, and that the surest way to learn something is to build it and ship it.</div>
+      </div>
+      <div class="type-row">
+        <div class="spec">Caption<br>SemiBold 600 · +14% · Caps</div>
+        <div class="t-caption">Main Hall · June 14 · 19:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section id="programs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">03 — Programs</span>
+      <div>
+        <h2>Weight does the work.</h2>
+        <p class="intro">Sub-brands need no symbols. The institute is Black; the program is Thin. One color may flood the surface when a program speaks alone — hover to see it.</p>
+      </div>
+    </div>
+
+    <div class="subbrands">
+      <div class="subbrand sb-c">
+        <div class="lockup">NICHE<em> Creativity</em></div>
+        <div class="use">Studios, arts &amp; design programs, exhibitions, student showcases.</div>
+      </div>
+      <div class="subbrand sb-h">
+        <div class="lockup">NICHE<em> Humanity</em></div>
+        <div class="use">Partnerships, community, ethics &amp; the humanities, service programs.</div>
+      </div>
+      <div class="subbrand sb-e">
+        <div class="lockup">NICHE<em> Entrepreneurship</em></div>
+        <div class="use">Ventures, business programs, innovation labs, demo days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLOR ============ -->
+<section id="color">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">04 — Color</span>
+      <div>
+        <h2>Black, white, and one loud voice at a time.</h2>
+      </div>
+    </div>
+
+    <div class="palette">
+      <div class="pswatch" style="background:#0A0A0A; color:#fff;"><div class="nm">Black</div><div class="hx">#0A0A0A</div></div>
+      <div class="pswatch" style="background:#FFFFFF;"><div class="nm">White</div><div class="hx">#FFFFFF</div></div>
+      <div class="pswatch" style="background:#757575; color:#fff;"><div class="nm">Gray</div><div class="hx">#757575</div></div>
+      <div class="pswatch" style="background:var(--creativity); color:#fff;"><div class="nm">Creativity</div><div class="hx">#FF4000</div></div>
+      <div class="pswatch" style="background:var(--humanity); color:#fff;"><div class="nm">Humanity</div><div class="hx">#E50695</div></div>
+      <div class="pswatch" style="background:var(--entrepreneurship); color:#fff;"><div class="nm">Entrepreneurship</div><div class="hx">#0533F3</div></div>
+    </div>
+
+    <p class="color-rule"><b>The rule:</b> the identity is black on white. A program color appears only as a full flood — an entire poster, an entire banner, an entire wall — never as an accent, a tint, or a decoration. One color per piece, with black or white type on top.</p>
+  </div>
+</section>
+
+<!-- ============ GRID ============ -->
+<section id="grid">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">05 — Grid</span>
+      <div>
+        <h2>Twelve columns, one rule.</h2>
+        <p class="intro">Layouts sit on a 12-column grid. Sections divide with a single 1-pixel black rule — no boxes, no shadows, no rounded corners.</p>
+      </div>
+    </div>
+
+    <div class="grid-demo">
+      <div class="grid-cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="content">
+        <div class="gd-head">Type aligns left. Space does the rest.</div>
+        <div class="gd-cols">
+          <div>
+            <div class="label dim">Principle</div>
+            <p>Headlines span eight columns or more. Body copy never exceeds six. Captions sit flush to rules. Nothing is centered except by accident of symmetry.</p>
+          </div>
+          <div>
+            <div class="label dim">Margins</div>
+            <p>40 px desktop, 20 px mobile. Vertical rhythm in multiples of 8.</p>
+          </div>
+          <div>
+            <div class="label dim">Rules</div>
+            <p>1 px, full black, full width. Used to divide — never to decorate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLICATIONS ============ -->
+<section id="applications">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">06 — Applications</span>
+      <div>
+        <h2>In the wild.</h2>
+      </div>
+    </div>
+
+    <div class="apps">
+      <!-- Exhibition poster -->
+      <div class="app poster-c">
+        <div class="tag">Exhibition poster</div>
+        <div class="big">CREA<br>TIVI<br>TY</div>
+        <div class="info">
+          <span>NICHE — Spring Showcase</span>
+          <span>May 02 – Jun 30</span>
+        </div>
+      </div>
+
+      <!-- Demo day poster -->
+      <div class="app poster-e">
+        <div class="tag" style="color:#fff;">Demo day poster</div>
+        <div class="wm-s">NICHE</div>
+        <div>
+          <div class="big">Spring<br>Demo<br>Day</div>
+          <div class="meta">Jun 14 · 19:00 · Main Hall · Eleven ventures</div>
+        </div>
+      </div>
+
+      <!-- Web banner -->
+      <div class="app banner">
+        <div class="sub">Web banner · niche.edu</div>
+        <div class="strip">NICHE<em> Humanity</em></div>
+        <div class="sub">Community Partners Annual Report 2026 — read it now</div>
+      </div>
+
+      <!-- Business card -->
+      <div class="app card">
+        <div class="tag">Business card</div>
+        <div class="biz">
+          <div class="top">NICHE</div>
+          <div>
+            <div class="nm">Amara Mendes</div>
+            <div class="rl">Studio Lead — Creativity</div>
+            <div class="ct">amara@niche.edu · niche.edu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">07 — Never</span>
+      <div>
+        <h2>Three things we don't do.</h2>
+      </div>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <div class="no">Never decorate</div>
+        <p>No symbols, mascots, gradients, drop shadows, or rounded boxes. If a layout feels empty, the type isn't big enough.</p>
+      </div>
+      <div class="rule">
+        <div class="no">Never mix colors</div>
+        <p>One program color per piece, flooded — or none at all. Two accents on one surface is a sale flyer, not an institution.</p>
+      </div>
+      <div class="rule">
+        <div class="no">Never soften</div>
+        <p>The wordmark is always Black 900. No light versions, no outlines, no letter-spacing "for elegance." Heavy is the brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container" style="padding:0;">
+    <div class="big">NI<br>CHE</div>
+    <div class="row">
+      <span class="label">NICHE Brand Identity · v0.2 · Draft for review</span>
+      <span class="label dim">Set in Libre Franklin</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

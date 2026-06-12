@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · Poster Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:wght@250;400;600;700;900&family=Noto+Sans+Thai:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--creativity); color: var(--white); }
+  .anton { font-family: 'Anton', 'Libre Franklin', sans-serif; font-weight: 400; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; background: var(--black); color: var(--white);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-family: 'Anton', sans-serif; font-size: 22px; letter-spacing: 0.02em; }
+  .topbar a { color: inherit; text-decoration: none; }
+  .topbar a:hover { text-decoration: underline; }
+
+  /* ---------- Hero: cropped giant ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    min-height: 92vh;
+    border-bottom: 4px solid var(--black);
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .hero .giant {
+    font-family: 'Anton', sans-serif;
+    font-size: 38vw; line-height: 0.78;
+    letter-spacing: -0.015em;
+    margin: 0 -3vw -5.5vw;
+    user-select: none;
+    text-transform: uppercase;
+  }
+  .hero .giant .row2 { color: var(--white); -webkit-text-stroke: max(2px, 0.22vw) var(--black); }
+  .hero .topline {
+    position: absolute; top: 24px; left: 24px; right: 24px;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .hero .vert {
+    position: absolute; top: 50%; right: 24px; transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+  }
+  .hero .stamp {
+    position: absolute; top: 18%; left: 6vw;
+    transform: rotate(-8deg);
+    border: 3px solid var(--black);
+    padding: 8px 18px;
+    font-weight: 900; font-size: clamp(13px, 1.6vw, 20px); letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--white);
+  }
+
+  /* ---------- Thai marquee ---------- */
+  .thai-mq {
+    background: var(--black); color: var(--white);
+    overflow: hidden; white-space: nowrap;
+    padding: 10px 0;
+    border-bottom: 4px solid var(--black);
+  }
+  .thai-mq .track { display: inline-block; animation: mq 26s linear infinite; }
+  .thai-mq span {
+    font-family: 'Noto Sans Thai', 'Libre Franklin', sans-serif;
+    font-weight: 900; font-size: 26px; margin-right: 48px;
+  }
+  .thai-mq span.en { font-family: 'Anton', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; }
+  @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Posters ---------- */
+  .poster {
+    position: relative; overflow: hidden;
+    min-height: 96vh;
+    color: var(--white);
+    border-bottom: 4px solid var(--black);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: background 0.18s steps(2, end), color 0.18s steps(2, end);
+    cursor: pointer;
+  }
+  .poster.c { background: var(--creativity); }
+  .poster.h { background: var(--humanity); }
+  .poster.e { background: var(--entrepreneurship); }
+  .poster:hover { background: var(--black); }
+  .poster.c:hover { color: var(--creativity); }
+  .poster.h:hover { color: var(--humanity); }
+  .poster.e:hover { color: var(--entrepreneurship); }
+
+  .poster .num {
+    position: absolute; top: -4vw; right: -1vw;
+    font-family: 'Anton', sans-serif;
+    font-size: 30vw; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: max(2px, 0.18vw) currentColor;
+    opacity: 0.85;
+    user-select: none;
+  }
+  .poster .word {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(72px, 17vw, 300px);
+    line-height: 0.82; text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin: 0 -0.04em -0.1em 16px;
+    user-select: none;
+    word-break: break-word;
+  }
+  .poster .meta {
+    position: absolute; top: 24px; left: 24px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .poster .meta .label { opacity: 0.9; }
+  .poster .lock {
+    position: absolute; bottom: 26px; right: 24px;
+    font-weight: 900; font-size: clamp(16px, 2.2vw, 26px); letter-spacing: -0.02em;
+    text-align: right;
+  }
+  .poster .lock em { font-style: normal; font-weight: 250; }
+  .poster .hovhint {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6;
+  }
+
+  /* ---------- Collage specimen ---------- */
+  .collage {
+    position: relative;
+    min-height: 110vh;
+    border-bottom: 4px solid var(--black);
+    overflow: hidden;
+    padding: 80px 24px;
+  }
+  .collage .piece { position: absolute; user-select: none; }
+  .collage .p1 {
+    font-family: 'Anton', sans-serif; font-size: clamp(80px, 14vw, 240px);
+    line-height: 0.85; text-transform: uppercase;
+    top: 6%; left: -2%; transform: rotate(-4deg);
+  }
+  .collage .p2 {
+    font-family: 'Anton', sans-serif; font-size: clamp(60px, 10vw, 170px);
+    color: var(--white); -webkit-text-stroke: 2.5px var(--black);
+    top: 30%; right: -3%; transform: rotate(3deg);
+    text-transform: uppercase; line-height: 0.85;
+  }
+  .collage .p3 {
+    background: var(--black); color: var(--white);
+    padding: 14px 22px; transform: rotate(-2deg);
+    top: 56%; left: 8%;
+    font-weight: 900; font-size: clamp(20px, 3vw, 40px); letter-spacing: -0.02em;
+  }
+  .collage .p4 {
+    background: var(--creativity); color: var(--white);
+    padding: 12px 20px; transform: rotate(2.5deg);
+    top: 66%; right: 14%;
+    font-family: 'Noto Sans Thai', sans-serif; font-weight: 900; font-size: clamp(18px, 2.6vw, 34px);
+  }
+  .collage .p5 {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+    bottom: 8%; left: 24px;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+  }
+  .collage .p6 {
+    font-family: 'Anton', sans-serif; font-size: clamp(48px, 8vw, 130px);
+    bottom: 4%; right: 6%;
+    transform: rotate(-90deg) translateX(30%);
+    transform-origin: bottom right;
+    text-transform: uppercase; opacity: 0.12;
+  }
+  .collage .note {
+    position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);
+    max-width: 380px; font-size: 14px; font-weight: 500; background: var(--white);
+    border: 3px solid var(--black); padding: 16px 20px;
+  }
+  .collage .note b { font-weight: 900; }
+
+  /* ---------- Rules strip ---------- */
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 4px solid var(--black); }
+  @media (max-width: 860px) { .rules { grid-template-columns: 1fr; } }
+  .rules > div { padding: 28px 24px; border-right: 4px solid var(--black); }
+  .rules > div:last-child { border-right: none; }
+  @media (max-width: 860px) { .rules > div { border-right: none; border-bottom: 4px solid var(--black); } .rules > div:last-child { border-bottom: none; } }
+  .rules .k { font-family: 'Anton', sans-serif; font-size: 26px; text-transform: uppercase; margin-bottom: 8px; }
+  .rules p { font-size: 14px; color: #333; }
+
+  /* ---------- Footer ---------- */
+  footer { overflow: hidden; background: var(--black); color: var(--white); padding: 48px 24px 0; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  footer .giant {
+    font-family: 'Anton', sans-serif;
+    font-size: 36vw; line-height: 0.74;
+    text-align: center; letter-spacing: -0.01em;
+    margin-bottom: -7vw;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) { .thai-mq .track { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm">NICHE</div>
+  <span class="label"><a href="brand-moma.html">Option B — Poster Wall · back to v0.2 →</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="topline">
+    <span class="label">Brand Identity · Option B</span>
+    <span class="label">New Institute of Creativity, Humanity &amp; Entrepreneurship</span>
+  </div>
+  <div class="stamp">Learn by building</div>
+  <div class="vert">Est. 2026 · Application open</div>
+  <div class="giant" aria-label="NICHE">
+    <div>NIC</div>
+    <div class="row2">HE.</div>
+  </div>
+</section>
+
+<!-- ============ THAI MARQUEE ============ -->
+<div class="thai-mq" aria-hidden="true">
+  <div class="track">
+    <span>ความคิดสร้างสรรค์</span><span class="en">Creativity</span>
+    <span>ความเป็นมนุษย์</span><span class="en">Humanity</span>
+    <span>ความเป็นผู้ประกอบการ</span><span class="en">Entrepreneurship</span>
+    <span>ความคิดสร้างสรรค์</span><span class="en">Creativity</span>
+    <span>ความเป็นมนุษย์</span><span class="en">Humanity</span>
+    <span>ความเป็นผู้ประกอบการ</span><span class="en">Entrepreneurship</span>
+  </div>
+</div>
+
+<!-- ============ POSTERS ============ -->
+<section class="poster c">
+  <div class="meta">
+    <span class="label">Program 01</span>
+    <span class="label">Studios · Exhibitions · Showcases</span>
+  </div>
+  <div class="hovhint">Hover = night mode</div>
+  <div class="num">01</div>
+  <div class="word">Crea<br>tivity</div>
+  <div class="lock">NICHE<em> Creativity</em></div>
+</section>
+
+<section class="poster h">
+  <div class="meta">
+    <span class="label">Program 02</span>
+    <span class="label">Community · Ethics · Humanities</span>
+  </div>
+  <div class="hovhint">Hover = night mode</div>
+  <div class="num">02</div>
+  <div class="word">Huma<br>nity</div>
+  <div class="lock">NICHE<em> Humanity</em></div>
+</section>
+
+<section class="poster e">
+  <div class="meta">
+    <span class="label">Program 03</span>
+    <span class="label">Ventures · Labs · Demo days</span>
+  </div>
+  <div class="hovhint">Hover = night mode</div>
+  <div class="num">03</div>
+  <div class="word">Entrepre<br>neurship</div>
+  <div class="lock">NICHE<em> Entrepreneurship</em></div>
+</section>
+
+<!-- ============ COLLAGE ============ -->
+<section class="collage">
+  <div class="piece p1">Make<br>it new</div>
+  <div class="piece p2">Ship it</div>
+  <div class="piece p3">Spring Demo Day · Jun 14</div>
+  <div class="piece p4">นิทรรศการนักศึกษา</div>
+  <div class="piece p5">NICHE · Brand specimen · Mixed scale</div>
+  <div class="piece p6">NICHE</div>
+  <div class="note"><b>The poster wall principle:</b> every piece is built like street flyposting — one loud thing per sheet, type cropped by the edge, stickers and stamps allowed. English leads, Thai answers.</div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section class="rules">
+  <div>
+    <div class="k">Crop it</div>
+    <p>Type is allowed to bleed off every edge. If the whole word fits comfortably, set it bigger.</p>
+  </div>
+  <div>
+    <div class="k">Two voices</div>
+    <p>Anton shouts the headlines; Libre Franklin handles everything that must be read. Thai display set in Noto Sans Thai Black.</p>
+  </div>
+  <div>
+    <div class="k">Flood + black</div>
+    <p>Same three program colors as v0.2, but harder: flat flood, black borders, no gray anywhere.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · Option B — Poster Wall · Draft</span>
+    <span class="label">Anton · Libre Franklin · Noto Sans Thai</span>
+  </div>
+  <div class="giant">NICHE</div>
+</footer>
+
+</body>
+</html>

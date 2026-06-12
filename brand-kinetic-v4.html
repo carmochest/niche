@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NICHE — Brand Identity · V4 — The Lens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray: #757575;
+    --creativity: #FF4000;
+    --humanity: #E50695;
+    --entrepreneurship: #0533F3;
+    --state: var(--creativity);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white); color: var(--black);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--black); color: var(--white); }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .label.dim { color: var(--gray); }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; border-bottom: 1px solid var(--black);
+    background: var(--white); position: sticky; top: 0; z-index: 50;
+  }
+  .topbar .wm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+  .topbar .label a { color: inherit; text-decoration: none; border-bottom: 2px solid transparent; }
+  .topbar .label a:hover { border-bottom-color: var(--black); }
+
+  /* ---------- Hero: the lens ---------- */
+  .hero {
+    position: relative;
+    height: calc(100vh - 61px);
+    min-height: 540px;
+    background: var(--black);
+    color: var(--white);
+    overflow: hidden;
+    border-bottom: 1px solid var(--black);
+    cursor: none;
+  }
+  .hero-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px;
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: clamp(80px, 15.5vw, 280px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.86;
+  }
+  .hero .sub {
+    margin-top: 24px;
+    font-size: clamp(17px, 2vw, 24px);
+    font-weight: 250; letter-spacing: -0.01em;
+    max-width: 560px; line-height: 1.3;
+    color: rgba(255,255,255,0.8);
+  }
+  .hero .sub b { font-weight: 800; color: var(--white); }
+  .hero .corner {
+    position: absolute; left: 40px; bottom: 32px;
+    display: flex; gap: 24px; align-items: baseline;
+  }
+  .hero .corner .label { color: rgba(255,255,255,0.55); }
+
+  /* the window */
+  .lens {
+    position: absolute;
+    width: 340px; height: 340px;
+    left: 0; top: 0;
+    pointer-events: none;
+    will-change: transform;
+    z-index: 2;
+  }
+  @media (max-width: 700px) { .lens { width: 240px; height: 240px; } }
+  .lens.shape-blob { clip-path: path('M166 19 C230 13 288 51 294 115 C301 176 269 198 256 243 C240 294 179 314 134 291 C86 269 26 243 26 173 C26 99 96 26 166 19 Z'); }
+  .lens.shape-circle { clip-path: circle(42% at 50% 50%); }
+  .lens.shape-tri { clip-path: polygon(50% 8%, 90% 88%, 10% 88%); }
+  @media (max-width: 700px) {
+    .lens.shape-blob { clip-path: path('M117 13 C162 9 203 36 207 81 C212 124 190 140 181 171 C169 207 126 221 95 205 C61 190 18 171 18 122 C18 70 67 18 117 13 Z'); }
+  }
+  /* inner = the colored world, counter-translated to align with hero */
+  .lens-inner {
+    position: absolute;
+    background: var(--state);
+    color: var(--black);
+    transition: background 0.5s ease;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 40px;
+  }
+  .lens-inner h1 { color: var(--white); }
+  .lens-inner .word {
+    position: absolute;
+    right: 4vw; top: 8vh;
+    font-size: clamp(60px, 9vw, 160px);
+    font-weight: 250; letter-spacing: -0.03em;
+    color: var(--white);
+    transform: rotate(-90deg);
+    transform-origin: top right;
+    white-space: nowrap;
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; border-bottom: 1px solid var(--black); }
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 700px) { .container { padding: 0 20px; } }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 24px; margin-bottom: 56px; align-items: baseline; }
+  @media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 8px; } }
+  .sec-head h2 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+  .sec-head .intro { margin-top: 16px; max-width: 640px; font-size: 16px; color: #333; }
+
+  /* ---------- Die-cut posters ---------- */
+  .cuts { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 900px) { .cuts { grid-template-columns: 1fr; } }
+  .cut { padding: 36px; display: flex; flex-direction: column; gap: 20px; cursor: pointer; transition: background 0.2s; }
+  .cut:hover { background: #F5F5F5; }
+  .cut + .cut { border-left: 1px solid var(--black); }
+  @media (max-width: 900px) { .cut + .cut { border-left: none; border-top: 1px solid var(--black); } }
+  .cut .sheet {
+    background: var(--black); color: var(--white);
+    aspect-ratio: 0.71;
+    padding: 20px;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+  }
+  .cut .sheet .wm { font-weight: 900; font-size: 17px; letter-spacing: -0.03em; }
+  .cut .sheet .meta { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+  .cut .hole {
+    position: absolute;
+    width: 62%; aspect-ratio: 1;
+    left: 19%; top: 26%;
+    overflow: hidden;
+  }
+  .cut .hole .through {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-weight: 900;
+    overflow: hidden;
+  }
+  .cut .hole .through span {
+    font-size: 90px; letter-spacing: -0.04em; color: var(--white);
+    white-space: nowrap;
+  }
+  .cut.c1 .hole { clip-path: path('M101 12 C140 8 176 31 180 70 C184 107 165 121 157 148 C147 179 110 191 82 177 C53 164 16 148 16 105 C16 60 58 16 101 12 Z'); }
+  .cut.c1 .through { background: var(--creativity); }
+  .cut.c2 .hole { clip-path: circle(46% at 50% 50%); }
+  .cut.c2 .through { background: var(--humanity); }
+  .cut.c3 .hole { clip-path: polygon(50% 6%, 92% 90%, 8% 90%); }
+  .cut.c3 .through { background: var(--entrepreneurship); }
+  .cut .cap { font-size: 13px; color: #333; }
+  .cut .cap b { font-weight: 800; color: var(--black); }
+
+  /* ---------- Pattern / wallpaper ---------- */
+  .wall {
+    border: 1px solid var(--black);
+    background: var(--black);
+    padding: 48px 0;
+    overflow: hidden;
+  }
+  .wall .row { display: flex; gap: 56px; white-space: nowrap; margin: 18px 0; }
+  .wall .row.r1 { animation: wallL 36s linear infinite; }
+  .wall .row.r2 { animation: wallR 42s linear infinite; }
+  .wall .row.r3 { animation: wallL 48s linear infinite; }
+  @keyframes wallL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes wallR { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  .wall svg { width: 54px; height: 54px; flex-shrink: 0; overflow: visible; }
+  .wall .cap-row { display: flex; justify-content: space-between; padding: 28px 40px 0; }
+  .wall .cap-row .label { color: rgba(255,255,255,0.5); }
+
+  /* ---------- Principles ---------- */
+  .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid { grid-template-columns: 1fr; } }
+  .pgrid > div { padding: 28px 32px; }
+  .pgrid > div + div { border-left: 1px solid var(--black); }
+  @media (max-width: 860px) { .pgrid > div + div { border-left: none; border-top: 1px solid var(--black); } }
+  .pgrid .k { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .pgrid p { font-size: 14px; color: #333; }
+
+  footer { padding: 64px 40px 48px; background: var(--black); color: var(--white); }
+  footer .big { font-size: clamp(64px, 11vw, 180px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.85; }
+  footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 36px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wall .row { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wm">NICHE</div>
+  <span class="label">V4 — The Lens · <a href="brand/">← V2</a> · <a href="brand-kinetic-v5.html">V5 →</a></span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <!-- black world -->
+  <div class="hero-content">
+    <h1>NICHE</h1>
+    <p class="sub"><b>The mark is a lens.</b> Move it across the dark and the institution shows you what it's made of. Click to change what you're looking through.</p>
+  </div>
+
+  <!-- the window: colored world seen through the mark -->
+  <div class="lens shape-blob" id="lens">
+    <div class="lens-inner" id="lensInner">
+      <h1>NICHE</h1>
+      <p class="sub" style="color:rgba(255,255,255,0.9);"><b style="color:#fff;">The mark is a lens.</b> Move it across the dark and the institution shows you what it's made of. Click to change what you're looking through.</p>
+      <div class="word" id="lensWord">creativity</div>
+    </div>
+  </div>
+
+  <div class="corner">
+    <span class="label">Brand Identity · V4</span>
+    <span class="label">Blob → Circle → Triangle</span>
+  </div>
+</section>
+
+<!-- ============ DIE-CUTS ============ -->
+<section id="cuts">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">01 — Die-cut system</span>
+      <div>
+        <h2>Print gets a real hole.</h2>
+        <p class="intro">Covers, posters, and ID sleeves are physically die-cut in the program shape — the color of the page beneath shows through. The brand is something you literally look through. Click a sheet to set the page's state.</p>
+      </div>
+    </div>
+
+    <div class="cuts" id="cutCards">
+      <div class="cut c1" data-i="0">
+        <div class="sheet">
+          <div class="wm">NICHE</div>
+          <div class="hole"><div class="through"><span>Crea—</span></div></div>
+          <div class="meta">Degree show catalogue · cover, die-cut</div>
+        </div>
+        <div class="cap"><b>Creativity.</b> The blob cut reveals the work inside — every catalogue opens differently.</div>
+      </div>
+      <div class="cut c2" data-i="1">
+        <div class="sheet">
+          <div class="wm">NICHE</div>
+          <div class="hole"><div class="through"><span>Huma—</span></div></div>
+          <div class="meta">Community report · cover, die-cut</div>
+        </div>
+        <div class="cap"><b>Humanity.</b> The circle cut frames a partner's photo on the first page.</div>
+      </div>
+      <div class="cut c3" data-i="2">
+        <div class="sheet">
+          <div class="wm">NICHE</div>
+          <div class="hole"><div class="through"><span>Entre—</span></div></div>
+          <div class="meta">Demo day program · cover, die-cut</div>
+        </div>
+        <div class="cap"><b>Entrepreneurship.</b> The triangle cut points at the first venture listed inside.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATTERN ============ -->
+<section id="pattern">
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">02 — Pattern</span>
+      <div>
+        <h2>The shapes multiply into texture.</h2>
+        <p class="intro">For lanyards, totes, hoarding, and digital backgrounds — the three shapes repeat in strict rows, one color per surface. From far away it's texture; up close it's the institution.</p>
+      </div>
+    </div>
+    <div class="wall" id="wall" aria-hidden="true">
+      <div class="row r1"></div>
+      <div class="row r2"></div>
+      <div class="row r3"></div>
+      <div class="cap-row">
+        <span class="label">Wallpaper · hoarding · lanyards</span>
+        <span class="label">One color per surface</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <span class="label dim">03 — Rules</span>
+      <div>
+        <h2>How the lens behaves.</h2>
+      </div>
+    </div>
+    <div class="pgrid">
+      <div>
+        <div class="k">Black hides, the mark reveals</div>
+        <p>The default surface is black or white. Color only ever appears through a shape — never as a flat field with nothing cut into it.</p>
+      </div>
+      <div>
+        <div class="k">One window per piece</div>
+        <p>A poster gets one cut. A screen gets one lens. Multiplying windows turns a lens into confetti.</p>
+      </div>
+      <div>
+        <div class="k">Always something behind</div>
+        <p>The window is never empty decoration — it must reveal content: a word, a face, a venture, a color that means something.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">NICHE</div>
+  <div class="row">
+    <span class="label">NICHE Brand Identity · V4 — The Lens · Draft</span>
+    <span class="label" style="opacity:0.6;">Set in Libre Franklin · seen through the mark</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- Lens hero ----- */
+  var hero = document.getElementById('hero');
+  var lens = document.getElementById('lens');
+  var inner = document.getElementById('lensInner');
+  var word = document.getElementById('lensWord');
+  var shapes = ['shape-blob', 'shape-circle', 'shape-tri'];
+  var colors = ['var(--creativity)', 'var(--humanity)', 'var(--entrepreneurship)'];
+  var words = ['creativity', 'humanity', 'entrepreneurship'];
+  var cur = 0;
+
+  function setState(i) {
+    cur = i;
+    shapes.forEach(function (s, j) { lens.classList.toggle(s, j === i); });
+    document.documentElement.style.setProperty('--state', colors[i]);
+    word.textContent = words[i];
+  }
+  setState(0);
+
+  /* size the inner layer to match the hero and counter-translate */
+  var mx = -9999, my = -9999, lx = 0, ly = 0, hasPointer = false, t0 = 0;
+  function layout() {
+    inner.style.width = hero.clientWidth + 'px';
+    inner.style.height = hero.clientHeight + 'px';
+  }
+  layout();
+  window.addEventListener('resize', layout);
+
+  hero.addEventListener('mousemove', function (e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+    hasPointer = true;
+  });
+  hero.addEventListener('touchmove', function (e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.touches[0].clientX - r.left; my = e.touches[0].clientY - r.top;
+    hasPointer = true;
+  }, { passive: true });
+  hero.addEventListener('click', function () { setState((cur + 1) % 3); });
+
+  function frame(ts) {
+    if (!t0) t0 = ts;
+    var w = lens.offsetWidth, h = lens.offsetHeight;
+    var tx, ty;
+    if (hasPointer && !reduced) {
+      tx = mx - w / 2; ty = my - h / 2;
+    } else {
+      /* idle drift */
+      var W = hero.clientWidth, H = hero.clientHeight;
+      tx = W * 0.55 + Math.sin((ts - t0) / 2400) * W * 0.22 - w / 2;
+      ty = H * 0.45 + Math.cos((ts - t0) / 3100) * H * 0.22 - h / 2;
+    }
+    lx += (tx - lx) * 0.14;
+    ly += (ty - ly) * 0.14;
+    lens.style.transform = 'translate(' + lx.toFixed(1) + 'px,' + ly.toFixed(1) + 'px)';
+    inner.style.transform = 'translate(' + (-lx).toFixed(1) + 'px,' + (-ly).toFixed(1) + 'px)';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ----- Die-cut cards set state ----- */
+  document.querySelectorAll('#cutCards .cut').forEach(function (c) {
+    c.addEventListener('click', function () { setState(+c.dataset.i); });
+  });
+
+  /* ----- Pattern wall: build rows of shapes ----- */
+  var GL = [
+    '<path d="M52 6 C72 4 90 16 92 36 C94 55 84 62 80 76 C75 92 56 98 42 91 C27 84 8 76 8 54 C8 31 30 8 52 6 Z"/>',
+    '<circle cx="50" cy="50" r="44"/>',
+    '<path d="M14 88 L50 10 L86 88 Z"/>'
+  ];
+  document.querySelectorAll('#wall .row').forEach(function (row, ri) {
+    var html = '';
+    for (var k = 0; k < 40; k++) {
+      var g = GL[(k + ri) % 3];
+      html += '<svg viewBox="0 0 100 100" fill="var(--state)" style="transition: fill 0.5s ease;">' + g + '</svg>';
+    }
+    row.innerHTML = html;
+  });
+})();
+</script>
+
+</body>
+</html>
