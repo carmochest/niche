@@ -560,7 +560,7 @@
     background: var(--entrepreneurship);
     padding: 14px 18px;
   }
-  .pst .sm { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; }
+  .pst .pmeta { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; }
   .pst .cap { font-size: 13px; color: #333; margin-top: 18px; }
   .pst .cap b { font-weight: 800; }
   .pst .sheet .lock { font-size: 17px; }
@@ -737,6 +737,32 @@
   @media (prefers-reduced-motion: reduce) {
     .mq .track, .ig, .glyph-cell .big-glyph *, .flood .watermark .wm-shape, .pst.p2 .midshape circle { animation: none !important; }
     .flood .big .line > i { transition: none; transform: none; }
+  }
+
+  /* ---------- Mobile pass: no overlaps, comfortable sizes ---------- */
+  @media (max-width: 700px) {
+    .hero { padding: 40px 24px; }
+    .hero h1 { font-size: clamp(54px, 21vw, 84px); }
+    .hero .stateword { font-size: clamp(22px, 7vw, 30px); }
+    .wm-row > div { padding: 36px 24px; min-height: 0; }
+    .wm-meta > div { padding: 18px 24px; }
+    .scale-row { padding: 32px 24px; gap: 22px; overflow-x: auto; }
+    .glyph-cell { padding: 36px 24px 28px; }
+    .mark-rules > div, .mark-demos > div { padding: 28px 24px; }
+    .type-row { padding: 22px 20px; }
+    .subbrand { padding: 30px 24px; }
+    .subbrand .lockup { flex-wrap: wrap; font-size: clamp(24px, 8vw, 34px); }
+    .subbrand .lockup em { margin-left: 0; width: 100%; }
+    .flood { padding: 70px 24px 32px; min-height: 70vh; }
+    .swarm-hintc { display: none; }
+    .swarm-corner { left: 24px; }
+    .app.web { padding: 44px 18px 22px; }
+    .app.web .bstrip > div { font-size: 8.5px; padding: 10px 8px; gap: 4px; }
+    .bb-msg .lock { font-size: clamp(28px, 9vw, 44px); }
+    .bb-legs { gap: 60px; }
+    .coll-sub { margin-top: 48px; }
+    footer { padding: 48px 24px 40px; }
+    footer .lock { font-size: clamp(48px, 17vw, 64px); }
   }
 </style>
 </head>
@@ -1201,7 +1227,7 @@
         <div class="sheet">
           <div class="lock sm markwhite">NICHE<span class="mark" data-mark data-fixed="0"></span></div>
           <div class="giant">Open<br>studio<br>night</div>
-          <div class="sm">Jun 20 · 18:00 · Building A</div>
+          <div class="pmeta">Jun 20 · 18:00 · Building A</div>
         </div>
         <div class="cap"><b>Flood.</b> One color, cropped type, the program's mark.</div>
       </div>
@@ -1209,7 +1235,7 @@
         <div class="sheet">
           <div class="lock sm">NICHE<span class="mark" data-mark data-fixed="1"></span></div>
           <div class="midshape"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg></div>
-          <div class="sm" style="color:var(--gray);">Partners forum · Jul 03 · Main Hall</div>
+          <div class="pmeta" style="color:var(--gray);">Partners forum · Jul 03 · Main Hall</div>
         </div>
         <div class="cap"><b>Shape.</b> White sheet, the mark blown up to poster scale.</div>
       </div>
@@ -1218,7 +1244,7 @@
           <div class="ph photo"><img class="ph-img" alt="" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=60&auto=format&fit=crop" onerror="this.style.display='none'"></div>
           <div class="band">
             <div class="lock sm markwhite" style="font-size: 17px;">NICHE<span class="mark" data-mark data-fixed="2"></span></div>
-            <div class="sm">Spring Demo Day · Jun 14 · 19:00</div>
+            <div class="pmeta">Spring Demo Day · Jun 14 · 19:00</div>
           </div>
         </div>
         <div class="cap"><b>Photo.</b> Full-bleed photography with a flood band.</div>

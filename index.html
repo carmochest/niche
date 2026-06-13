@@ -3682,6 +3682,23 @@
       '<circle class="bg-ig bg-circle" fill="#E50695" cx="50" cy="50" r="44"/>' +
       '<path class="bg-ig bg-tri" fill="#0533F3" d="M10 88 L50 12 L90 88 Z"/>' +
       '</svg>';
+    // Lock each letter's width at its heaviest weight: the breathing animation
+    // changes glyph widths every frame, which reflows the row and makes the
+    // mark jitter. Fixed boxes = the word breathes in place, the mark is still.
+    const ltrs = document.querySelectorAll('.brand-wm > span');
+    function lockWidths() {
+      ltrs.forEach(s => { s.style.width = ''; s.style.animation = 'none'; s.style.fontVariationSettings = "'wght' 800"; });
+      requestAnimationFrame(() => {
+        ltrs.forEach(s => {
+          s.style.width = s.getBoundingClientRect().width.toFixed(2) + 'px';
+          s.style.fontVariationSettings = '';
+          s.style.animation = '';
+        });
+      });
+    }
+    lockWidths();
+    let lwT;
+    window.addEventListener('resize', () => { clearTimeout(lwT); lwT = setTimeout(lockWidths, 200); });
     const igs = host.querySelectorAll('.bg-ig');
     const blobEl = igs[0];
     let cur = 0;
